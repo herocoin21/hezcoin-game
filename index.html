@@ -9,10 +9,12 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-            -webkit-tap-highlight-color: transparent;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            -webkit-touch-callout: none !important;
+            -webkit-tap-highlight-color: transparent !important;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
@@ -91,6 +93,7 @@
             background-position: center;
             border-radius: 50%;
             filter: drop-shadow(0 0 10px rgba(243, 156, 18, 0.8));
+            pointer-events: none;
         }
 
         .balance-amount {
@@ -130,16 +133,21 @@
             background: linear-gradient(145deg, #181c2e, #101320);
             overflow: hidden;
             outline: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
         }
 
         .character-circle:active {
             transform: scale(0.92);
         }
 
-        .character-img {
+        /* بەکارهێنانا CSS background ل شوێنا img دا کو هیچ چارگۆشەک پەیدا نەبیت */
+        .character-img-div {
             width: 85%;
             height: 85%;
-            object-fit: contain;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/616/616408.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
             pointer-events: none;
         }
@@ -242,7 +250,7 @@
 
     <div class="tap-area">
         <div class="character-circle" id="tapButton">
-            <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Hero" class="character-img" id="heroImg">
+            <div class="character-img-div"></div>
         </div>
     </div>
 
@@ -286,8 +294,23 @@
         const energyText = document.getElementById('energyText');
         const energyFill = document.getElementById('energyFill');
 
-        tapButton.addEventListener('pointerdown', (e) => {
+        // ڕێگریکرن ژ هەمی جۆرە دیاربوون و سەلەکت بوونان
+        tapButton.addEventListener('touchstart', (e) => {
             e.preventDefault();
+            handleTap();
+        }, { passive: false });
+
+        tapButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleTap();
+        });
+
+        let lastTap = 0;
+        function handleTap() {
+            const now = new Date().getTime();
+            if (now - lastTap < 30) return; // ڕێگری ژ فست کلیلکرنا زێدە
+            lastTap = now;
+
             if (energy > 0) {
                 coins += 0.000001;
                 energy -= 1;
@@ -295,7 +318,7 @@
                 energyText.innerText = energy + " / " + maxEnergy;
                 energyFill.style.width = (energy / maxEnergy * 100) + "%";
             }
-        });
+        }
 
         function watchAd() {
             energy = Math.min(maxEnergy, energy + 50);
