@@ -2,7 +2,7 @@
 <html lang="ku">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HEZ COIN</title>
     <style>
         * {
@@ -10,6 +10,9 @@
             margin: 0;
             padding: 0;
             user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
@@ -22,6 +25,7 @@
             justify-content: space-between;
             height: 100vh;
             overflow: hidden;
+            touch-action: manipulation;
         }
 
         .top-bar {
@@ -122,13 +126,14 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: transform 0.08s ease;
+            transition: transform 0.05s ease;
             background: linear-gradient(145deg, #181c2e, #101320);
             overflow: hidden;
+            outline: none;
         }
 
         .character-circle:active {
-            transform: scale(0.93);
+            transform: scale(0.92);
         }
 
         .character-img {
@@ -136,6 +141,7 @@
             height: 85%;
             object-fit: contain;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+            pointer-events: none;
         }
 
         .status-container {
@@ -182,6 +188,7 @@
             font-size: 14px;
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(243, 156, 18, 0.3);
+            outline: none;
         }
 
         .bottom-nav {
@@ -279,15 +286,14 @@
         const energyText = document.getElementById('energyText');
         const energyFill = document.getElementById('energyFill');
 
-        tapButton.addEventListener('click', () => {
+        tapButton.addEventListener('pointerdown', (e) => {
+            e.preventDefault();
             if (energy > 0) {
                 coins += 0.000001;
                 energy -= 1;
                 coinCount.innerText = coins.toFixed(6);
                 energyText.innerText = energy + " / " + maxEnergy;
                 energyFill.style.width = (energy / maxEnergy * 100) + "%";
-            } else {
-                alert("ئێنێرژیا تە ب داوی هات! تەماشای ڕێکلامێ بکه بۆ زێدەکرنێ.");
             }
         });
 
