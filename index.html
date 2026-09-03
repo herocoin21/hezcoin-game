@@ -1,37 +1,316 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Groover Mining Game</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEZ COIN</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* ========================================== */
+            /* 1. ل ڤێرێ لینکێ وێنەیێ بەکگراوندێ خۆ دانە */
+            /* ========================================== */
+            background-color: #0d0f17;
+            background-image: url("https://via.placeholder.com/600x1000/0d0f17/ffffff?text=BACKGROUND+IMAGE");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Top Bar & Language Selector */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(21, 24, 36, 0.85);
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: 5px;
+            background: #1a1d2e;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid #2a2e45;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #8a8fab;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .lang-btn.active {
+            background: #f39c12;
+            color: #fff;
+        }
+
+        /* Balance Area */
+        .balance-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .coin-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* ========================================== */
+        /* 2. ل ڤێرێ لینکێ لۆگۆیێ کۆینێ دانە           */
+        /* ========================================== */
+        .coin-icon {
+            width: 45px;
+            height: 45px;
+            background-image: url("https://via.placeholder.com/100/f39c12/ffffff?text=COIN");
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            border: 2px solid #f39c12;
+            box-shadow: 0 0 15px rgba(243, 156, 18, 0.6);
+        }
+
+        .balance-amount {
+            font-size: 34px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .balance-label {
+            font-size: 14px;
+            color: #f39c12;
+            margin-top: 2px;
+            font-weight: bold;
+        }
+
+        /* Main Tap Character Area */
+        .tap-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .character-circle {
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            border: 5px solid #f39c12;
+            box-shadow: 0 0 35px rgba(243, 156, 18, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.08s ease;
+            background-color: #1a1d2e;
+            overflow: hidden;
+        }
+
+        .character-circle:active {
+            transform: scale(0.94);
+        }
+
+        .character-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Energy & Watch Ads */
+        .status-container {
+            width: 90%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .energy-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #d1d5db;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 14px;
+            background: #1a1d2e;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #2a2e45;
+        }
+
+        .progress-fill {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+            border-radius: 10px;
+            transition: width 0.2s ease;
+        }
+
+        .watch-ads-btn {
+            width: 100%;
+            margin-top: 12px;
+            padding: 12px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        /* Bottom Navigation Menu */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(21, 24, 36, 0.95);
+            padding: 12px 0;
+            border-top: 1px solid #2a2e45;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #8a8fab;
+            text-decoration: none;
+            font-size: 12px;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #f39c12;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
-  <div class="game-container">
-    <div class="lang-box">
-      <button onclick="setLanguage('ku')">کوردی</button>
-      <button onclick="setLanguage('ar')">عربي</button>
-      <button onclick="setLanguage('en')">EN</button>
+
+    <!-- 1. Top Bar / Language Selector -->
+    <div class="top-bar">
+        <div style="font-weight: bold; font-size: 15px; color: #f39c12;">HEZ COIN</div>
+        <div class="lang-selector">
+            <button class="lang-btn">EN</button>
+            <button class="lang-btn">عربي</button>
+            <button class="lang-btn active">کوردی</button>
+        </div>
     </div>
-    <div class="score-card">
-      <h1 id="coins">0.000000</h1>
-      <span id="coins-label">کوین</span>
+
+    <!-- 2. Balance Section (Coin Balance) -->
+    <div class="balance-container">
+        <div class="coin-display">
+            <div class="coin-icon"></div>
+            <span class="balance-amount" id="coinCount">0.000002</span>
+        </div>
+        <div class="balance-label">کوين</div>
     </div>
-    <div class="groover-wrapper" id="groover-btn">
-      <img src="https://cdn-icons-png.flaticon.com/512/2317/2317981.png" alt="Groover" id="groover-img">
+
+    <!-- 3. Character Tap Section -->
+    <div class="tap-area">
+        <div class="character-circle" id="tapButton">
+            <!-- ======================================================== -->
+            /* 3. ل ڤێرێ لینکێ وێنەیێ کەسایەتی یان وێنەیێ تەپێ دانە */
+            <!-- ======================================================== -->
+            <img src="https://via.placeholder.com/200/1a1d2e/f39c12?text=HERO+IMAGE" alt="Hero" class="character-img" id="heroImg">
+        </div>
     </div>
-    <div class="energy-box">
-      <div class="energy-text">
-        <span id="energy-label">ئێنێرجی</span>: <span id="energy">5</span> / 5
-      </div>
-      <div class="energy-bar">
-        <div id="energy-fill" style="width: 100%;"></div>
-      </div>
-      <small id="timer-text">ئێنێرجیا دی ل: 05:00</small>
+
+    <!-- 4. Energy and Watch Ads Section -->
+    <div class="status-container">
+        <div class="energy-info">
+            <span>ئێنێرژیا مای:</span>
+            <span id="energyText">500 / 500</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="energyFill"></div>
+        </div>
+        
+        <!-- Watch Ads Button -->
+        <button class="watch-ads-btn" onclick="watchAd()">🎬 تەماشای ڕێکلامێ بکه (+50 ئێنێرجی)</button>
     </div>
-    <button class="ad-button" onclick="watchAd()" id="ad-btn">تەماشای ڕێکلامێ بکە (+1 ئێنێرجی)</button>
-  </div>
-  <script src="script.js"></script>
+
+    <!-- 5. Bottom Navigation Bar (Shop, Task, Invite) -->
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>سەرەکی</span>
+        </div>
+        <div class="nav-item" onclick="alert('Shop: بەشێ کۆگایێ پاشتر دێ چالاک بیت')">
+            <span class="nav-icon">🛒</span>
+            <span>Shop</span>
+        </div>
+        <div class="nav-item" onclick="alert('Task: بەشێ ئەرکان پاشتر دێ چالاک بیت')">
+            <span class="nav-icon">📋</span>
+            <span>Task</span>
+        </div>
+        <div class="nav-item" onclick="alert('Invite: بەشێ بانگهێشتکرنێ پاشتر دێ چالاک بیت')">
+            <span class="nav-icon">👥</span>
+            <span>Invite</span>
+        </div>
+    </div>
+
+    <script>
+        // Tap Logic
+        let coins = 0.000002;
+        let energy = 500;
+        const maxEnergy = 500;
+
+        const tapButton = document.getElementById('tapButton');
+        const coinCount = document.getElementById('coinCount');
+        const energyText = document.getElementById('energyText');
+        const energyFill = document.getElementById('energyFill');
+
+        tapButton.addEventListener('click', () => {
+            if (energy > 0) {
+                coins += 0.000001;
+                energy -= 1;
+                coinCount.innerText = coins.toFixed(6);
+                energyText.innerText = energy + " / " + maxEnergy;
+                energyFill.style.width = (energy / maxEnergy * 100) + "%";
+            } else {
+                alert("ئێنێرژیا تە ب داوی هات! تەماشای ڕێکلامێ بکه بۆ زێدەکرنێ.");
+            }
+        });
+
+        function watchAd() {
+            energy = Math.min(maxEnergy, energy + 50);
+            energyText.innerText = energy + " / " + maxEnergy;
+            energyFill.style.width = (energy / maxEnergy * 100) + "%";
+            alert("دەستخۆش! 50 ئێنێرژی بۆ تە زێدە بوو.");
+        }
+    </script>
 </body>
 </html>
