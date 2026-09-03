@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groover Mining Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="game-container">
+    <div class="lang-box">
+      <button onclick="setLanguage('ku')">کوردی</button>
+      <button onclick="setLanguage('ar')">عربي</button>
+      <button onclick="setLanguage('en')">EN</button>
+    </div>
+    <div class="score-card">
+      <h1 id="coins">0.000000</h1>
+      <span id="coins-label">کوین</span>
+    </div>
+    <div class="groover-wrapper" id="groover-btn">
+      <img src="https://cdn-icons-png.flaticon.com/512/2317/2317981.png" alt="Groover" id="groover-img">
+    </div>
+    <div class="energy-box">
+      <div class="energy-text">
+        <span id="energy-label">ئێنێرجی</span>: <span id="energy">5</span> / 5
+      </div>
+      <div class="energy-bar">
+        <div id="energy-fill" style="width: 100%;"></div>
+      </div>
+      <small id="timer-text">ئێنێرجیا دی ل: 05:00</small>
+    </div>
+    <button class="ad-button" onclick="watchAd()" id="ad-btn">تەماشای ڕێکلامێ بکە (+1 ئێنێرجی)</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
