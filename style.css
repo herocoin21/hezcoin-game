@@ -1,0 +1,12 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; user-select: none; }
+body { background-color: #121212; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+.game-container { width: 100%; max-width: 400px; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+.lang-box button { background: #2a2a2a; color: #fff; border: 1px solid #444; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin: 0 2px; }
+.score-card h1 { font-size: 2.2rem; color: #f1c40f; }
+.groover-wrapper { width: 180px; height: 180px; background: #222; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 4px solid #f39c12; box-shadow: 0 0 20px rgba(243, 156, 18, 0.4); cursor: pointer; transition: transform 0.1s ease; }
+.groover-wrapper:active { transform: scale(0.92); }
+.groover-wrapper img { width: 110px; height: 110px; }
+.energy-box { width: 100%; background: #1e1e1e; padding: 15px; border-radius: 10px; }
+.energy-bar { width: 100%; height: 12px; background: #333; border-radius: 6px; margin: 8px 0; overflow: hidden; }
+#energy-fill { height: 100%; background: #2ecc71; transition: width 0.3s ease; }
+.ad-button { width: 100%; padding: 12px; background: #e67e22; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; }
