@@ -50,7 +50,6 @@
             position: relative;
         }
 
-        /* گۆشەیا پروفایلی ل ژۆرێ چەپێ */
         .corner-profile {
             position: absolute;
             top: 12px;
@@ -65,11 +64,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             cursor: pointer;
             z-index: 40;
-            transition: transform 0.2s ease;
-        }
-
-        .corner-profile:active {
-            transform: scale(0.95);
         }
 
         .corner-avatar {
@@ -106,7 +100,6 @@
             margin-top: 2px;
         }
 
-        /* جزدانکا زێڕین ل ژۆرێ ڕاستێ */
         .wallet-badge {
             position: absolute;
             top: 12px;
@@ -168,7 +161,6 @@
             display: flex;
         }
 
-        /* دوگمەیا پاشڤە (Back Button) */
         .back-btn-container {
             width: 100%;
             display: flex;
@@ -188,14 +180,8 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        .btn-back:active {
-            transform: scale(0.95);
-        }
-
-        /* Profile Tab Styles */
         .profile-card {
             width: 100%;
             background: var(--card-bg);
@@ -218,7 +204,6 @@
             border: 3px solid var(--accent-yellow);
             overflow: hidden;
             margin-bottom: 12px;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
             cursor: pointer;
         }
 
@@ -303,7 +288,6 @@
             height: 100%;
             background: linear-gradient(90deg, #f59e0b, #10b981);
             width: 0%;
-            transition: width 0.3s ease;
         }
 
         .coin-button {
@@ -317,10 +301,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.08s ease;
             position: relative;
             margin: 10px 0;
-            overflow: hidden;
             outline: none;
         }
 
@@ -330,10 +312,6 @@
             object-fit: cover;
             border-radius: 50%;
             pointer-events: none;
-        }
-
-        .coin-button:active {
-            transform: scale(0.92);
         }
 
         .float-box {
@@ -347,7 +325,6 @@
             color: #fbbf24;
             pointer-events: none;
             animation: floatUpSquare 0.8s ease-out forwards;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
             z-index: 10;
         }
 
@@ -366,7 +343,6 @@
             border-radius: 16px;
             padding: 10px 14px;
             margin-top: 6px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -385,7 +361,6 @@
             color: var(--accent-yellow);
             text-align: right;
             margin-top: -2px;
-            font-weight: 600;
         }
 
         .hud-divider {
@@ -405,8 +380,6 @@
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-            outline: none;
             margin-top: 6px;
         }
 
@@ -422,8 +395,6 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            outline: none;
         }
 
         .btn-shop {
@@ -436,15 +407,9 @@
             color: #ffffff;
         }
 
-        .btn-ad:disabled {
-            background: #475569;
-            color: #94a3b8;
-        }
-
         .card {
             width: 100%;
             background: var(--card-bg);
-            backdrop-filter: blur(8px);
             padding: 14px;
             border-radius: 14px;
             margin-bottom: 12px;
@@ -461,7 +426,6 @@
             left: 0;
             right: 0;
             background: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-around;
             padding: 8px 0;
@@ -493,7 +457,6 @@
 </head>
 <body>
 
-    <!-- CORNER PROFILE (Left Top) -->
     <div class="corner-profile" onclick="switchToProfile()">
         <img id="cornerAvatar" src="logo.png" alt="Avatar" class="corner-avatar">
         <div class="corner-info">
@@ -502,7 +465,6 @@
         </div>
     </div>
 
-    <!-- WALLET BADGE (Right Top) -->
     <div class="wallet-badge">
         <div class="wallet-icon-box">
             <img src="logo.png" alt="Coin" class="mini-coin-icon">
@@ -513,9 +475,9 @@
 
     <!-- TAP TAB -->
     <div id="tapTab" class="tab-content active">
-        <div class="coin-button" id="coinBtn">
+        <button class="coin-button" id="coinBtn">
             <img src="logo.png" alt="Hero Coin Logo">
-        </div>
+        </button>
 
         <div class="game-hud-panel">
             <div class="hud-row">
@@ -534,7 +496,7 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
-    <!-- SHOP TAB (فرۆشگەها فراوان) -->
+    <!-- SHOP TAB -->
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">🛒 فرۆشگەها فەرمی</h2>
         
@@ -549,7 +511,7 @@
         <div class="card">
             <div>
                 <strong>⚽ 100 eFootball Coins</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.01 HEZ (بنڤیسە ID)</p>
+                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.01 HEZ</p>
             </div>
             <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('100 eFootball Coins', 0.01)">داخواز بکە</button>
         </div>
@@ -557,7 +519,7 @@
         <div class="card">
             <div>
                 <strong>💎 60 UC (PUBG Mobile)</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.015 HEZ (بنڤیسە ID)</p>
+                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.015 HEZ</p>
             </div>
             <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('60 UC PUBG', 0.015)">داخواز بکە</button>
         </div>
@@ -565,7 +527,7 @@
         <div class="card">
             <div>
                 <strong>🎵 100 TikTok Coins</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.02 HEZ (بنڤیسە Username)</p>
+                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.02 HEZ</p>
             </div>
             <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('100 TikTok Coins', 0.02)">داخواز بکە</button>
         </div>
@@ -573,7 +535,7 @@
         <div class="card">
             <div>
                 <strong>📶 پشکا کۆرەک / فایبەر (5$)</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.05 HEZ (بنڤیسە ژمارە)</p>
+                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.05 HEZ</p>
             </div>
             <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('Korek/Fib Balance 5$', 0.05)">داخواز بکە</button>
         </div>
@@ -587,14 +549,12 @@
         <h2 style="margin-bottom: 12px;">👤 پروفایلا من</h2>
         
         <div class="profile-card">
-            <!-- گۆڕینا وێنەی پروفایلی -->
-            <div class="profile-avatar-container" onclick="changeUserAvatar()" title="گۆڕینا وێنەی">
+            <div class="profile-avatar-container" onclick="changeUserAvatar()">
                 <img id="userAvatar" src="logo.png" alt="Avatar">
                 <div class="avatar-edit-overlay">گۆڕین</div>
             </div>
 
-            <!-- گۆڕینا ناڤی -->
-            <div class="profile-name-row" onclick="changeUserName()" title="گۆڕینا ناڤی">
+            <div class="profile-name-row" onclick="changeUserName()">
                 <div class="profile-name" id="userNameDisplay">ناڤێ یاریزانی</div>
                 <span class="edit-icon-text">✏️ Edit</span>
             </div>
@@ -619,7 +579,7 @@
         <div class="card">
             <div>
                 <strong>ڕێکلاما ناڤ تەلەگرامێ</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">+1 پەکێت + 0.0001 HEZ + 25 XP</p>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+1 پەکێت + 0.0001 HEZ</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
         </div>
@@ -647,10 +607,6 @@
             <span class="nav-icon">🛒</span>
             <span>Shop</span>
         </div>
-        <div class="nav-item" id="navProfile" onclick="switchTab('profileTab', this)" style="display:none;">
-            <span class="nav-icon">👤</span>
-            <span>Profile</span>
-        </div>
         <div class="nav-item" onclick="switchTab('adsTab', this)">
             <span class="nav-icon">🎬</span>
             <span>Ads</span>
@@ -663,8 +619,8 @@
 
     <!-- Firebase SDK & Script Integration -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addRef, addDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBLAm1amoybyoAdCGZLfTbZzUkspPIEmhk",
@@ -672,8 +628,7 @@
             projectId: "hez-coin-bot",
             storageBucket: "hez-coin-bot.firebasestorage.app",
             messagingSenderId: "374007175499",
-            appId: "1:374007175499:web:5c58392a3f4bd98d5770ce",
-            measurementId: "G-31GMRY1VFP"
+            appId: "1:374007175499:web:5c58392a3f4bd98d5770ce"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -727,43 +682,33 @@
                 const docSnap = await getDoc(userRef);
                 if (docSnap.exists()) {
                     const data = docSnap.data();
-                    balance = data.balance !== undefined ? data.balance : 0;
-                    energyPacks = data.energyPacks !== undefined ? data.energyPacks : 4;
-                    currentClicks = data.currentClicks !== undefined ? data.currentClicks : 500;
-                    currentLevel = data.currentLevel !== undefined ? data.currentLevel : 1;
-                    currentXp = data.currentXp !== undefined ? data.currentXp : 0;
-                    maxXp = data.maxXp !== undefined ? data.maxXp : 2000;
+                    balance = data.balance ?? 0;
+                    energyPacks = data.energyPacks ?? 4;
+                    currentClicks = data.currentClicks ?? 500;
+                    currentLevel = data.currentLevel ?? 1;
+                    currentXp = data.currentXp ?? 0;
+                    maxXp = data.maxXp ?? 2000;
                     lastPackTime = data.lastPackTime || Date.now();
-                    
                     if(data.name) userName = data.name;
                     if(data.photo) userPhoto = data.photo;
                 } else {
-                    balance = 0;
-                    energyPacks = 4;
-                    currentClicks = 500;
-                    currentLevel = 1;
-                    currentXp = 0;
-                    maxXp = 2000;
-                    lastPackTime = Date.now();
                     await setDoc(userRef, {
                         name: userName,
                         photo: userPhoto,
-                        balance: balance,
-                        energyPacks: energyPacks,
-                        currentClicks: currentClicks,
-                        currentLevel: currentLevel,
-                        currentXp: currentXp,
-                        maxXp: maxXp,
-                        lastPackTime: lastPackTime,
+                        balance: 0,
+                        energyPacks: 4,
+                        currentClicks: 500,
+                        currentLevel: 1,
+                        currentXp: 0,
+                        maxXp: 2000,
+                        lastPackTime: Date.now(),
                         createdAt: new Date()
                     });
                 }
-                updateUI();
-                checkPackTimer();
             } catch (error) {
-                console.error("Error loading user data:", error);
-                updateUI();
+                console.error("Firebase load error:", error);
             }
+            updateUI();
         }
 
         async function syncToFirebase() {
@@ -780,7 +725,7 @@
                     lastPackTime: lastPackTime
                 });
             } catch (error) {
-                console.error("Error updating Firebase:", error);
+                console.error("Firebase sync error:", error);
             }
         }
 
@@ -788,14 +733,8 @@
             currentXp += amount;
             if (currentXp >= maxXp) {
                 currentLevel += 1;
-                currentXp = currentXp - maxXp;
-                
-                if (currentLevel === 2) maxXp = 4500;
-                else if (currentLevel === 3) maxXp = 9000;
-                else if (currentLevel === 4) maxXp = 18000;
-                else if (currentLevel === 5) maxXp = 35000;
-                else maxXp = Math.floor(maxXp * 2.2);
-
+                currentXp -= maxXp;
+                maxXp = Math.floor(maxXp * 2.2);
                 alert(`🎉 پیرۆزە! تو گەهشتیە Level ${currentLevel}`);
             }
             updateUI();
@@ -805,13 +744,10 @@
             balanceEl.innerText = balance.toFixed(6);
             energyPacksEl.innerText = energyPacks;
             currentClicksEl.innerText = currentClicks;
-            
             userNameDisplay.innerText = userName;
             cornerName.innerText = userName;
-            
             userLevelBadge.innerText = `Level ${currentLevel}`;
             cornerLevelBadge.innerText = `Lvl ${currentLevel}`;
-            
             currentXpEl.innerText = currentXp;
             maxXpEl.innerText = maxXp;
             
@@ -820,9 +756,7 @@
                 cornerAvatar.src = userPhoto;
             }
             
-            const xpPercent = Math.min(100, (currentXp / maxXp) * 100);
-            xpBarFill.style.width = xpPercent + '%';
-            
+            xpBarFill.style.width = Math.min(100, (currentXp / maxXp) * 100) + '%';
             syncToFirebase();
         }
 
@@ -833,67 +767,36 @@
             if(el) el.classList.add('active');
         }
 
-        window.switchToProfile = function() {
-            switchTab('profileTab', null);
-        }
-
-        window.switchToTap = function() {
-            switchTab('tapTab', document.getElementById('navTap'));
-        }
+        window.switchToProfile = () => switchTab('profileTab', null);
+        window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
 
         window.changeUserName = function() {
             const newName = prompt("ناڤێ خۆ یێ نوو بنڤیسە:", userName);
-            if (newName && newName.trim() !== "") {
-                userName = newName.trim();
-                updateUI();
-                alert("ناڤێ تە ب سەرکەفتیانە هاتە گۆڕین!");
-            }
+            if (newName?.trim()) { userName = newName.trim(); updateUI(); alert("هاتە گۆڕین!"); }
         }
 
         window.changeUserAvatar = function() {
-            const newPhoto = prompt("لینکا وێنەیێ نوو (Image URL) ل ڤێرە دابنێ:", userPhoto);
-            if (newPhoto && newPhoto.trim() !== "") {
-                userPhoto = newPhoto.trim();
-                updateUI();
-                alert("وێنەیێ پروفایلا تە هاتە نووکرن!");
-            }
+            const newPhoto = prompt("لینکا وێنەیێ نوو دابنێ:", userPhoto);
+            if (newPhoto?.trim()) { userPhoto = newPhoto.trim(); updateUI(); alert("وێنە هاتە نووکرن!"); }
         }
 
         window.buyEnergyPack = function() {
-            const cost = 0.0005;
-            if (balance < cost) {
-                alert('پارێ تە یێ بەستە نەبسە بۆ کڕینا ڤی پەکێتی!');
-                return;
-            }
-            if (energyPacks >= maxPacks) {
-                alert('پەکێتێن تە تێرن (5/5)!');
-                return;
-            }
-            balance -= cost;
+            if (balance < 0.0005) { alert('پارێ تە نەبسە!'); return; }
+            if (energyPacks >= maxPacks) { alert('پەکێت تێرن!'); return; }
+            balance -= 0.0005;
             energyPacks += 1;
             updateUI();
-            alert('🛒 پیرۆزە! پەکێتەکێ ئێنێرجی هاتە کڕین.');
+            alert('پەکێت هاتە کڕین.');
         }
 
-        // سیستما داخوازیکرنا UC، Coins و پشکان
         window.orderGameItem = async function(itemName, cost) {
-            if (balance < cost) {
-                alert('پارێ تە یێ فازل (Balance) نەبسە بۆ کڕینا ڤی تشتەی!');
-                return;
-            }
-
-            const playerId = prompt(`بۆ کڕینا (${itemName})، تکایە Player ID یان Username یان ژمارا خۆ بنڤیسە:`);
-            if (!playerId || playerId.trim() === "") {
-                alert('داخواز هاتە هەلوەشاندن چنکو ID نەهاتە نڤیسین.');
-                return;
-            }
+            if (balance < cost) { alert('پارێ تە نەبسە!'); return; }
+            const playerId = prompt(`بۆ کڕینا (${itemName})، ID یا خۆ بنڤیسە:`);
+            if (!playerId?.trim()) return;
 
             try {
-                // کێمکرنا پارەی ژ هژمارا یاریزانی
                 balance -= cost;
                 updateUI();
-
-                // تۆمارکرنا داخوازێ ل ناو کۆلەکشنا (orders) ل Firebase
                 await addDoc(collection(db, "orders"), {
                     userId: userId,
                     userName: userName,
@@ -902,72 +805,23 @@
                     status: "Pending",
                     timestamp: new Date()
                 });
-
-                alert(`✅ داخوازا تە ب سەرکەفتیانە هاتە هنارتن!\nب زوترین دەم دێ بۆ تە تێتە هنارتن.`);
+                alert('داخوازا تە ب سەرکەفتیانە هاتە هنارتن!');
             } catch (err) {
-                console.error("Error saving order:", err);
-                alert('چەوتییەک چێبوو، ژ فەرمارا خۆ دووبارە بکە.');
+                alert('چەوتییەک چێبوو.');
             }
-        }
-
-        function checkPackTimer() {
-            if (energyPacks >= maxPacks) {
-                lastPackTime = Date.now();
-                packTimerTextEl.innerText = "پەکێت تێرن (5/5)";
-                return;
-            }
-
-            const now = Date.now();
-            const elapsedSeconds = Math.floor((now - lastPackTime) / 1000);
-            const remainingSeconds = packIntervalSeconds - (elapsedSeconds % packIntervalSeconds);
-            const packsToAdd = Math.floor(elapsedSeconds / packIntervalSeconds);
-
-            if (packsToAdd > 0) {
-                energyPacks = Math.min(maxPacks, energyPacks + packsToAdd);
-                lastPackTime = now - (elapsedSeconds % packIntervalSeconds) * 1000;
-                updateUI();
-            }
-
-            const hours = Math.floor(remainingSeconds / 3600);
-            const minutes = Math.floor((remainingSeconds % 3600) / 60);
-            const seconds = remainingSeconds % 60;
-
-            packTimerTextEl.innerText = "پەکێتا داهاتی: " + 
-                String(hours).padStart(2, '0') + ":" + 
-                String(minutes).padStart(2, '0') + ":" + 
-                String(seconds).padStart(2, '0');
-        }
-
-        setInterval(checkPackTimer, 1000);
-
-        window.useEnergyPack = function() {
-            if (currentClicks > 0) {
-                alert('هێشتا ئێنێرجیا ڤی پەکێتی نەقەدیایە!');
-                return;
-            }
-            if (energyPacks <= 0) {
-                alert('پەکێتێن تە نەمانە!');
-                return;
-            }
-
-            energyPacks -= 1;
-            currentClicks = maxClicksPerPack;
-            updateUI();
-            alert('پیرۆزە! پەکێتەک هاتە مەزاختن و 500 ئێنێرجی بۆ تە هاتە دان.');
         }
 
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
-                if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
-                alert('ئێنێرجیا تە یا خلاس بووی! دوگمەیا (Use) ل ژێر لێبدە.');
+                alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
                 return;
             }
 
             balance += 0.000001;
             currentClicks -= 1;
-            addXp(0.5); 
+            addXp(0.5);
 
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
             const rect = coinBtn.getBoundingClientRect();
             const floatBox = document.createElement('div');
@@ -980,38 +834,16 @@
             setTimeout(() => floatBox.remove(), 800);
         });
 
-        window.watchAdForEnergy = function() {
-            const adBtn = document.getElementById('adBtn');
-            adBtn.disabled = true;
-            adBtn.innerText = 'ڕێکلام بار دبت...';
-
-            if (typeof show_11724459 === 'function') {
-                show_11724459().then(() => {
-                    if(energyPacks < maxPacks) energyPacks += 1;
-                    balance += 0.0001;
-                    addXp(25);
-                    updateUI();
-                    alert('پیرۆزە! 1 پەکێت و 25 XP بۆ تە هاتە زێدەکرن.');
-                    adBtn.disabled = false;
-                    adBtn.innerText = 'تەماشابکە';
-                }).catch(() => {
-                    alert('ڕێکلام نەهاتە بارکرن.');
-                    adBtn.disabled = false;
-                    adBtn.innerText = 'تەماشابکە';
-                });
-            } else {
-                alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە.');
-                adBtn.disabled = false;
-                adBtn.innerText, adBtn.innerText = 'تەماشابکە';
-            }
-        }
-
-        window.completeTask = function(reward, xpReward) {
-            balance += reward;
-            addXp(xpReward);
+        window.useEnergyPack = function() {
+            if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
+            if (energyPacks <= 0) { alert('پەکێت نینن!'); return; }
+            energyPacks -= 1;
+            currentClicks = maxClicksPerPack;
             updateUI();
-            alert(`پیرۆزە! ${reward} HEZ و ${xpReward} XP هاتە زێدەکرن.`);
+            alert('500 ئێنێرجی بۆ تە هاتە دان.');
         }
+
+        window.completeTask = (r, x) => { balance += r; addXp(x); updateUI(); alert('پاداشت هاتە وەرگرتن!'); };
 
         initUser();
     </script>
