@@ -56,8 +56,8 @@
             align-items: center;
             background: var(--card-bg);
             backdrop-filter: blur(8px);
-            padding: 12px 16px;
-            border-radius: 16px;
+            padding: 10px 14px;
+            border-radius: 14px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
         }
@@ -65,14 +65,14 @@
         .stat-box {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 14px;
+            gap: 6px;
+            font-size: 13px;
             font-weight: 600;
         }
 
         .mini-coin-icon {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             object-fit: cover;
             border: 1px solid var(--accent-yellow);
@@ -97,7 +97,7 @@
         }
 
         .coin-balance {
-            font-size: 34px;
+            font-size: 32px;
             font-weight: 800;
             color: var(--accent-yellow);
             text-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
@@ -108,19 +108,19 @@
         }
 
         .coin-button {
-            width: 220px;
-            height: 220px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             background: transparent;
-            border: 6px solid #f59e0b;
-            box-shadow: 0 0 35px rgba(245, 158, 11, 0.7), inset 0 0 15px rgba(0,0,0,0.5);
+            border: 5px solid #f59e0b;
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.7), inset 0 0 15px rgba(0,0,0,0.5);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: transform 0.08s ease;
             position: relative;
-            margin: 15px 0;
+            margin: 10px 0;
             overflow: hidden;
             outline: none;
         }
@@ -142,9 +142,9 @@
             position: absolute;
             background: rgba(15, 23, 42, 0.9);
             border: 2px solid var(--accent-yellow);
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 800;
             color: #fbbf24;
             pointer-events: none;
@@ -155,30 +155,29 @@
 
         @keyframes floatUpSquare {
             0% { opacity: 1; transform: translateY(0) scale(0.8); }
-            50% { transform: translateY(-35px) scale(1.1); }
-            100% { opacity: 0; transform: translateY(-70px) scale(1); }
+            50% { transform: translateY(-30px) scale(1.1); }
+            100% { opacity: 0; transform: translateY(-60px) scale(1); }
         }
 
-        /* دوگمەیا USE ل جهێ هێلا شین/کەسک */
+        /* دوگمەیا USE یا بچووکتر و جوانتر */
         .use-pack-btn {
-            width: 100%;
-            max-width: 260px;
-            padding: 12px;
+            width: 180px;
+            padding: 8px 12px;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 15px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.4);
             transition: transform 0.1s ease;
             outline: none;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .use-pack-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.94);
         }
 
         .btn {
@@ -350,31 +349,31 @@
 </head>
 <body>
 
-    <!-- جهێ پەکێتان (ل سەرێ شاشێ) -->
+    <!-- جهێ سەرێ شاشێ: پەکێت و ئێنێرجی (مانا 500 کلیکان) -->
     <div class="header">
         <div class="stat-box">
             <span>📦</span>
             <span>پەکێت: <span id="energyPacks">5</span>/5</span>
         </div>
         <div class="stat-box">
-            <img src="logo.png" alt="Coin" class="mini-coin-icon">
-            <span>HEZ: <span id="coins-header">0.000000</span></span>
+            <span>⚡</span>
+            <span>ئێنێرجی: <span id="currentClicks">500</span>/500</span>
         </div>
     </div>
 
     <!-- TAP TAB -->
     <div id="tapTab" class="tab-content active">
         <div class="coin-balance">
-            <img src="logo.png" alt="Coin" class="mini-coin-icon" style="width: 32px; height: 32px;">
-            <span id="balance">0.000000</span>
+            <img src="logo.png" alt="Coin" class="mini-coin-icon" style="width: 30px; height: 30px;">
+            <span id="balance">25965.985678</span>
         </div>
         
         <div class="coin-button" id="coinBtn">
             <img src="logo.png" alt="Hero Coin Logo">
         </div>
 
-        <!-- دوگمەیا Use بۆ مەزاختنا پەکێتی و ئینانا 500 کلیکان (ل جهێ هێلا شین) -->
-        <button class="use-pack-btn" onclick="useEnergyPack()">⚡ Use Pack (+500 Clicks)</button>
+        <!-- دوگمەیا USE یا بچووک و ڕێکخستی -->
+        <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
     <!-- ADS TAB -->
@@ -382,8 +381,8 @@
         <h2 style="margin-bottom: 15px;">🎬 تەماشایا ڕێکلامان بکە</h2>
         <div class="card">
             <div>
-                <strong>(In-App) ڕێکلاما د ناڤ تەلەگرامێ</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">+1 پەکێتێ ئێنێرجی + 0.0001 HEZ</p>
+                <strong>ڕێکلاما ناڤ تەلەگرامێ</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+1 پەکێت + 0.0001 HEZ</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
         </div>
@@ -394,7 +393,7 @@
         <h2 style="margin-bottom: 15px;">📋 ئەرکێن ڕۆژانە</h2>
         <div class="card">
             <div>
-                <strong>بەشداری کەناڵێ تەلەگرامێ ببە</strong>
+                <strong>بەشداری کەناڵی ببە</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="completeTask(0.001)">ئەنجامبدە</button>
@@ -404,8 +403,8 @@
     <!-- INVITE TAB -->
     <div id="inviteTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">👥 بانگهێشتکرنا هەڤالان</h2>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">بۆ هر هەڤالەکێ تۆ بانگهێشت بکەی 0.0005 HEZ COIN وەربگرە.</p>
-        <button class="btn btn-ad" onclick="inviteFriend()">🔗 لینکی خۆ بپۆشە</button>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">بۆ هەر هەڤالەکێ تۆ بانگهێشت بکەی 0.0005 HEZ وەربگرە.</p>
+        <button class="btn btn-ad" onclick="inviteFriend()">🔗 لینکێ خۆ بپۆشە</button>
     </div>
 
     <!-- SHOP TAB -->
@@ -422,7 +421,7 @@
 
         <div class="shop-item-card">
             <div class="shop-thumb" onclick="openImageModal('shop_item.jpg')">
-                <img src="shop_item.jpg" alt="Squad / Item">
+                <img src="shop_item.jpg" alt="Squad">
             </div>
             <div class="shop-info">
                 <h4>تیمی یاریزانان (Squad)</h4>
@@ -469,20 +468,20 @@
             tg.ready();
         }
 
-        let balance = parseFloat(localStorage.getItem('hez_balance')) || 25965.985650;
-        let energyPacks = parseInt(localStorage.getItem('hez_packs')) || 5;
-        let currentClicks = parseInt(localStorage.getItem('hez_current_clicks')) || 0;
+        let balance = parseFloat(localStorage.getItem('hez_balance')) || 25965.985678;
+        let energyPacks = parseInt(localStorage.getItem('hez_packs')) || 4;
+        let currentClicks = parseInt(localStorage.getItem('hez_current_clicks')) || 500;
         const maxClicksPerPack = 500;
 
         const balanceEl = document.getElementById('balance');
-        const coinsHeaderEl = document.getElementById('coins-header');
         const energyPacksEl = document.getElementById('energyPacks');
+        const currentClicksEl = document.getElementById('currentClicks');
         const coinBtn = document.getElementById('coinBtn');
 
         function updateUI() {
             balanceEl.innerText = balance.toFixed(6);
-            coinsHeaderEl.innerText = balance.toFixed(6);
             energyPacksEl.innerText = energyPacks;
+            currentClicksEl.innerText = currentClicks;
             
             localStorage.setItem('hez_balance', balance);
             localStorage.setItem('hez_packs', energyPacks);
@@ -496,27 +495,27 @@
             el.classList.add('active');
         }
 
-        // دوگمەیا Use بۆ مەزاختنا پەکێتی و زێدەکرنا 500 کلیکان
+        // دوگمەیا USE بۆ مەزاختنا پەکێتی و ڤەکرنا 500 کلیکان
         function useEnergyPack() {
             if (currentClicks > 0) {
-                alert('هێشتا کلیکێن ڤی پەکێتی نەقەدیانە!');
+                alert('هێشتا ئێنێرجیا ڤی پەکێتی نەقەدیایە! هەتا خلاس بیت لێبدە.');
                 return;
             }
             if (energyPacks <= 0) {
-                alert('پەکێتێن تە نەمانە! تەماشای ڕێکلامان بکە یان بکڕە.');
+                alert('پەکێتێن تە نەمانە! تکایە ڕێکلامان تەماشا بکە یان بکڕە.');
                 return;
             }
 
             energyPacks -= 1;
             currentClicks = maxClicksPerPack;
             updateUI();
-            alert('پیرۆزە! پەکێتەک هاتە مەزاختن و 500 کلیک بۆ تە هاتنە ڤەکرن.');
+            alert('پیرۆزە! پەکێتەک هاتە مەزاختن و 500 ئێنێرجی بۆ تە هاتنە دان.');
         }
 
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
-                alert('کلیکێن پەکێتی ب دوماهیک هاتن! ل دوگمەیا USE بدە دا پەکێتەکێ بکاربێنی.');
+                alert('ئێنێرجیا تە یا خلاس بووی! دوگمەیا (بکاربینە/Use) ل ژێر جەمێ لێبدە دا پەکێتەکێ نوی ڤەکەی.');
                 return;
             }
 
@@ -596,7 +595,7 @@
                 updateUI();
                 alert('پەکێتەکا ئێنێرجی هاتە کڕین!');
             } else {
-                alert('کۆینێن تە نەتێرن!');
+                alert('کۆینێن تە تێر نینن!');
             }
         }
 
