@@ -241,11 +241,11 @@
 
     <!-- ADS TAB -->
     <div id="adsTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🎬 تەماشایا ڕێکلامان بکە</h2>
+        <h2 style="margin-bottom: 15px;">🎬 Watch Ads</h2>
         <div class="card">
             <div>
-                <strong>ڕێکلاما د ناڤ تەلەگرامێ (In-App)</strong>
-                <p style="font-size: 12px; color: var(--text-muted);">+500 ئێنێرجی + 100 HEZ (15s Timer)</p>
+                <strong>Rewarded Interstitial</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+500 ئێنێرجی + 100 HEZ COIN</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
         </div>
@@ -316,6 +316,7 @@
         let balance = parseInt(localStorage.getItem('hez_balance')) || 0;
         let energy = parseInt(localStorage.getItem('hez_energy')) || 500;
         const maxEnergy = 500;
+        let tapCount = 0; // تایبەت ب ژمارتنا کلیکان بۆ ڕێکلاما Popup
 
         const balanceEl = document.getElementById('balance');
         const coinsHeaderEl = document.getElementById('coins-header');
@@ -339,6 +340,7 @@
             el.classList.add('active');
         }
 
+        // کلیک ل سەر کۆینێ (Tap Button)
         coinBtn.addEventListener('click', (e) => {
             if (energy <= 0) {
                 if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
@@ -348,10 +350,12 @@
 
             balance += 1;
             energy -= 1;
+            tapCount += 1;
             updateUI();
 
             if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
+            // دروستکرنا کاریگەریا +1
             const rect = coinBtn.getBoundingClientRect();
             const floatEl = document.createElement('div');
             floatEl.className = 'float-text';
@@ -361,6 +365,16 @@
             coinBtn.appendChild(floatEl);
 
             setTimeout(() => floatEl.remove(), 800);
+
+            // نیشاندانا ڕێکلاما Rewarded Popup (Chrome) هەر 15 کلیکان جارەکێ
+            if (tapCount % 15 === 0 && typeof show_11724459 === 'function') {
+                show_11724459('pop').then(() => {
+                    balance += 5; // دیارییا زێدە بۆ کلیککرنا ڕێکلامێ
+                    updateUI();
+                }).catch(e => {
+                    console.log('Popup error:', e);
+                });
+            }
         });
 
         setInterval(() => {
@@ -370,48 +384,25 @@
             }
         }, 3000);
 
-        // 1. Automatic Ad Call (دچیتە ناڤ Chrome ب شێوەیەکێ ئۆتۆماتیکی)
-        window.addEventListener('load', () => {
-            if (typeof show_11724459 === 'function') {
-                show_11724459('pop').catch((e) => console.log('Auto pop error:', e));
-            }
-        });
-
-        // 2. Rewarded Ad Call (ڕێکلاما د ناڤ تەلەگرامێ + تایمەرێ 15 چڕکی)
+        // 1. ڕێکلاما Rewarded Interstitial د بەشێ Watch Ads دا
         function watchAdForEnergy() {
             const adBtn = document.getElementById('adBtn');
             adBtn.disabled = true;
 
             if (typeof show_11724459 === 'function') {
-                // بانگکرنا 'inApp' ڕاستەوخۆ د ناڤ تەلەگرامێ دا
-                show_11724459({
-                    type: 'inApp',
-                    inAppSettings: { frequency: 2, capping: 0.1, interval: 30, timeout: 0, everyPage: false }
+                show_11724459().then(() => {
+                    energy = maxEnergy;
+                    balance += 100;
+                    updateUI();
+                    alert('پیرۆزە! تە ڕێکلام ب تەمامی تەماشا کر و 500 ئێنێرجی + 100 HEZ وەستای.');
+                    adBtn.disabled = false;
+                }).catch((err) => {
+                    alert('ڕێکلام ب تەمامی نەهاتە تەماشاکرن.');
+                    adBtn.disabled = false;
                 });
-
-                // دەستپێکرنا تایمەرێ 15 چڕکی
-                let timeLeft = 15;
-                adBtn.innerText = `${timeLeft}s...`;
-
-                const adTimer = setInterval(() => {
-                    timeLeft -= 1;
-                    if (timeLeft > 0) {
-                        adBtn.innerText = `${timeLeft}s...`;
-                    } else {
-                        clearInterval(adTimer);
-                        energy = maxEnergy;
-                        balance += 100;
-                        updateUI();
-                        alert('پیرۆزە! 500 ئێنێرجی + 100 HEZ COIN وەستای.');
-                        adBtn.disabled = false;
-                        adBtn.innerText = 'تەماشابکە';
-                    }
-                }, 1000);
-
             } else {
-                alert('ڕێکلام بار نەبوویە.');
+                alert('ڕێکلام هێشتا بار نەبوویە.');
                 adBtn.disabled = false;
-                adBtn.innerText = 'تەماشابکە';
             }
         }
 
