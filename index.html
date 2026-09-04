@@ -65,30 +65,38 @@
             display: flex;
         }
 
-        /* جزوێنەکە یان کارتێ بچووک بۆ ژمارا کۆینان ل ڕەخەکێ */
-        .coin-balance-badge {
-            background: rgba(30, 41, 59, 0.85);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--accent-yellow);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--accent-yellow);
+        /* شێوەیێ جزدانکێ (Wallet Badge) ل ڕەخێ چەپێ */
+        .wallet-badge {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 2px solid #fbbf24;
+            padding: 7px 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #fbbf24;
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            align-self: flex-start; /* ددەتە ڕەخێ چەپێ */
-            margin-bottom: 10px;
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.35), inset 0 0 10px rgba(245, 158, 11, 0.15);
+            align-self: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .wallet-icon-box {
+            background: rgba(245, 158, 11, 0.2);
+            border-radius: 8px;
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(245, 158, 11, 0.4);
         }
 
         .mini-coin-icon {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             object-fit: cover;
-            border: 1px solid var(--accent-yellow);
         }
 
         .coin-button {
@@ -410,9 +418,11 @@
 
     <!-- TAP TAB -->
     <div id="tapTab" class="tab-content active">
-        <!-- لڤێرە مە گۆڕی بۆ جزوێنەکە (Badge) ل ڕەخەکێ -->
-        <div class="coin-balance-badge">
-            <img src="logo.png" alt="Coin" class="mini-coin-icon">
+        <!-- شێوێ جزدانکێ یێ نوو (Wallet Badge) ل ڕەخێ چەپێ -->
+        <div class="wallet-badge">
+            <div class="wallet-icon-box">
+                <img src="logo.png" alt="Coin" class="mini-coin-icon">
+            </div>
             <span id="balance">25965.985686</span>
         </div>
         
