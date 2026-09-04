@@ -244,8 +244,8 @@
         <h2 style="margin-bottom: 15px;">🎬 تەماشایا ڕێکلامان بکە</h2>
         <div class="card">
             <div>
-                <strong>ڕێکلاما ⚡ ئێنێرجیێ</strong>
-                <p style="font-size: 12px; color: var(--text-muted);">+500 ئێنێرجی + 100 HEZ COIN</p>
+                <strong>ڕێکلاما د ناڤ تەلەگرامێ (In-App)</strong>
+                <p style="font-size: 12px; color: var(--text-muted);">+500 ئێنێرجی + 100 HEZ (15s Timer)</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
         </div>
@@ -272,10 +272,10 @@
 
     <!-- SHOP TAB -->
     <div id="shopTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🛒 📊 فرۆشگەهـ</h2>
+        <h2 style="margin-bottom: 15px;">🛒 فرۆشگەهـ</h2>
         <div class="card">
             <div>
-                <strong>پڕکرنا ئێنێرجیا بپەزش</strong>
+                <strong>پڕکرنا ئێنێرجیێ</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow);">کڕین ب 500 HEZ</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="buyEnergy()">بکڕە</button>
@@ -370,45 +370,44 @@
             }
         }, 3000);
 
-        // Automatic Ad Load
+        // 1. Automatic Ad Call (دچیتە ناڤ Chrome ب شێوەیەکێ ئۆتۆماتیکی)
         window.addEventListener('load', () => {
             if (typeof show_11724459 === 'function') {
-                show_11724459({
-                    type: 'inApp',
-                    inAppSettings: { frequency: 2, capping: 0.1, interval: 30, timeout: 5, everyPage: false }
-                });
+                show_11724459('pop').catch((e) => console.log('Auto pop error:', e));
             }
         });
 
-        // Monetag Rewarded Ad + Anti-Cheat Timer
+        // 2. Rewarded Ad Call (ڕێکلاما د ناڤ تەلەگرامێ + تایمەرێ 15 چڕکی)
         function watchAdForEnergy() {
             const adBtn = document.getElementById('adBtn');
             adBtn.disabled = true;
 
             if (typeof show_11724459 === 'function') {
-                show_11724459('pop').then(() => {
-                    let timeLeft = 15;
-                    adBtn.innerText = `${timeLeft}s...`;
-
-                    const adTimer = setInterval(() => {
-                        timeLeft -= 1;
-                        if (timeLeft > 0) {
-                            adBtn.innerText = `${timeLeft}s...`;
-                        } else {
-                            clearInterval(adTimer);
-                            energy = maxEnergy;
-                            balance += 100;
-                            updateUI();
-                            alert('پیرۆزە! 500 ئێنێرجی + 100 HEZ COIN وەستای.');
-                            adBtn.disabled = false;
-                            adBtn.innerText = 'تەماشابکە';
-                        }
-                    }, 1000);
-                }).catch((e) => {
-                    alert('ئاریشەیەک د ڕێکلامێ دا هەیە.');
-                    adBtn.disabled = false;
-                    adBtn.innerText = 'تەماشابکە';
+                // بانگکرنا 'inApp' ڕاستەوخۆ د ناڤ تەلەگرامێ دا
+                show_11724459({
+                    type: 'inApp',
+                    inAppSettings: { frequency: 2, capping: 0.1, interval: 30, timeout: 0, everyPage: false }
                 });
+
+                // دەستپێکرنا تایمەرێ 15 چڕکی
+                let timeLeft = 15;
+                adBtn.innerText = `${timeLeft}s...`;
+
+                const adTimer = setInterval(() => {
+                    timeLeft -= 1;
+                    if (timeLeft > 0) {
+                        adBtn.innerText = `${timeLeft}s...`;
+                    } else {
+                        clearInterval(adTimer);
+                        energy = maxEnergy;
+                        balance += 100;
+                        updateUI();
+                        alert('پیرۆزە! 500 ئێنێرجی + 100 HEZ COIN وەستای.');
+                        adBtn.disabled = false;
+                        adBtn.innerText = 'تەماشابکە';
+                    }
+                }, 1000);
+
             } else {
                 alert('ڕێکلام بار نەبوویە.');
                 adBtn.disabled = false;
