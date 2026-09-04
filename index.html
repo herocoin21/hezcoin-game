@@ -50,7 +50,7 @@
             position: relative;
         }
 
-        /* گۆشەیا پروفایلی ل ژۆرێ */
+        /* گۆشەیا پروفایلی ل ژۆرێ چەپێ */
         .corner-profile {
             position: absolute;
             top: 12px;
@@ -106,6 +106,51 @@
             margin-top: 2px;
         }
 
+        /* جزدانکا زێڕین ل ژۆرێ ڕاستێ */
+        .wallet-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 2px solid rgba(245, 158, 11, 0.6);
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 800;
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+
+        .wallet-icon-box {
+            background: rgba(245, 158, 11, 0.2);
+            border-radius: 6px;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .mini-coin-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .currency-tag {
+            font-size: 11px;
+            color: #34d399;
+            background: rgba(52, 211, 153, 0.15);
+            padding: 1px 5px;
+            border-radius: 4px;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
         .tab-content {
             display: none;
             width: 100%;
@@ -113,10 +158,10 @@
             flex-direction: column;
             align-items: center;
             margin: auto 0;
-            padding-bottom: 60px;
-            padding-top: 40px;
+            padding-bottom: 70px;
+            padding-top: 55px;
             overflow-y: auto;
-            max-height: calc(100vh - 80px);
+            max-height: calc(100vh - 70px);
         }
 
         .tab-content.active {
@@ -148,51 +193,6 @@
 
         .btn-back:active {
             transform: scale(0.95);
-        }
-
-        /* جزدانکا زێڕین */
-        .wallet-badge {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
-            border: 2px solid #fbbf24;
-            padding: 7px 14px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 800;
-            color: #fbbf24;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.35);
-            align-self: flex-start;
-            margin-bottom: 12px;
-            margin-top: 10px;
-        }
-
-        .wallet-icon-box {
-            background: rgba(245, 158, 11, 0.2);
-            border-radius: 8px;
-            padding: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(245, 158, 11, 0.4);
-        }
-
-        .mini-coin-icon {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .currency-tag {
-            font-size: 12px;
-            color: #34d399;
-            background: rgba(52, 211, 153, 0.15);
-            padding: 2px 6px;
-            border-radius: 6px;
-            margin-left: 2px;
-            border: 1px solid rgba(52, 211, 153, 0.3);
         }
 
         /* Profile Tab Styles */
@@ -319,7 +319,7 @@
             justify-content: center;
             transition: transform 0.08s ease;
             position: relative;
-            margin: 4px 0;
+            margin: 10px 0;
             overflow: hidden;
             outline: none;
         }
@@ -412,10 +412,10 @@
 
         .btn {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border-radius: 12px;
             border: none;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -423,8 +423,12 @@
             justify-content: center;
             gap: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            margin-top: 10px;
             outline: none;
+        }
+
+        .btn-shop {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #ffffff;
         }
 
         .btn-ad {
@@ -460,7 +464,7 @@
             backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 8px 0;
             border-top: 1px solid #334155;
             max-width: 400px;
             margin: 0 auto;
@@ -472,10 +476,10 @@
             flex-direction: column;
             align-items: center;
             color: var(--text-muted);
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             cursor: pointer;
-            gap: 4px;
+            gap: 3px;
         }
 
         .nav-item.active {
@@ -483,13 +487,13 @@
         }
 
         .nav-icon {
-            font-size: 20px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
 
-    <!-- CORNER PROFILE -->
+    <!-- CORNER PROFILE (Left Top) -->
     <div class="corner-profile" onclick="switchToProfile()">
         <img id="cornerAvatar" src="logo.png" alt="Avatar" class="corner-avatar">
         <div class="corner-info">
@@ -498,16 +502,17 @@
         </div>
     </div>
 
+    <!-- WALLET BADGE (Right Top) -->
+    <div class="wallet-badge">
+        <div class="wallet-icon-box">
+            <img src="logo.png" alt="Coin" class="mini-coin-icon">
+        </div>
+        <span id="balance">0.000000</span>
+        <span class="currency-tag">HEZ</span>
+    </div>
+
     <!-- TAP TAB -->
     <div id="tapTab" class="tab-content active">
-        <div class="wallet-badge">
-            <div class="wallet-icon-box">
-                <img src="logo.png" alt="Coin" class="mini-coin-icon">
-            </div>
-            <span id="balance">0.000000</span>
-            <span class="currency-tag">HEZ</span>
-        </div>
-        
         <div class="coin-button" id="coinBtn">
             <img src="logo.png" alt="Hero Coin Logo">
         </div>
@@ -527,6 +532,51 @@
         </div>
 
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
+    </div>
+
+    <!-- SHOP TAB (فرۆشگەها فراوان) -->
+    <div id="shopTab" class="tab-content">
+        <h2 style="margin-bottom: 15px;">🛒 فرۆشگەها فەرمی</h2>
+        
+        <div class="card">
+            <div>
+                <strong>📦 کڕینا پەکێتا ئێنێرجی</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+1 پەکێت (نرخ: 0.0005 HEZ)</p>
+            </div>
+            <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="buyEnergyPack()">بکڕە</button>
+        </div>
+
+        <div class="card">
+            <div>
+                <strong>⚽ 100 eFootball Coins</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.01 HEZ (بنڤیسە ID)</p>
+            </div>
+            <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('100 eFootball Coins', 0.01)">داخواز بکە</button>
+        </div>
+
+        <div class="card">
+            <div>
+                <strong>💎 60 UC (PUBG Mobile)</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.015 HEZ (بنڤیسە ID)</p>
+            </div>
+            <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('60 UC PUBG', 0.015)">داخواز بکە</button>
+        </div>
+
+        <div class="card">
+            <div>
+                <strong>🎵 100 TikTok Coins</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.02 HEZ (بنڤیسە Username)</p>
+            </div>
+            <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('100 TikTok Coins', 0.02)">داخواز بکە</button>
+        </div>
+
+        <div class="card">
+            <div>
+                <strong>📶 پشکا کۆرەک / فایبەر (5$)</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.05 HEZ (بنڤیسە ژمارە)</p>
+            </div>
+            <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('Korek/Fib Balance 5$', 0.05)">داخواز بکە</button>
+        </div>
     </div>
 
     <!-- PROFILE TAB -->
@@ -593,7 +643,11 @@
             <span class="nav-icon">👆</span>
             <span>Tap</span>
         </div>
-        <div class="nav-item" id="navProfile" onclick="switchTab('profileTab', this)">
+        <div class="nav-item" id="navShop" onclick="switchTab('shopTab', this)">
+            <span class="nav-icon">🛒</span>
+            <span>Shop</span>
+        </div>
+        <div class="nav-item" id="navProfile" onclick="switchTab('profileTab', this)" style="display:none;">
             <span class="nav-icon">👤</span>
             <span>Profile</span>
         </div>
@@ -610,7 +664,7 @@
     <!-- Firebase SDK & Script Integration -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addRef, addDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBLAm1amoybyoAdCGZLfTbZzUkspPIEmhk",
@@ -780,14 +834,13 @@
         }
 
         window.switchToProfile = function() {
-            switchTab('profileTab', document.getElementById('navProfile'));
+            switchTab('profileTab', null);
         }
 
         window.switchToTap = function() {
             switchTab('tapTab', document.getElementById('navTap'));
         }
 
-        // گۆڕینا ناڤی (Change Name)
         window.changeUserName = function() {
             const newName = prompt("ناڤێ خۆ یێ نوو بنڤیسە:", userName);
             if (newName && newName.trim() !== "") {
@@ -797,13 +850,63 @@
             }
         }
 
-        // گۆڕینا وێنەی (Change Avatar URL)
         window.changeUserAvatar = function() {
             const newPhoto = prompt("لینکا وێنەیێ نوو (Image URL) ل ڤێرە دابنێ:", userPhoto);
             if (newPhoto && newPhoto.trim() !== "") {
                 userPhoto = newPhoto.trim();
                 updateUI();
                 alert("وێنەیێ پروفایلا تە هاتە نووکرن!");
+            }
+        }
+
+        window.buyEnergyPack = function() {
+            const cost = 0.0005;
+            if (balance < cost) {
+                alert('پارێ تە یێ بەستە نەبسە بۆ کڕینا ڤی پەکێتی!');
+                return;
+            }
+            if (energyPacks >= maxPacks) {
+                alert('پەکێتێن تە تێرن (5/5)!');
+                return;
+            }
+            balance -= cost;
+            energyPacks += 1;
+            updateUI();
+            alert('🛒 پیرۆزە! پەکێتەکێ ئێنێرجی هاتە کڕین.');
+        }
+
+        // سیستما داخوازیکرنا UC، Coins و پشکان
+        window.orderGameItem = async function(itemName, cost) {
+            if (balance < cost) {
+                alert('پارێ تە یێ فازل (Balance) نەبسە بۆ کڕینا ڤی تشتەی!');
+                return;
+            }
+
+            const playerId = prompt(`بۆ کڕینا (${itemName})، تکایە Player ID یان Username یان ژمارا خۆ بنڤیسە:`);
+            if (!playerId || playerId.trim() === "") {
+                alert('داخواز هاتە هەلوەشاندن چنکو ID نەهاتە نڤیسین.');
+                return;
+            }
+
+            try {
+                // کێمکرنا پارەی ژ هژمارا یاریزانی
+                balance -= cost;
+                updateUI();
+
+                // تۆمارکرنا داخوازێ ل ناو کۆلەکشنا (orders) ل Firebase
+                await addDoc(collection(db, "orders"), {
+                    userId: userId,
+                    userName: userName,
+                    item: itemName,
+                    targetAccount: playerId.trim(),
+                    status: "Pending",
+                    timestamp: new Date()
+                });
+
+                alert(`✅ داخوازا تە ب سەرکەفتیانە هاتە هنارتن!\nب زوترین دەم دێ بۆ تە تێتە هنارتن.`);
+            } catch (err) {
+                console.error("Error saving order:", err);
+                alert('چەوتییەک چێبوو، ژ فەرمارا خۆ دووبارە بکە.');
             }
         }
 
@@ -850,7 +953,7 @@
             energyPacks -= 1;
             currentClicks = maxClicksPerPack;
             updateUI();
-            alert('پیرۆزە! پەکێتەک هاتە مەزاختن و 500 ئێنێرجی بۆ تە هاتنە دان.');
+            alert('پیرۆزە! پەکێتەک هاتە مەزاختن و 500 ئێنێرجی بۆ تە هاتە دان.');
         }
 
         coinBtn.addEventListener('click', (e) => {
@@ -899,7 +1002,7 @@
             } else {
                 alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە.');
                 adBtn.disabled = false;
-                adBtn.innerText = 'تەماشابکە';
+                adBtn.innerText, adBtn.innerText = 'تەماشابکە';
             }
         }
 
