@@ -65,20 +65,27 @@
             display: flex;
         }
 
-        .coin-balance {
-            font-size: 30px;
-            font-weight: 800;
+        /* جزوێنەکە یان کارتێ بچووک بۆ ژمارا کۆینان ل ڕەخەکێ */
+        .coin-balance-badge {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--accent-yellow);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
             color: var(--accent-yellow);
-            text-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 2px;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            align-self: flex-start; /* ددەتە ڕەخێ چەپێ */
+            margin-bottom: 10px;
         }
 
         .mini-coin-icon {
-            width: 28px;
-            height: 28px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             object-fit: cover;
             border: 1px solid var(--accent-yellow);
@@ -403,7 +410,8 @@
 
     <!-- TAP TAB -->
     <div id="tapTab" class="tab-content active">
-        <div class="coin-balance">
+        <!-- لڤێرە مە گۆڕی بۆ جزوێنەکە (Badge) ل ڕەخەکێ -->
+        <div class="coin-balance-badge">
             <img src="logo.png" alt="Coin" class="mini-coin-icon">
             <span id="balance">25965.985686</span>
         </div>
@@ -472,7 +480,6 @@
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="buyEnergy()">بکڕە</button>
         </div>
 
-        <!-- تیمی یاریزانان (Squad) ب ناڤێ ڕاستەقینە یێ وێنەیێ تە (1000047306.jpg) -->
         <div class="shop-item-card">
             <div class="shop-thumb">
                 <img src="1000047306.jpg" alt="Squad">
