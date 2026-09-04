@@ -47,6 +47,63 @@
             padding: 12px 16px;
             text-align: center;
             overflow: hidden;
+            position: relative;
+        }
+
+        /* گۆشەیا پروفایلی ل ژۆرێ (Top-Left Corner Profile Widget) */
+        .corner-profile {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 2px solid rgba(245, 158, 11, 0.6);
+            border-radius: 14px;
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            z-index: 40;
+            transition: transform 0.2s ease;
+        }
+
+        .corner-profile:active {
+            transform: scale(0.95);
+        }
+
+        .corner-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-yellow);
+            object-fit: cover;
+        }
+
+        .corner-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .corner-name {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-color);
+            max-width: 90px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .corner-level {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent-yellow);
+            background: rgba(245, 158, 11, 0.15);
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-top: 2px;
         }
 
         .tab-content {
@@ -57,6 +114,7 @@
             align-items: center;
             margin: auto 0;
             padding-bottom: 60px;
+            padding-top: 40px;
             overflow-y: auto;
             max-height: calc(100vh - 80px);
         }
@@ -65,7 +123,7 @@
             display: flex;
         }
 
-        /* جزدانکا زێڕین ب نیشانا دراڤی ل ڕەخێ چەپێ */
+        /* جزدانکا زێڕین */
         .wallet-badge {
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
             border: 2px solid #fbbf24;
@@ -77,9 +135,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.35), inset 0 0 10px rgba(245, 158, 11, 0.15);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.35);
             align-self: flex-start;
             margin-bottom: 12px;
+            margin-top: 10px;
         }
 
         .wallet-icon-box {
@@ -101,12 +160,94 @@
 
         .currency-tag {
             font-size: 12px;
-            color: #34d399; /* رەنگەکێ سەوزێ جوان بۆ دراڤی */
+            color: #34d399;
             background: rgba(52, 211, 153, 0.15);
             padding: 2px 6px;
             border-radius: 6px;
             margin-left: 2px;
             border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        /* Profile Tab Styles */
+        .profile-card {
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(245, 158, 11, 0.4);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            margin-bottom: 15px;
+        }
+
+        .profile-avatar-container {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-yellow);
+            overflow: hidden;
+            margin-bottom: 12px;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+        }
+
+        .profile-avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .profile-level-badge {
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid var(--accent-yellow);
+            color: var(--accent-yellow);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .xp-progress-box {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .xp-info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+
+        .xp-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #334155;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .xp-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f59e0b, #10b981);
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
         .coin-button {
@@ -209,13 +350,8 @@
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-            transition: transform 0.1s ease;
             outline: none;
             margin-top: 6px;
-        }
-
-        .use-pack-btn:active {
-            transform: scale(0.95);
         }
 
         .btn {
@@ -245,23 +381,6 @@
             color: #94a3b8;
         }
 
-        .btn-shop {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: #ffffff;
-        }
-
-        .btn-view {
-            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
-            color: #ffffff;
-            font-size: 12px;
-            padding: 6px 10px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 6px;
-        }
-
         .card {
             width: 100%;
             background: var(--card-bg);
@@ -274,118 +393,6 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .shop-item-card {
-            width: 100%;
-            background: var(--card-bg);
-            backdrop-filter: blur(8px);
-            padding: 14px;
-            border-radius: 14px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        }
-
-        .shop-thumb {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid var(--accent-yellow);
-            flex-shrink: 0;
-        }
-
-        .shop-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .shop-info {
-            flex-grow: 1;
-            margin: 0 10px;
-            text-align: left;
-        }
-
-        .shop-info h4 {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 4px;
-        }
-
-        .shop-info p {
-            font-size: 12px;
-            color: var(--accent-yellow);
-            font-weight: 600;
-        }
-
-        .shop-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .item-detail-modal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.85);
-            backdrop-filter: blur(6px);
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .detail-box {
-            background: #1e293b;
-            border: 2px solid var(--accent-yellow);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 340px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 0 30px rgba(245,158,11,0.4);
-            text-align: center;
-        }
-
-        .detail-box img {
-            width: 140px;
-            height: 140px;
-            border-radius: 15px;
-            object-fit: cover;
-            border: 2px solid var(--accent-yellow);
-            margin-bottom: 12px;
-        }
-
-        .detail-box h3 {
-            font-size: 18px;
-            color: var(--text-color);
-            margin-bottom: 8px;
-        }
-
-        .detail-box p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .detail-box .price-tag {
-            font-size: 15px;
-            color: var(--accent-yellow);
-            font-weight: bold;
-            margin-bottom: 15px;
         }
 
         .navbar {
@@ -426,9 +433,17 @@
 </head>
 <body>
 
+    <!-- CORNER PROFILE (ل گۆشەیا ژۆرین یا چەپێ) -->
+    <div class="corner-profile" onclick="switchToProfile()">
+        <img id="cornerAvatar" src="logo.png" alt="Avatar" class="corner-avatar">
+        <div class="corner-info">
+            <span class="corner-name" id="cornerName">یاریزان</span>
+            <span class="corner-level" id="cornerLevelBadge">Lvl 1</span>
+        </div>
+    </div>
+
     <!-- TAP TAB -->
     <div id="tapTab" class="tab-content active">
-        <!-- جزدانک ب ناڤێ دراڤی (HEZ) ل ڕەخێ چەپێ -->
         <div class="wallet-badge">
             <div class="wallet-icon-box">
                 <img src="logo.png" alt="Coin" class="mini-coin-icon">
@@ -458,13 +473,36 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
+    <!-- PROFILE TAB -->
+    <div id="profileTab" class="tab-content">
+        <h2 style="margin-bottom: 15px;">👤 پروفایلا من</h2>
+        
+        <div class="profile-card">
+            <div class="profile-avatar-container">
+                <img id="userAvatar" src="logo.png" alt="Avatar">
+            </div>
+            <div class="profile-name" id="userNameDisplay">ناڤێ یاریزانی</div>
+            <div class="profile-level-badge" id="userLevelBadge">Level 1</div>
+            
+            <div class="xp-progress-box">
+                <div class="xp-info-row">
+                    <span>ئاستێ ئەزموونێ (XP)</span>
+                    <span><span id="currentXp">0</span> / <span id="maxXp">2000</span> XP</span>
+                </div>
+                <div class="xp-bar-container">
+                    <div class="xp-bar-fill" id="xpBarFill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ADS TAB -->
     <div id="adsTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">🎬 تەماشایا ڕێکلامان بکە</h2>
         <div class="card">
             <div>
                 <strong>ڕێکلاما ناڤ تەلەگرامێ</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">+1 پەکێت + 0.0001 HEZ</p>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+1 پەکێت + 0.0001 HEZ + 25 XP</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
         </div>
@@ -476,62 +514,21 @@
         <div class="card">
             <div>
                 <strong>بەشداری کەناڵی ببە</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ</p>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ + 50 XP</p>
             </div>
-            <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="completeTask(0.001)">ئەنجامبدە</button>
-        </div>
-    </div>
-
-    <!-- INVITE TAB -->
-    <div id="inviteTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">👥 بانگهێشتکرنا هەڤالان</h2>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">بۆ هەر هەڤالەکێ تۆ بانگهێشت بکەی 0.0005 HEZ وەربگرە.</p>
-        <button class="btn btn-ad" onclick="inviteFriend()">🔗 لینکێ خۆ بپۆشە</button>
-    </div>
-
-    <!-- SHOP TAB -->
-    <div id="shopTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🛒 فرۆشگەهـ</h2>
-        
-        <div class="card">
-            <div>
-                <strong>پڕکرنا پەکێتان</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">کڕین ب 0.001 HEZ</p>
-            </div>
-            <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="buyEnergy()">بکڕە</button>
-        </div>
-
-        <div class="shop-item-card">
-            <div class="shop-thumb">
-                <img src="1000047306.jpg" alt="Squad">
-            </div>
-            <div class="shop-info">
-                <h4>تیمی یاریزانان (Squad)</h4>
-                <p>نرخ: 5 HEZ</p>
-            </div>
-            <div class="shop-actions">
-                <button class="btn btn-shop" style="width: auto; padding: 6px 14px; font-size: 13px;" onclick="buyItem(5, 'تیمی یاریزانان')">بکڕە</button>
-                <button class="btn-view" onclick="openItemDetail('تیمی یاریزانان (Squad)', 'ئەڤە پەکەکا تایبەتە ب تیمی یاریزانێن تە، شیان و هێزا تەک مفا ددەت و د یاریێ دا هاریکاریا تە دکەت.', '5 HEZ', '1000047306.jpg')">👁️ بینین</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal بۆ نیشاندانا وێنەیێ مەزن و پێزانینان -->
-    <div id="itemDetailModal" class="item-detail-modal" onclick="closeItemDetail()">
-        <div class="detail-box" onclick="event.stopPropagation()">
-            <img id="detailImg" src="" alt="Item Image">
-            <h3 id="detailTitle">ناڤێ تشتێ</h3>
-            <p id="detailDesc">پێزانین و راڤەکرنا ڤی تشتێ دڤێرەدا دیار دبت...</p>
-            <div class="price-tag" id="detailPrice">نرخ: 0 HEZ</div>
-            <button class="close-modal" onclick="closeItemDetail()" style="width: 100%; padding: 10px; border-radius: 10px; background: #ef4444; border: none; color: white; font-weight: bold; cursor: pointer;">داخستن</button>
+            <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="completeTask(0.001, 50)">ئەنجامبدە</button>
         </div>
     </div>
 
     <!-- NAVIGATION BAR -->
     <div class="navbar">
-        <div class="nav-item active" onclick="switchTab('tapTab', this)">
+        <div class="nav-item active" id="navTap" onclick="switchTab('tapTab', this)">
             <span class="nav-icon">👆</span>
             <span>Tap</span>
+        </div>
+        <div class="nav-item" id="navProfile" onclick="switchTab('profileTab', this)">
+            <span class="nav-icon">👤</span>
+            <span>Profile</span>
         </div>
         <div class="nav-item" onclick="switchTab('adsTab', this)">
             <span class="nav-icon">🎬</span>
@@ -540,14 +537,6 @@
         <div class="nav-item" onclick="switchTab('tasksTab', this)">
             <span class="nav-icon">📋</span>
             <span>Tasks</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('inviteTab', this)">
-            <span class="nav-icon">👥</span>
-            <span>Invite</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('shopTab', this)">
-            <span class="nav-icon">🛒</span>
-            <span>Shop</span>
         </div>
     </div>
 
@@ -576,15 +565,19 @@
         }
 
         const userId = tg?.initDataUnsafe?.user?.id ? String(tg.initDataUnsafe.user.id) : "test_user_123";
-        const userName = tg?.initDataUnsafe?.user?.first_name || "Test User";
+        const userName = tg?.initDataUnsafe?.user?.first_name || "یاریزان";
+        const userPhoto = tg?.initDataUnsafe?.user?.photo_url || "logo.png";
         const userRef = doc(db, "users", userId);
 
         let balance = 0;
         let energyPacks = 4;
         let currentClicks = 500;
+        let currentLevel = 1;
+        let currentXp = 0;
+        let maxXp = 2000;
+
         const maxClicksPerPack = 500;
         const maxPacks = 5;
-        
         const packIntervalSeconds = 17280; 
         let lastPackTime = Date.now();
 
@@ -593,34 +586,63 @@
         const currentClicksEl = document.getElementById('currentClicks');
         const packTimerTextEl = document.getElementById('packTimerText');
         const coinBtn = document.getElementById('coinBtn');
+        
+        const userNameDisplay = document.getElementById('userNameDisplay');
+        const userLevelBadge = document.getElementById('userLevelBadge');
+        const userAvatar = document.getElementById('userAvatar');
+        const cornerName = document.getElementById('cornerName');
+        const cornerAvatar = document.getElementById('cornerAvatar');
+        const cornerLevelBadge = document.getElementById('cornerLevelBadge');
+        
+        const currentXpEl = document.getElementById('currentXp');
+        const maxXpEl = document.getElementById('maxXp');
+        const xpBarFill = document.getElementById('xpBarFill');
 
         async function initUser() {
             try {
                 const docSnap = await getDoc(userRef);
                 if (docSnap.exists()) {
                     const data = docSnap.data();
-                    balance = data.balance !== undefined ? data.balance : 25965.985686;
+                    balance = data.balance !== undefined ? data.balance : 0;
                     energyPacks = data.energyPacks !== undefined ? data.energyPacks : 4;
                     currentClicks = data.currentClicks !== undefined ? data.currentClicks : 500;
+                    currentLevel = data.currentLevel !== undefined ? data.currentLevel : 1;
+                    currentXp = data.currentXp !== undefined ? data.currentXp : 0;
+                    maxXp = data.maxXp !== undefined ? data.maxXp : 2000;
                     lastPackTime = data.lastPackTime || Date.now();
                 } else {
-                    balance = 25965.985686;
+                    balance = 0;
                     energyPacks = 4;
                     currentClicks = 500;
+                    currentLevel = 1;
+                    currentXp = 0;
+                    maxXp = 2000;
                     lastPackTime = Date.now();
                     await setDoc(userRef, {
                         name: userName,
+                        photo: userPhoto,
                         balance: balance,
                         energyPacks: energyPacks,
                         currentClicks: currentClicks,
+                        currentLevel: currentLevel,
+                        currentXp: currentXp,
+                        maxXp: maxXp,
                         lastPackTime: lastPackTime,
                         createdAt: new Date()
                     });
                 }
+                userNameDisplay.innerText = userName;
+                cornerName.innerText = userName;
+                if(userPhoto) {
+                    userAvatar.src = userPhoto;
+                    cornerAvatar.src = userPhoto;
+                }
                 updateUI();
                 checkPackTimer();
             } catch (error) {
-                console.error("Error loading user data from Firebase:", error);
+                console.error("Error loading user data:", error);
+                userNameDisplay.innerText = userName;
+                cornerName.innerText = userName;
                 updateUI();
             }
         }
@@ -631,6 +653,9 @@
                     balance: balance,
                     energyPacks: energyPacks,
                     currentClicks: currentClicks,
+                    currentLevel: currentLevel,
+                    currentXp: currentXp,
+                    maxXp: maxXp,
                     lastPackTime: lastPackTime
                 });
             } catch (error) {
@@ -638,10 +663,36 @@
             }
         }
 
+        function addXp(amount) {
+            currentXp += amount;
+            if (currentXp >= maxXp) {
+                currentLevel += 1;
+                currentXp = currentXp - maxXp;
+                
+                if (currentLevel === 2) maxXp = 4500;
+                else if (currentLevel === 3) maxXp = 9000;
+                else if (currentLevel === 4) maxXp = 18000;
+                else if (currentLevel === 5) maxXp = 35000;
+                else maxXp = Math.floor(maxXp * 2.2);
+
+                alert(`🎉 پیرۆزە! تو گەهشتیە Level ${currentLevel} - ئاستەک گەلەک سەخت و مەزن!`);
+            }
+            updateUI();
+        }
+
         function updateUI() {
             balanceEl.innerText = balance.toFixed(6);
             energyPacksEl.innerText = energyPacks;
             currentClicksEl.innerText = currentClicks;
+            
+            userLevelBadge.innerText = `Level ${currentLevel}`;
+            cornerLevelBadge.innerText = `Lvl ${currentLevel}`;
+            
+            currentXpEl.innerText = currentXp;
+            maxXpEl.innerText = maxXp;
+            
+            const xpPercent = Math.min(100, (currentXp / maxXp) * 100);
+            xpBarFill.style.width = xpPercent + '%';
             
             syncToFirebase();
         }
@@ -668,12 +719,10 @@
             const minutes = Math.floor((remainingSeconds % 3600) / 60);
             const seconds = remainingSeconds % 60;
 
-            const timeStr = 
+            packTimerTextEl.innerText = "پەکێتا داهاتی: " + 
                 String(hours).padStart(2, '0') + ":" + 
                 String(minutes).padStart(2, '0') + ":" + 
                 String(seconds).padStart(2, '0');
-
-            packTimerTextEl.innerText = "پەکێتا داهاتی: " + timeStr;
         }
 
         setInterval(checkPackTimer, 1000);
@@ -683,6 +732,13 @@
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             el.classList.add('active');
+        }
+
+        window.switchToProfile = function() {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById('profileTab').classList.add('active');
+            document.getElementById('navProfile').classList.add('active');
         }
 
         window.useEnergyPack = function() {
@@ -710,7 +766,7 @@
 
             balance += 0.000001;
             currentClicks -= 1;
-            updateUI();
+            addXp(0.5); // هەر کلیکەک تنێ 0.5 XP ددەت (ئانکۆ ٢ کلیک = ١ XP)
 
             if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
@@ -730,97 +786,34 @@
             adBtn.disabled = true;
             adBtn.innerText = 'ڕێکلام بار دبت...';
 
-            let adHandled = false;
-            const safetyTimeout = setTimeout(() => {
-                if (!adHandled) {
-                    adHandled = true;
-                    alert('ل ڤی دەمی دا ڕێکلام هێشتا ل سێرڤەری بار نەبوویە، تکایە دووبارە تاقی بکە.');
-                    adBtn.disabled = false;
-                    adBtn.innerText = 'تەماشابکە';
-                }
-            }, 15000);
-
             if (typeof show_11724459 === 'function') {
                 show_11724459().then(() => {
-                    if (!adHandled) {
-                        adHandled = true;
-                        clearTimeout(safetyTimeout);
-                        if(energyPacks < maxPacks) energyPacks += 1;
-                        balance += 0.0001;
-                        updateUI();
-                        alert('پیرۆزە! 1 پەکێت بۆ تە هاتە زێدەکرن.');
-                        adBtn.disabled = false;
-                        adBtn.innerText = 'تەماشابکە';
-                    }
+                    if(energyPacks < maxPacks) energyPacks += 1;
+                    balance += 0.0001;
+                    addXp(25); // ڕێکلام 25 XP
+                    updateUI();
+                    alert('پیرۆزە! 1 پەکێت و 25 XP بۆ تە هاتە زێدەکرن.');
+                    adBtn.disabled = false;
+                    adBtn.innerText = 'تەماشابکە';
                 }).catch(() => {
-                    if (!adHandled) {
-                        adHandled = true;
-                        clearTimeout(safetyTimeout);
-                        alert('ڕێکلام نەهاتە بارکرن.');
-                        adBtn.disabled = false;
-                        adBtn.innerText = 'تەماشابکە';
-                    }
+                    alert('ڕێکلام نەهاتە بارکرن.');
+                    adBtn.disabled = false;
+                    adBtn.innerText = 'تەماشابکە';
                 });
             } else {
-                clearTimeout(safetyTimeout);
                 alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە.');
                 adBtn.disabled = false;
                 adBtn.innerText = 'تەماشابکە';
             }
         }
 
-        window.completeTask = function(reward) {
+        window.completeTask = function(reward, xpReward) {
             balance += reward;
+            addXp(xpReward);
             updateUI();
-            alert(`پیرۆزە! ${reward} HEZ هاتە زێدەکرن.`);
+            alert(`پیرۆزە! ${reward} HEZ و ${xpReward} XP هاتە زێدەکرن.`);
         }
 
-        window.buyEnergy = function() {
-            if (energyPacks >= maxPacks) {
-                alert('پەکێتێن تە تێرن (5/5)!');
-                return;
-            }
-            if (balance >= 0.001) {
-                balance -= 0.001;
-                energyPacks += 1;
-                updateUI();
-                alert('پەکێتەکا ئێنێرجی هاتە کڕین!');
-            } else {
-                alert('کۆینێن تە تێر نینن!');
-            }
-        }
-
-        window.buyItem = function(price, itemName) {
-            if (balance >= price) {
-                balance -= price;
-                updateUI();
-                alert(`پیرۆزە! '${itemName}' هاتە کڕین.`);
-            } else {
-                alert('کۆینێن تە کێمن!');
-            }
-        }
-
-        window.openItemDetail = function(title, desc, price, imgSrc) {
-            document.getElementById('detailTitle').innerText = title;
-            document.getElementById('detailDesc').innerText = desc;
-            document.getElementById('detailPrice').innerText = "نرخ: " + price;
-            document.getElementById('detailImg').src = imgSrc;
-            document.getElementById('itemDetailModal').style.display = 'flex';
-        }
-
-        window.closeItemDetail = function() {
-            document.getElementById('itemDetailModal').style.display = 'none';
-        }
-
-        window.inviteFriend = function() {
-            if (tg) {
-                tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/hezcoin_bot&text=وەرە%20د%20یارییا%20HEZ%20COIN%20دا%20بەشدار%20ببە!`);
-            } else {
-                alert('لینک هاتە کۆپیکرن.');
-            }
-        }
-
-        // Start user data fetch from Firebase
         initUser();
     </script>
 </body>
