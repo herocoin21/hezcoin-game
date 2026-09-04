@@ -48,15 +48,16 @@
             overflow: hidden;
         }
 
+        /* سەرێ شاشێ تنێ بۆ پەکێتان */
         .header {
             width: 100%;
             max-width: 400px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             background: var(--card-bg);
             backdrop-filter: blur(8px);
-            padding: 10px 14px;
+            padding: 8px 14px;
             border-radius: 14px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
@@ -104,12 +105,12 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .coin-button {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             background: transparent;
             border: 5px solid #f59e0b;
@@ -120,7 +121,7 @@
             justify-content: center;
             transition: transform 0.08s ease;
             position: relative;
-            margin: 10px 0;
+            margin: 5px 0;
             overflow: hidden;
             outline: none;
         }
@@ -159,21 +160,33 @@
             100% { opacity: 0; transform: translateY(-60px) scale(1); }
         }
 
+        /* پشکەیا ئێنێرجیا ل بن کۆینێ */
+        .energy-status-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 220px;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
         /* دوگمەیا USE یا بچووکتر و جوانتر */
         .use-pack-btn {
-            width: 170px;
-            padding: 7px 10px;
+            width: 180px;
+            padding: 8px 10px;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
             border-radius: 18px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 3px 10px rgba(16, 185, 129, 0.4);
             transition: transform 0.1s ease;
             outline: none;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .use-pack-btn:active {
@@ -349,15 +362,11 @@
 </head>
 <body>
 
-    <!-- سەرێ شاشێ: پەکێت و ئێنێرجیا کلیکان (ژ 500) -->
+    <!-- سەرێ شاشێ: تنێ پەکێت لێرە نەگۆڕی مایە -->
     <div class="header">
         <div class="stat-box">
             <span>📦</span>
             <span>پەکێت: <span id="energyPacks">4</span>/5</span>
-        </div>
-        <div class="stat-box">
-            <span>⚡</span>
-            <span>ئێنێرجی: <span id="currentClicks">500</span>/500</span>
         </div>
     </div>
 
@@ -372,7 +381,13 @@
             <img src="logo.png" alt="Hero Coin Logo">
         </div>
 
-        <!-- دوگمەیا USE یا بچووک و ڕێکخستی -->
+        <!-- ئێنێرجیا کلیکان ل بن کۆینێ -->
+        <div class="energy-status-container">
+            <span>⚡ ئێنێرجی</span>
+            <span><span id="currentClicks">500</span> / 500</span>
+        </div>
+
+        <!-- دوگمەیا USE یا سەرنجڕاکێش ل بن ئێنێرجیێ -->
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
@@ -495,7 +510,6 @@
             el.classList.add('active');
         }
 
-        // دوگمەیا USE بۆ مەزاختنا پەکێتی و ڤەکرنا 500 کلیکان
         function useEnergyPack() {
             if (currentClicks > 0) {
                 alert('هێشتا ئێنێرجیا ڤی پەکێتی نەقەدیایە! هەتا خلاس بیت لێبدە.');
