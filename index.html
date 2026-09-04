@@ -161,13 +161,13 @@
 
         /* دوگمەیا USE یا بچووکتر و جوانتر */
         .use-pack-btn {
-            width: 180px;
-            padding: 8px 12px;
+            width: 170px;
+            padding: 7px 10px;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
-            border-radius: 20px;
-            font-size: 13px;
+            border-radius: 18px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 3px 10px rgba(16, 185, 129, 0.4);
@@ -349,11 +349,11 @@
 </head>
 <body>
 
-    <!-- جهێ سەرێ شاشێ: پەکێت و ئێنێرجی (مانا 500 کلیکان) -->
+    <!-- سەرێ شاشێ: پەکێت و ئێنێرجیا کلیکان -->
     <div class="header">
         <div class="stat-box">
             <span>📦</span>
-            <span>پەکێت: <span id="energyPacks">5</span>/5</span>
+            <span>پەکێت: <span id="energyPacks">4</span>/5</span>
         </div>
         <div class="stat-box">
             <span>⚡</span>
@@ -365,7 +365,7 @@
     <div id="tapTab" class="tab-content active">
         <div class="coin-balance">
             <img src="logo.png" alt="Coin" class="mini-coin-icon" style="width: 30px; height: 30px;">
-            <span id="balance">25965.985678</span>
+            <span id="balance">25965.985686</span>
         </div>
         
         <div class="coin-button" id="coinBtn">
@@ -468,7 +468,7 @@
             tg.ready();
         }
 
-        let balance = parseFloat(localStorage.getItem('hez_balance')) || 25965.985678;
+        let balance = parseFloat(localStorage.getItem('hez_balance')) || 25965.985686;
         let energyPacks = parseInt(localStorage.getItem('hez_packs')) || 4;
         let currentClicks = parseInt(localStorage.getItem('hez_current_clicks')) || 500;
         const maxClicksPerPack = 500;
@@ -515,7 +515,7 @@
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
-                alert('ئێنێرجیا تە یا خلاس بووی! دوگمەیا (بکاربینە/Use) ل ژێر جەمێ لێبدە دا پەکێتەکێ نوی ڤەکەی.');
+                alert('ئێنێرجیا تە یا خلاس بووی! دوگمەیا (بکاربینە/Use) ل ژێر لێبدە دا پەکێتەکێ نوی ڤەکەی.');
                 return;
             }
 
