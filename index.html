@@ -278,11 +278,39 @@
         }, 3000);
 
         // Monetag Rewarded Ad Call
-        function watchAdForEnergy() {
-            const adBtn = document.getElementById('adBtn');
-            adBtn.disabled = true;
-            adBtn.innerText = 'چاوەڕێ بکه...';
+        // Monetag Rewarded Ad Call
+function watchAdForEnergy() {
+    const adBtn = document.getElementById('adBtn');
+    adBtn.disabled = true;
+    adBtn.innerText = 'چاوەڕێ بکه...';
 
+    // ڕاستەوخۆ بانگکرنا فەنکشنا Monetag
+    if (typeof show_11724459 === 'function') {
+        show_11724459().then(() => {
+            energy = maxEnergy;
+            balance += 100;
+            updateUI();
+            
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.notificationOccurred('success');
+            }
+            alert('پیرۆزە! 500 ئێنێرجی + 100 HEZ COIN هاتنە زێدەکرن.');
+            
+            adBtn.disabled = false;
+            adBtn.innerHTML = '<span>🎬</span> تەماشایا ڕێکلامێ بکە (+500 ئێنێرجی)';
+        }).catch((err) => {
+            console.error('Ad error:', err);
+            alert('ڕێکلام نەهاتە نیشاندان یان هاتە گرتن.');
+            adBtn.disabled = false;
+            adBtn.innerHTML = '<span>🎬</span> تەماشایا ڕێکلامێ بکە (+500 ئێنێرجی)';
+        });
+    } else {
+        alert('ڕێکلام هێشتا بار نەبوویە، تکایە چەند چروکان چاوەڕێ بکه یان لاپەڕەی ڕیفڕێش بکە.');
+        adBtn.disabled = false;
+        adBtn.innerHTML = '<span>🎬</span> تەماشایا ڕێکلامێ بکە (+500 ئێنێرجی)';
+    }
+}
+،
             if (typeof show_11724459 === 'function') {
                 show_11724459().then(() => {
                     energy = maxEnergy;
