@@ -225,7 +225,6 @@
             color: #ffffff;
         }
 
-        /* دوگمەیا بینینێ (View) یا نوی */
         .btn-view {
             background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
             color: #ffffff;
@@ -306,7 +305,6 @@
             align-items: flex-end;
         }
 
-        /* Detailed Modal Card for Shop Items (پەنجەرا بینینا وێنە و پێزانینان) */
         .item-detail-modal {
             display: none;
             position: fixed;
@@ -474,10 +472,10 @@
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="buyEnergy()">بکڕە</button>
         </div>
 
-        <!-- تیمی یاریزانان (Squad) ل گەل دوگمەیا (بینین) ل ژێر دوگمەیا کڕینێ -->
+        <!-- تیمی یاریزانان (Squad) ب ناڤێ ڕاستەقینە یێ وێنەیێ تە (1000047306.jpg) -->
         <div class="shop-item-card">
             <div class="shop-thumb">
-                <img src="shop_item.jpg" alt="Squad">
+                <img src="1000047306.jpg" alt="Squad">
             </div>
             <div class="shop-info">
                 <h4>تیمی یاریزانان (Squad)</h4>
@@ -485,12 +483,12 @@
             </div>
             <div class="shop-actions">
                 <button class="btn btn-shop" style="width: auto; padding: 6px 14px; font-size: 13px;" onclick="buyItem(5, 'تیمی یاریزانان')">بکڕە</button>
-                <button class="btn-view" onclick="openItemDetail('تیمی یاریزانان (Squad)', 'ئەڤە پەکەکا تایبەتە ب تیمی یاریزانێن تە، شیان و هێزا تەک مفا ددەت و د یاریێ دا هاریکاریا تە دکەت.', '5 HEZ', 'shop_item.jpg')">👁️ بینین</button>
+                <button class="btn-view" onclick="openItemDetail('تیمی یاریزانان (Squad)', 'ئەڤە پەکەکا تایبەتە ب تیمی یاریزانێن تە، شیان و هێزا تەک مفا ددەت و د یاریێ دا هاریکاریا تە دکەت.', '5 HEZ', '1000047306.jpg')">👁️ بینین</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal بۆ نیشاندانا وێنەیێ مەزن و پێزانینان دەمێ دوگمەیا بینینێ لێ ددەیت -->
+    <!-- Modal بۆ نیشاندانا وێنەیێ مەزن و پێزانینان -->
     <div id="itemDetailModal" class="item-detail-modal" onclick="closeItemDetail()">
         <div class="detail-box" onclick="event.stopPropagation()">
             <img id="detailImg" src="" alt="Item Image">
@@ -712,7 +710,6 @@
             }
         }
 
-        // Functions بۆ نیشاندانا پەنجەرا بینینێ (View)
         function openItemDetail(title, desc, price, imgSrc) {
             document.getElementById('detailTitle').innerText = title;
             document.getElementById('detailDesc').innerText = desc;
