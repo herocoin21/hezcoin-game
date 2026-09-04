@@ -159,6 +159,28 @@
             100% { opacity: 0; transform: translateY(-70px) scale(1); }
         }
 
+        /* Use Button (جهێ بازنا شین) */
+        .use-pack-btn {
+            width: 100%;
+            max-width: 260px;
+            padding: 12px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: transform 0.1s ease;
+            outline: none;
+            margin-top: 15px;
+        }
+
+        .use-pack-btn:active {
+            transform: scale(0.95);
+        }
+
         .btn {
             width: 100%;
             padding: 12px;
@@ -324,29 +346,15 @@
         .nav-icon {
             font-size: 20px;
         }
-
-        .energy-bar-container {
-            width: 100%;
-            background: #334155;
-            height: 10px;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .energy-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #10b981, #34d399);
-            width: 100%;
-            transition: width 0.3s ease;
-        }
     </style>
 </head>
 <body>
 
+    <!-- جهێ بازنا سور: نیشاندانا پەکێتێن ئێنێرجی -->
     <div class="header">
         <div class="stat-box">
-            <span>⚡</span>
-            <span>ئێنێرجی: <span id="energy">5</span>/5</span>
+            <span>📦</span>
+            <span>پەکێت: <span id="energyPacks">5</span>/5</span>
         </div>
         <div class="stat-box">
             <img src="logo.png" alt="Coin" class="mini-coin-icon">
@@ -365,11 +373,8 @@
             <img src="logo.png" alt="Hero Coin Logo">
         </div>
 
-        <div style="width: 100%; max-width: 280px; margin-top: 10px;">
-            <div class="energy-bar-container">
-                <div class="energy-bar-fill" id="energyFill"></div>
-            </div>
-        </div>
+        <!-- جهێ بازنا شین: دوگمەیا USE بۆ مەزاختنا پەکێتی و ئینانە ژوورڤە یا 500 کلیکان -->
+        <button class="use-pack-btn" onclick="useEnergyPack()">⚡ Use Pack (+500 Clicks)</button>
     </div>
 
     <!-- ADS TAB -->
@@ -378,7 +383,7 @@
         <div class="card">
             <div>
                 <strong>(In-App) ڕێکلاما د ناڤ تەلەگرامێ</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">+1 ئێنێرجی + 0.0001 HEZ</p>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+1 پەکێتێ ئێنێرجی + 0.0001 HEZ</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
         </div>
@@ -410,7 +415,7 @@
         <!-- Energy Refill Item -->
         <div class="card">
             <div>
-                <strong>پڕکرنا ئێنێرجیێ</strong>
+                <strong>پڕکرنا پەکێتان</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow);">کڕین ب 0.001 HEZ</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="buyEnergy()">بکڕە</button>
@@ -467,26 +472,23 @@
         }
 
         let balance = parseFloat(localStorage.getItem('hez_balance')) || 0;
-        let energy = parseFloat(localStorage.getItem('hez_energy')) || 5.0;
-        const maxEnergy = 5.0;
-        let tapCount = parseInt(localStorage.getItem('hez_tap_count')) || 0;
+        let energyPacks = parseInt(localStorage.getItem('hez_packs')) || 5;
+        let currentClicks = parseInt(localStorage.getItem('hez_current_clicks')) || 0;
+        const maxClicksPerPack = 500;
 
         const balanceEl = document.getElementById('balance');
         const coinsHeaderEl = document.getElementById('coins-header');
-        const energyEl = document.getElementById('energy');
-        const energyFillEl = document.getElementById('energyFill');
+        const energyPacksEl = document.getElementById('energyPacks');
         const coinBtn = document.getElementById('coinBtn');
 
         function updateUI() {
             balanceEl.innerText = balance.toFixed(6);
             coinsHeaderEl.innerText = balance.toFixed(6);
-            // نیشاندانا ئێنێرجیێ ب ژمارا دروست (بێ پاشگرێن درێژ)
-            energyEl.innerText = energy.toFixed(1);
-            energyFillEl.style.width = (energy / maxEnergy * 100) + '%';
+            energyPacksEl.innerText = energyPacks;
             
             localStorage.setItem('hez_balance', balance);
-            localStorage.setItem('hez_energy', energy);
-            localStorage.setItem('hez_tap_count', tapCount);
+            localStorage.setItem('hez_packs', energyPacks);
+            localStorage.setItem('hez_current_clicks', currentClicks);
         }
 
         function switchTab(tabId, el) {
@@ -496,24 +498,36 @@
             el.classList.add('active');
         }
 
-        coinBtn.addEventListener('click', (e) => {
-            if (energy < 0.01) {
-                if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
-                alert('ئێنێرجیا تە ب دوماهیک هات!');
+        // بەکارهێنانا پەکێتی ب دوگمەیا USE
+        function useEnergyPack() {
+            if (currentClicks > 0) {
+                alert('هێشتا کلیکێن پەکێتێ یێن بەردەست هەنە!');
+                return;
+            }
+            if (energyPacks <= 0) {
+                alert('پەکێتێن تە یێن ئێنێرجی نەمانە! تەماشای ڕێکلامان بکە یان بکڕە.');
                 return;
             }
 
-            // Click adds coin and decreases energy by 0.01 (so 100 clicks = 1 energy, total 500 clicks for 5 energy)
+            energyPacks -= 1;
+            currentClicks = maxClicksPerPack;
+            updateUI();
+            alert('پیرۆزە! پەکێتەک هاتە ڤەکرن و 500 کلیک بۆ هاتە زێدەکرن.');
+        }
+
+        coinBtn.addEventListener('click', (e) => {
+            if (currentClicks <= 0) {
+                if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
+                alert('کلیکێن ڤی پەکێتی ب دوماهیک هاتن! دوگمەیا USE بکاربینە.');
+                return;
+            }
+
             balance += 0.000001;
-            energy -= 0.01;
-            if (energy < 0) energy = 0;
-            
-            tapCount += 1;
+            currentClicks -= 1;
             updateUI();
 
             if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
-            // Floating square box for click feedback
             const rect = coinBtn.getBoundingClientRect();
             const floatBox = document.createElement('div');
             floatBox.className = 'float-box';
@@ -523,17 +537,7 @@
             coinBtn.appendChild(floatBox);
 
             setTimeout(() => floatBox.remove(), 800);
-
-            // Show Ad every 170 clicks
-            if (tapCount % 170 === 0 && typeof show_11724459 === 'function') {
-                show_11724459('pop').then(() => {
-                    balance += 0.0001;
-                    updateUI();
-                }).catch(err => console.log(err));
-            }
         });
-
-        // زێدەکرنا خودکار یا ئێنێرجیێ هاتیە لادان، چونکی تە دڤێت ب تنێ ب ڕێکلامان ئێنێرجی بگەڕێتەڤە
 
         function watchAdForEnergy() {
             const adBtn = document.getElementById('adBtn');
@@ -557,11 +561,10 @@
                         adHandled = true;
                         clearTimeout(safetyTimeout);
                         
-                        // زێدەکرنا 1 ئێنێرجی (یان پڕکرنا ڤەگەراندنا تەڤایا 5 ئێنێرجیان لدیڤ خواستا تە)
-                        energy = maxEnergy; 
+                        energyPacks += 1;
                         balance += 0.0001;
                         updateUI();
-                        alert('پیرۆزە! تە ڕێکلام تەماشا کر و 1 ئێنێرجیا تە هاتە پڕکرن.');
+                        alert('پیرۆزە! تە ڕێکلام تەماشا کر و 1 پەکێتێ ئێنێرجی بۆ زێدە بوو.');
                         adBtn.disabled = false;
                         adBtn.innerText = 'تەماشابکە';
                     }
@@ -591,9 +594,9 @@
         function buyEnergy() {
             if (balance >= 0.001) {
                 balance -= 0.001;
-                energy = maxEnergy;
+                energyPacks += 1;
                 updateUI();
-                alert('ئێنێرجیا تە ب تەمامی پڕ بوویەوە!');
+                alert('پەکێتەکا ئێنێرجی هاتە کڕین!');
             } else {
                 alert('کۆینێن تە نەتێرن!');
             }
