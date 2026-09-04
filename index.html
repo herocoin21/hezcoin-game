@@ -13,12 +13,12 @@
     <style>
         :root {
             --bg-color: #0f172a;
-            --card-bg: #1e293b;
+            --card-bg: rgba(30, 41, 59, 0.85);
             --accent-yellow: #f59e0b;
             --accent-green: #10b981;
             --accent-blue: #3b82f6;
             --text-color: #f8fafc;
-            --text-muted: #94a3b8;
+            --text-muted: #cbd5e1;
         }
 
         * {
@@ -32,6 +32,11 @@
 
         body {
             background-color: var(--bg-color);
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -49,9 +54,11 @@
             justify-content: space-between;
             align-items: center;
             background: var(--card-bg);
+            backdrop-filter: blur(8px);
             padding: 12px 16px;
             border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .stat-box {
@@ -80,7 +87,7 @@
             font-size: 40px;
             font-weight: 800;
             color: var(--accent-yellow);
-            text-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -93,7 +100,7 @@
             border-radius: 50%;
             background: #000000;
             border: 6px solid #f59e0b;
-            box-shadow: 0 0 35px rgba(245, 158, 11, 0.6), inset 0 0 15px rgba(0,0,0,0.5);
+            box-shadow: 0 0 35px rgba(245, 158, 11, 0.7), inset 0 0 15px rgba(0,0,0,0.5);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -123,7 +130,7 @@
             color: #fbbf24;
             pointer-events: none;
             animation: floatUp 0.8s ease-out forwards;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
             z-index: 10;
         }
 
@@ -144,7 +151,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             margin-top: 10px;
         }
 
@@ -161,6 +168,7 @@
         .card {
             width: 100%;
             background: var(--card-bg);
+            backdrop-filter: blur(8px);
             padding: 16px;
             border-radius: 14px;
             margin-bottom: 10px;
@@ -168,6 +176,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .navbar {
@@ -175,7 +184,8 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: #1e293b;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
@@ -239,7 +249,6 @@
             <span id="balance">0</span>
         </div>
         
-        <!-- COIN BUTTON WITH CUSTOM LOGO -->
         <div class="coin-button" id="coinBtn">
             <img src="logo.png" alt="HEZ COIN Logo">
         </div>
@@ -256,7 +265,7 @@
         <h2 style="margin-bottom: 15px;">🎬 تەماشایا ڕێکلامان بکە</h2>
         <div class="card">
             <div>
-                <strong>(In-App) ڕێکلاما د ناڤ تەلەگرامی</strong>
+                <strong>(In-App) ڕێکلاما د ناڤ تەلەگرامێ</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow);">+500 ئێنێرجی + 100 HEZ</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
@@ -352,7 +361,6 @@
             el.classList.add('active');
         }
 
-        // Tap Logic & Pop Ad
         coinBtn.addEventListener('click', (e) => {
             if (energy <= 0) {
                 if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
@@ -377,7 +385,6 @@
 
             setTimeout(() => floatEl.remove(), 800);
 
-            // Trigger Pop Ad every 15 taps
             if (tapCount % 15 === 0 && typeof show_11724459 === 'function') {
                 show_11724459('pop').then(() => {
                     balance += 5;
@@ -393,7 +400,6 @@
             }
         }, 3000);
 
-        // Ads Logic
         function watchAdForEnergy() {
             const adBtn = document.getElementById('adBtn');
             adBtn.disabled = true;
