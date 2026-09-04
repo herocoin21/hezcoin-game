@@ -88,20 +88,28 @@
         }
 
         .coin-button {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
-            background: radial-gradient(circle, #fbbf24 0%, #d97706 100%);
-            border: 8px solid #fef3c7;
-            box-shadow: 0 0 35px rgba(245, 158, 11, 0.6), inset 0 0 15px rgba(0,0,0,0.2);
+            background: #000000;
+            border: 6px solid #f59e0b;
+            box-shadow: 0 0 35px rgba(245, 158, 11, 0.6), inset 0 0 15px rgba(0,0,0,0.5);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 80px;
             transition: transform 0.08s ease;
             position: relative;
             margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .coin-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .coin-button:active {
@@ -110,12 +118,13 @@
 
         .float-text {
             position: absolute;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 800;
-            color: #ffffff;
+            color: #fbbf24;
             pointer-events: none;
             animation: floatUp 0.8s ease-out forwards;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            z-index: 10;
         }
 
         @keyframes floatUp {
@@ -230,7 +239,10 @@
             <span id="balance">0</span>
         </div>
         
-        <div class="coin-button" id="coinBtn">🦅</div>
+        <!-- COIN BUTTON WITH CUSTOM LOGO -->
+        <div class="coin-button" id="coinBtn">
+            <img src="logo.png" alt="HEZ COIN Logo">
+        </div>
 
         <div style="width: 100%; max-width: 280px; margin-top: 10px;">
             <div class="energy-bar-container">
@@ -381,7 +393,7 @@
             }
         }, 3000);
 
-        // Ads Logic with Safety Timer (Safety Timeout)
+        // Ads Logic
         function watchAdForEnergy() {
             const adBtn = document.getElementById('adBtn');
             adBtn.disabled = true;
@@ -389,7 +401,6 @@
 
             let adHandled = false;
 
-            // ئەگەر دوای 6 چڕکە ڕێکلام بار نەبوو، کۆدەکە تایمەر بپچڕێنێت
             const safetyTimeout = setTimeout(() => {
                 if (!adHandled) {
                     adHandled = true;
