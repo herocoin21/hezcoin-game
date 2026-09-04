@@ -428,12 +428,12 @@
 
     <!-- TAP TAB -->
     <div id="tapTab" class="tab-content active">
-        <!-- جزدانک ب ناڤێ دراڤی (HEZ یان IQD) ل ڕەخێ چەپێ -->
+        <!-- جزدانک ب ناڤێ دراڤی (HEZ) ل ڕەخێ چەپێ -->
         <div class="wallet-badge">
             <div class="wallet-icon-box">
                 <img src="logo.png" alt="Coin" class="mini-coin-icon">
             </div>
-            <span id="balance">25965.985686</span>
+            <span id="balance">0.000000</span>
             <span class="currency-tag">HEZ</span>
         </div>
         
@@ -551,21 +551,42 @@
         </div>
     </div>
 
-    <script>
+    <!-- Firebase SDK & Script Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBLAm1amoybyoAdCGZLfTbZzUkspPIEmhk",
+            authDomain: "hez-coin-bot.firebaseapp.com",
+            projectId: "hez-coin-bot",
+            storageBucket: "hez-coin-bot.firebasestorage.app",
+            messagingSenderId: "374007175499",
+            appId: "1:374007175499:web:5c58392a3f4bd98d5770ce",
+            measurementId: "G-31GMRY1VFP"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
         const tg = window.Telegram ? window.Telegram.WebApp : null;
         if (tg) {
             tg.expand();
             tg.ready();
         }
 
-        let balance = parseFloat(localStorage.getItem('hez_balance')) || 25965.985686;
-        let energyPacks = parseInt(localStorage.getItem('hez_packs')) || 4;
-        let currentClicks = parseInt(localStorage.getItem('hez_current_clicks')) || 500;
+        const userId = tg?.initDataUnsafe?.user?.id ? String(tg.initDataUnsafe.user.id) : "test_user_123";
+        const userName = tg?.initDataUnsafe?.user?.first_name || "Test User";
+        const userRef = doc(db, "users", userId);
+
+        let balance = 0;
+        let energyPacks = 4;
+        let currentClicks = 500;
         const maxClicksPerPack = 500;
         const maxPacks = 5;
         
         const packIntervalSeconds = 17280; 
-        let lastPackTime = parseInt(localStorage.getItem('hez_last_pack_time')) || Date.now();
+        let lastPackTime = Date.now();
 
         const balanceEl = document.getElementById('balance');
         const energyPacksEl = document.getElementById('energyPacks');
@@ -573,15 +594,56 @@
         const packTimerTextEl = document.getElementById('packTimerText');
         const coinBtn = document.getElementById('coinBtn');
 
+        async function initUser() {
+            try {
+                const docSnap = await getDoc(userRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    balance = data.balance !== undefined ? data.balance : 25965.985686;
+                    energyPacks = data.energyPacks !== undefined ? data.energyPacks : 4;
+                    currentClicks = data.currentClicks !== undefined ? data.currentClicks : 500;
+                    lastPackTime = data.lastPackTime || Date.now();
+                } else {
+                    balance = 25965.985686;
+                    energyPacks = 4;
+                    currentClicks = 500;
+                    lastPackTime = Date.now();
+                    await setDoc(userRef, {
+                        name: userName,
+                        balance: balance,
+                        energyPacks: energyPacks,
+                        currentClicks: currentClicks,
+                        lastPackTime: lastPackTime,
+                        createdAt: new Date()
+                    });
+                }
+                updateUI();
+                checkPackTimer();
+            } catch (error) {
+                console.error("Error loading user data from Firebase:", error);
+                updateUI();
+            }
+        }
+
+        async function syncToFirebase() {
+            try {
+                await updateDoc(userRef, {
+                    balance: balance,
+                    energyPacks: energyPacks,
+                    currentClicks: currentClicks,
+                    lastPackTime: lastPackTime
+                });
+            } catch (error) {
+                console.error("Error updating Firebase:", error);
+            }
+        }
+
         function updateUI() {
             balanceEl.innerText = balance.toFixed(6);
             energyPacksEl.innerText = energyPacks;
             currentClicksEl.innerText = currentClicks;
             
-            localStorage.setItem('hez_balance', balance);
-            localStorage.setItem('hez_packs', energyPacks);
-            localStorage.setItem('hez_current_clicks', currentClicks);
-            localStorage.setItem('hez_last_pack_time', lastPackTime);
+            syncToFirebase();
         }
 
         function checkPackTimer() {
@@ -616,14 +678,14 @@
 
         setInterval(checkPackTimer, 1000);
 
-        function switchTab(tabId, el) {
+        window.switchTab = function(tabId, el) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             el.classList.add('active');
         }
 
-        function useEnergyPack() {
+        window.useEnergyPack = function() {
             if (currentClicks > 0) {
                 alert('هێشتا ئێنێرجیا ڤی پەکێتی نەقەدیایە!');
                 return;
@@ -663,7 +725,7 @@
             setTimeout(() => floatBox.remove(), 800);
         });
 
-        function watchAdForEnergy() {
+        window.watchAdForEnergy = function() {
             const adBtn = document.getElementById('adBtn');
             adBtn.disabled = true;
             adBtn.innerText = 'ڕێکلام بار دبت...';
@@ -707,13 +769,13 @@
             }
         }
 
-        function completeTask(reward) {
+        window.completeTask = function(reward) {
             balance += reward;
             updateUI();
             alert(`پیرۆزە! ${reward} HEZ هاتە زێدەکرن.`);
         }
 
-        function buyEnergy() {
+        window.buyEnergy = function() {
             if (energyPacks >= maxPacks) {
                 alert('پەکێتێن تە تێرن (5/5)!');
                 return;
@@ -728,7 +790,7 @@
             }
         }
 
-        function buyItem(price, itemName) {
+        window.buyItem = function(price, itemName) {
             if (balance >= price) {
                 balance -= price;
                 updateUI();
@@ -738,7 +800,7 @@
             }
         }
 
-        function openItemDetail(title, desc, price, imgSrc) {
+        window.openItemDetail = function(title, desc, price, imgSrc) {
             document.getElementById('detailTitle').innerText = title;
             document.getElementById('detailDesc').innerText = desc;
             document.getElementById('detailPrice').innerText = "نرخ: " + price;
@@ -746,11 +808,11 @@
             document.getElementById('itemDetailModal').style.display = 'flex';
         }
 
-        function closeItemDetail() {
+        window.closeItemDetail = function() {
             document.getElementById('itemDetailModal').style.display = 'none';
         }
 
-        function inviteFriend() {
+        window.inviteFriend = function() {
             if (tg) {
                 tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/hezcoin_bot&text=وەرە%20د%20یارییا%20HEZ%20COIN%20دا%20بەشدار%20ببە!`);
             } else {
@@ -758,8 +820,8 @@
             }
         }
 
-        updateUI();
-        checkPackTimer();
+        // Start user data fetch from Firebase
+        initUser();
     </script>
 </body>
 </html>
