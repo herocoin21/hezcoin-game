@@ -135,7 +135,6 @@
             100% { opacity: 0; transform: translateY(-50px) scale(1); }
         }
 
-        /* HUD Panel */
         .game-hud-panel {
             width: 100%;
             max-width: 280px;
@@ -373,13 +372,12 @@
             <img src="logo.png" alt="Hero Coin Logo">
         </div>
 
-        <!-- HUD Panel (Package Timer + Energy) -->
+        <!-- HUD Panel -->
         <div class="game-hud-panel">
             <div class="hud-row">
                 <span>📦 پەکێت:</span>
                 <span style="color: var(--accent-yellow);"><span id="energyPacks">4</span>/5</span>
             </div>
-            <!-- دەمژمێرا پەکێتا لدووڤ -->
             <div class="hud-timer-sub" id="packTimerText">پەکێتا داهاتی: 04:48:00</div>
             
             <div class="hud-divider"></div>
@@ -490,7 +488,6 @@
         const maxClicksPerPack = 500;
         const maxPacks = 5;
         
-        // 24 hours / 5 packs = 4.8 hours = 17280 seconds per pack
         const packIntervalSeconds = 17280; 
         let lastPackTime = parseInt(localStorage.getItem('hez_last_pack_time')) || Date.now();
 
@@ -511,7 +508,6 @@
             localStorage.setItem('hez_last_pack_time', lastPackTime);
         }
 
-        // پشکنینا دەمی بۆ زێدەبوونا پەکێتان ب خۆ بخۆ
         function checkPackTimer() {
             if (energyPacks >= maxPacks) {
                 lastPackTime = Date.now();
@@ -530,7 +526,6 @@
                 updateUI();
             }
 
-            // هژمارتنا دەمی (Countdown)
             const hours = Math.floor(remainingSeconds / 3600);
             const minutes = Math.floor((remainingSeconds % 3600) / 60);
             const seconds = remainingSeconds % 60;
@@ -595,17 +590,19 @@
         function watchAdForEnergy() {
             const adBtn = document.getElementById('adBtn');
             adBtn.disabled = true;
-            adBtn.innerText = 'چاوەڕێ بە...';
+            adBtn.innerText = 'ڕێکلام بار دبت...';
 
             let adHandled = false;
+            
+            // دەمێ چاوەڕێکرنێ هاتە بلندکرن بۆ 15 چرکان دا زوو پەیاما شاش نەدەت
             const safetyTimeout = setTimeout(() => {
                 if (!adHandled) {
                     adHandled = true;
-                    alert('ل ڤی دەمی دا ڕێکلامەک ئامادە نینە.');
+                    alert('ل ڤی دەمی دا ڕێکلام هێشتا ل سێرڤەری بار نەبوویە، تکایە دووبارە تاقی بکە.');
                     adBtn.disabled = false;
                     adBtn.innerText = 'تەماشابکە';
                 }
-            }, 6000);
+            }, 15000);
 
             if (typeof show_11724459 === 'function') {
                 show_11724459().then(() => {
@@ -623,14 +620,14 @@
                     if (!adHandled) {
                         adHandled = true;
                         clearTimeout(safetyTimeout);
-                        alert('ڕێکلام نەهاتە تەماشاکرن.');
+                        alert('ڕێکلام نەهاتە بارکرن.');
                         adBtn.disabled = false;
                         adBtn.innerText = 'تەماشابکە';
                     }
                 });
             } else {
                 clearTimeout(safetyTimeout);
-                alert('کۆدێ SDK یێ ڕێکلامێ بار نەبوویە.');
+                alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە.');
                 adBtn.disabled = false;
                 adBtn.innerText = 'تەماشابکە';
             }
