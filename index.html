@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Hero Coin - Telegram Mini App</title>
+    <title>Hez Coin - Telegram Mini App</title>
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
@@ -159,7 +159,7 @@
             100% { opacity: 0; transform: translateY(-70px) scale(1); }
         }
 
-        /* Use Button (جهێ بازنا شین) */
+        /* دوگمەیا USE ل جهێ هێلا شین/کەسک */
         .use-pack-btn {
             width: 100%;
             max-width: 260px;
@@ -350,7 +350,7 @@
 </head>
 <body>
 
-    <!-- جهێ بازنا سور: نیشاندانا پەکێتێن ئێنێرجی -->
+    <!-- جهێ پەکێتان (ل سەرێ شاشێ) -->
     <div class="header">
         <div class="stat-box">
             <span>📦</span>
@@ -373,7 +373,7 @@
             <img src="logo.png" alt="Hero Coin Logo">
         </div>
 
-        <!-- جهێ بازنا شین: دوگمەیا USE بۆ مەزاختنا پەکێتی و ئینانە ژوورڤە یا 500 کلیکان -->
+        <!-- دوگمەیا Use بۆ مەزاختنا پەکێتی و ئینانا 500 کلیکان (ل جهێ هێلا شین) -->
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ Use Pack (+500 Clicks)</button>
     </div>
 
@@ -412,7 +412,6 @@
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">🛒 فرۆشگەهـ</h2>
         
-        <!-- Energy Refill Item -->
         <div class="card">
             <div>
                 <strong>پڕکرنا پەکێتان</strong>
@@ -421,7 +420,6 @@
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="buyEnergy()">بکڕە</button>
         </div>
 
-        <!-- Squad / Player Card Item -->
         <div class="shop-item-card">
             <div class="shop-thumb" onclick="openImageModal('shop_item.jpg')">
                 <img src="shop_item.jpg" alt="Squad / Item">
@@ -471,7 +469,7 @@
             tg.ready();
         }
 
-        let balance = parseFloat(localStorage.getItem('hez_balance')) || 0;
+        let balance = parseFloat(localStorage.getItem('hez_balance')) || 25965.985650;
         let energyPacks = parseInt(localStorage.getItem('hez_packs')) || 5;
         let currentClicks = parseInt(localStorage.getItem('hez_current_clicks')) || 0;
         const maxClicksPerPack = 500;
@@ -498,27 +496,27 @@
             el.classList.add('active');
         }
 
-        // بەکارهێنانا پەکێتی ب دوگمەیا USE
+        // دوگمەیا Use بۆ مەزاختنا پەکێتی و زێدەکرنا 500 کلیکان
         function useEnergyPack() {
             if (currentClicks > 0) {
-                alert('هێشتا کلیکێن پەکێتێ یێن بەردەست هەنە!');
+                alert('هێشتا کلیکێن ڤی پەکێتی نەقەدیانە!');
                 return;
             }
             if (energyPacks <= 0) {
-                alert('پەکێتێن تە یێن ئێنێرجی نەمانە! تەماشای ڕێکلامان بکە یان بکڕە.');
+                alert('پەکێتێن تە نەمانە! تەماشای ڕێکلامان بکە یان بکڕە.');
                 return;
             }
 
             energyPacks -= 1;
             currentClicks = maxClicksPerPack;
             updateUI();
-            alert('پیرۆزە! پەکێتەک هاتە ڤەکرن و 500 کلیک بۆ هاتە زێدەکرن.');
+            alert('پیرۆزە! پەکێتەک هاتە مەزاختن و 500 کلیک بۆ تە هاتنە ڤەکرن.');
         }
 
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
-                alert('کلیکێن ڤی پەکێتی ب دوماهیک هاتن! دوگمەیا USE بکاربینە.');
+                alert('کلیکێن پەکێتی ب دوماهیک هاتن! ل دوگمەیا USE بدە دا پەکێتەکێ بکاربێنی.');
                 return;
             }
 
@@ -549,7 +547,7 @@
             const safetyTimeout = setTimeout(() => {
                 if (!adHandled) {
                     adHandled = true;
-                    alert('ل ڤی دەمی دا ڕێکلامەکا ئامادەکری نینە. ب تکایێ پاشان دووبارە ب هەوڵدە.');
+                    alert('ل ڤی دەمی دا ڕێکلامەک ئامادە نینە.');
                     adBtn.disabled = false;
                     adBtn.innerText = 'تەماشابکە';
                 }
@@ -564,11 +562,11 @@
                         energyPacks += 1;
                         balance += 0.0001;
                         updateUI();
-                        alert('پیرۆزە! تە ڕێکلام تەماشا کر و 1 پەکێتێ ئێنێرجی بۆ زێدە بوو.');
+                        alert('پیرۆزە! 1 پەکێت بۆ تە هاتە زێدەکرن.');
                         adBtn.disabled = false;
                         adBtn.innerText = 'تەماشابکە';
                     }
-                }).catch((err) => {
+                }).catch(() => {
                     if (!adHandled) {
                         adHandled = true;
                         clearTimeout(safetyTimeout);
@@ -588,7 +586,7 @@
         function completeTask(reward) {
             balance += reward;
             updateUI();
-            alert(`پیرۆزە! ${reward} HEZ COIN هاتنە زێدەکرن.`);
+            alert(`پیرۆزە! ${reward} HEZ هاتە زێدەکرن.`);
         }
 
         function buyEnergy() {
@@ -606,16 +604,15 @@
             if (balance >= price) {
                 balance -= price;
                 updateUI();
-                alert(`پیرۆزە! تە '${itemName}' ب سەرکەوتوویی کڕی!`);
+                alert(`پیرۆزە! تە '${itemName}' بکڕی.`);
             } else {
-                alert('کۆینێن تە بێ هێزن بۆ کڕینا ڤی بەرهەمی!');
+                alert('کۆینێن تە کێمن!');
             }
         }
 
         function openImageModal(imgSrc) {
             const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImg');
-            modalImg.src = imgSrc;
+            document.getElementById('modalImg').src = imgSrc;
             modal.style.display = 'flex';
         }
 
@@ -627,7 +624,7 @@
             if (tg) {
                 tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/hezcoin_bot&text=وەرە%20د%20یارییا%20HEZ%20COIN%20دا%20بەشدار%20ببە!`);
             } else {
-                alert('لینکی تە هاتە کۆپیکرن.');
+                alert('لینک هاتە کۆپیکرن.');
             }
         }
 
