@@ -69,6 +69,17 @@
             font-weight: 600;
         }
 
+        /* Styling for tiny coin icon in header and balance */
+        .mini-coin-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--accent-yellow);
+            display: inline-block;
+            vertical-align: middle;
+        }
+
         .tab-content {
             display: none;
             width: 100%;
@@ -335,7 +346,7 @@
             <span>ئێنێرجی: <span id="energy">500</span>/500</span>
         </div>
         <div class="stat-box">
-            <span>🪙</span>
+            <img src="logo.png" alt="Coin" class="mini-coin-icon">
             <span>HEZ: <span id="coins-header">0.000000</span></span>
         </div>
     </div>
@@ -343,7 +354,7 @@
     <!-- TAP TAB -->
     <div id="tapTab" class="tab-content active">
         <div class="coin-balance">
-            <span>🪙</span>
+            <img src="logo.png" alt="Coin" class="mini-coin-icon" style="width: 32px; height: 32px;">
             <span id="balance">0.000000</span>
         </div>
         
