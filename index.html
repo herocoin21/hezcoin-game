@@ -43,42 +43,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 16px;
+            justify-content: space-between;
+            padding: 12px 16px;
             text-align: center;
             overflow: hidden;
-        }
-
-        /* سەرێ شاشێ: تنێ پەکێت */
-        .header {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: var(--card-bg);
-            backdrop-filter: blur(8px);
-            padding: 8px 14px;
-            border-radius: 14px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .stat-box {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .mini-coin-icon {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid var(--accent-yellow);
-            display: inline-block;
-            vertical-align: middle;
         }
 
         .tab-content {
@@ -88,9 +56,9 @@
             flex-direction: column;
             align-items: center;
             margin: auto 0;
-            padding-bottom: 70px;
+            padding-bottom: 60px;
             overflow-y: auto;
-            max-height: calc(100vh - 100px);
+            max-height: calc(100vh - 80px);
         }
 
         .tab-content.active {
@@ -98,30 +66,38 @@
         }
 
         .coin-balance {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 800;
             color: var(--accent-yellow);
             text-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 5px;
+            gap: 8px;
+            margin-bottom: 2px;
+        }
+
+        .mini-coin-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--accent-yellow);
         }
 
         .coin-button {
-            width: 180px;
-            height: 180px;
+            width: 165px;
+            height: 165px;
             border-radius: 50%;
             background: transparent;
-            border: 5px solid #f59e0b;
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.7), inset 0 0 15px rgba(0,0,0,0.5);
+            border: 4px solid #f59e0b;
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.6), inset 0 0 15px rgba(0,0,0,0.5);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: transform 0.08s ease;
             position: relative;
-            margin: 5px 0;
+            margin: 4px 0;
             overflow: hidden;
             outline: none;
         }
@@ -132,7 +108,6 @@
             object-fit: cover;
             border-radius: 50%;
             pointer-events: none;
-            background: transparent;
         }
 
         .coin-button:active {
@@ -143,9 +118,9 @@
             position: absolute;
             background: rgba(15, 23, 42, 0.9);
             border: 2px solid var(--accent-yellow);
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
             color: #fbbf24;
             pointer-events: none;
@@ -156,40 +131,60 @@
 
         @keyframes floatUpSquare {
             0% { opacity: 1; transform: translateY(0) scale(0.8); }
-            50% { transform: translateY(-30px) scale(1.1); }
-            100% { opacity: 0; transform: translateY(-60px) scale(1); }
+            50% { transform: translateY(-25px) scale(1.1); }
+            100% { opacity: 0; transform: translateY(-50px) scale(1); }
         }
 
-        /* ئێنێرجیا ل بن کۆینێ */
-        .energy-status-container {
+        /* سندوقێ پێکڤەیی بۆ پەکێت و ئێنێرجی ل بن کۆینێ */
+        .game-hud-panel {
+            width: 100%;
+            max-width: 280px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 16px;
+            padding: 10px 14px;
+            margin-top: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 220px;
-            margin-top: 8px;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-color);
+            flex-direction: column;
+            gap: 8px;
         }
 
+        .hud-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .hud-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* دوگمەیا USE یا گونجایی ل بن پانێلی */
         .use-pack-btn {
-            width: 180px;
-            padding: 8px 10px;
+            width: 100%;
+            max-width: 280px;
+            padding: 9px;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
-            border-radius: 18px;
-            font-size: 13px;
+            border-radius: 14px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
             transition: transform 0.1s ease;
             outline: none;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .use-pack-btn:active {
-            transform: scale(0.94);
+            transform: scale(0.95);
         }
 
         .btn {
@@ -228,7 +223,7 @@
             width: 100%;
             background: var(--card-bg);
             backdrop-filter: blur(8px);
-            padding: 16px;
+            padding: 14px;
             border-radius: 14px;
             margin-bottom: 12px;
             text-align: left;
@@ -253,14 +248,13 @@
         }
 
         .shop-thumb {
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             border-radius: 10px;
             overflow: hidden;
             border: 2px solid var(--accent-yellow);
             cursor: pointer;
             flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         .shop-thumb img {
@@ -271,12 +265,12 @@
 
         .shop-info {
             flex-grow: 1;
-            margin: 0 12px;
+            margin: 0 10px;
             text-align: left;
         }
 
         .shop-info h4 {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text-color);
             margin-bottom: 4px;
@@ -361,18 +355,10 @@
 </head>
 <body>
 
-    <!-- سەرێ شاشێ: تنێ پەکێت -->
-    <div class="header">
-        <div class="stat-box">
-            <span>📦</span>
-            <span>پەکێت: <span id="energyPacks">4</span>/5</span>
-        </div>
-    </div>
-
     <!-- TAP TAB -->
     <div id="tapTab" class="tab-content active">
         <div class="coin-balance">
-            <img src="logo.png" alt="Coin" class="mini-coin-icon" style="width: 30px; height: 30px;">
+            <img src="logo.png" alt="Coin" class="mini-coin-icon">
             <span id="balance">25965.985686</span>
         </div>
         
@@ -380,13 +366,20 @@
             <img src="logo.png" alt="Hero Coin Logo">
         </div>
 
-        <!-- ئێنێرجی لێرە دکەفتە ژێر کۆینێ -->
-        <div class="energy-status-container">
-            <span>⚡ ئێنێرجی</span>
-            <span><span id="currentClicks">500</span> / 500</span>
+        <!-- پانێلا پێکڤەیی (پەکێت + ئێنێرجی) ل ژێر کۆینێ -->
+        <div class="game-hud-panel">
+            <div class="hud-row">
+                <span>📦 پەکێت:</span>
+                <span style="color: var(--accent-yellow);"><span id="energyPacks">4</span>/5</span>
+            </div>
+            <div class="hud-divider"></div>
+            <div class="hud-row">
+                <span>⚡ ئێنێرجی:</span>
+                <span><span id="currentClicks">500</span> / 500</span>
+            </div>
         </div>
 
-        <!-- دوگمەیا USE -->
+        <!-- دوگمەیا USE یا جوان و ستایلی -->
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
