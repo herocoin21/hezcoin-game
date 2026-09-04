@@ -135,11 +135,11 @@
             100% { opacity: 0; transform: translateY(-50px) scale(1); }
         }
 
-        /* سندوقێ پێکڤەیی بۆ پەکێت و ئێنێرجی ل بن کۆینێ */
+        /* HUD Panel */
         .game-hud-panel {
             width: 100%;
             max-width: 280px;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(245, 158, 11, 0.3);
             border-radius: 16px;
@@ -148,7 +148,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         .hud-row {
@@ -159,13 +159,20 @@
             font-weight: 700;
         }
 
+        .hud-timer-sub {
+            font-size: 11px;
+            color: var(--accent-yellow);
+            text-align: right;
+            margin-top: -2px;
+            font-weight: 600;
+        }
+
         .hud-divider {
             width: 100%;
             height: 1px;
             background: rgba(255, 255, 255, 0.1);
         }
 
-        /* دوگمەیا USE یا گونجایی ل بن پانێلی */
         .use-pack-btn {
             width: 100%;
             max-width: 280px;
@@ -366,12 +373,15 @@
             <img src="logo.png" alt="Hero Coin Logo">
         </div>
 
-        <!-- پانێلا پێکڤەیی (پەکێت + ئێنێرجی) ل ژێر کۆینێ -->
+        <!-- HUD Panel (Package Timer + Energy) -->
         <div class="game-hud-panel">
             <div class="hud-row">
                 <span>📦 پەکێت:</span>
                 <span style="color: var(--accent-yellow);"><span id="energyPacks">4</span>/5</span>
             </div>
+            <!-- دەمژمێرا پەکێتا لدووڤ -->
+            <div class="hud-timer-sub" id="packTimerText">پەکێتا داهاتی: 04:48:00</div>
+            
             <div class="hud-divider"></div>
             <div class="hud-row">
                 <span>⚡ ئێنێرجی:</span>
@@ -379,7 +389,6 @@
             </div>
         </div>
 
-        <!-- دوگمەیا USE یا جوان و ستایلی -->
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
@@ -479,10 +488,16 @@
         let energyPacks = parseInt(localStorage.getItem('hez_packs')) || 4;
         let currentClicks = parseInt(localStorage.getItem('hez_current_clicks')) || 500;
         const maxClicksPerPack = 500;
+        const maxPacks = 5;
+        
+        // 24 hours / 5 packs = 4.8 hours = 17280 seconds per pack
+        const packIntervalSeconds = 17280; 
+        let lastPackTime = parseInt(localStorage.getItem('hez_last_pack_time')) || Date.now();
 
         const balanceEl = document.getElementById('balance');
         const energyPacksEl = document.getElementById('energyPacks');
         const currentClicksEl = document.getElementById('currentClicks');
+        const packTimerTextEl = document.getElementById('packTimerText');
         const coinBtn = document.getElementById('coinBtn');
 
         function updateUI() {
@@ -493,7 +508,42 @@
             localStorage.setItem('hez_balance', balance);
             localStorage.setItem('hez_packs', energyPacks);
             localStorage.setItem('hez_current_clicks', currentClicks);
+            localStorage.setItem('hez_last_pack_time', lastPackTime);
         }
+
+        // پشکنینا دەمی بۆ زێدەبوونا پەکێتان ب خۆ بخۆ
+        function checkPackTimer() {
+            if (energyPacks >= maxPacks) {
+                lastPackTime = Date.now();
+                packTimerTextEl.innerText = "پەکێت تێرن (5/5)";
+                return;
+            }
+
+            const now = Date.now();
+            const elapsedSeconds = Math.floor((now - lastPackTime) / 1000);
+            const remainingSeconds = packIntervalSeconds - (elapsedSeconds % packIntervalSeconds);
+            const packsToAdd = Math.floor(elapsedSeconds / packIntervalSeconds);
+
+            if (packsToAdd > 0) {
+                energyPacks = Math.min(maxPacks, energyPacks + packsToAdd);
+                lastPackTime = now - (elapsedSeconds % packIntervalSeconds) * 1000;
+                updateUI();
+            }
+
+            // هژمارتنا دەمی (Countdown)
+            const hours = Math.floor(remainingSeconds / 3600);
+            const minutes = Math.floor((remainingSeconds % 3600) / 60);
+            const seconds = remainingSeconds % 60;
+
+            const timeStr = 
+                String(hours).padStart(2, '0') + ":" + 
+                String(minutes).padStart(2, '0') + ":" + 
+                String(seconds).padStart(2, '0');
+
+            packTimerTextEl.innerText = "پەکێتا داهاتی: " + timeStr;
+        }
+
+        setInterval(checkPackTimer, 1000);
 
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -504,11 +554,11 @@
 
         function useEnergyPack() {
             if (currentClicks > 0) {
-                alert('هێشتا ئێنێرجیا ڤی پەکێتی نەقەدیایە! هەتا خلاس بیت لێبدە.');
+                alert('هێشتا ئێنێرجیا ڤی پەکێتی نەقەدیایە!');
                 return;
             }
             if (energyPacks <= 0) {
-                alert('پەکێتێن تە نەمانە! تکایە ڕێکلامان تەماشا بکە یان بکڕە.');
+                alert('پەکێتێن تە نەمانە!');
                 return;
             }
 
@@ -521,7 +571,7 @@
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
-                alert('ئێنێرجیا تە یا خلاس بووی! دوگمەیا (بکاربینە/Use) ل ژێر لێبدە دا پەکێتەکێ نوی ڤەکەی.');
+                alert('ئێنێرجیا تە یا خلاس بووی! دوگمەیا (Use) ل ژێر لێبدە.');
                 return;
             }
 
@@ -548,7 +598,6 @@
             adBtn.innerText = 'چاوەڕێ بە...';
 
             let adHandled = false;
-
             const safetyTimeout = setTimeout(() => {
                 if (!adHandled) {
                     adHandled = true;
@@ -563,8 +612,7 @@
                     if (!adHandled) {
                         adHandled = true;
                         clearTimeout(safetyTimeout);
-                        
-                        energyPacks += 1;
+                        if(energyPacks < maxPacks) energyPacks += 1;
                         balance += 0.0001;
                         updateUI();
                         alert('پیرۆزە! 1 پەکێت بۆ تە هاتە زێدەکرن.');
@@ -595,6 +643,10 @@
         }
 
         function buyEnergy() {
+            if (energyPacks >= maxPacks) {
+                alert('پەکێتێن تە تێرن (5/5)!');
+                return;
+            }
             if (balance >= 0.001) {
                 balance -= 0.001;
                 energyPacks += 1;
@@ -609,7 +661,7 @@
             if (balance >= price) {
                 balance -= price;
                 updateUI();
-                alert(`پیرۆزە! تە '${itemName}' بکڕی.`);
+                alert(`پیرۆزە! '${itemName}' هاتە کڕین.`);
             } else {
                 alert('کۆینێن تە کێمن!');
             }
@@ -634,6 +686,7 @@
         }
 
         updateUI();
+        checkPackTimer();
     </script>
 </body>
 </html>
