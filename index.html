@@ -27,7 +27,7 @@
             padding: 0;
             user-select: none;
             -webkit-user-select: none;
-            -webkit-tap-highlight-color: transparent; /* لادانا چوارگوشەیا شین دەمێ کلیکێ */
+            -webkit-tap-highlight-color: transparent;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
@@ -346,7 +346,7 @@
     <div class="header">
         <div class="stat-box">
             <span>⚡</span>
-            <span>ئێنێرجی: <span id="energy">500</span>/500</span>
+            <span>ئێنێرجی: <span id="energy">5</span>/5</span>
         </div>
         <div class="stat-box">
             <img src="logo.png" alt="Coin" class="mini-coin-icon">
@@ -378,7 +378,7 @@
         <div class="card">
             <div>
                 <strong>(In-App) ڕێکلاما د ناڤ تەلەگرامێ</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">+500 ئێنێرجی + 0.0001 HEZ</p>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+1 ئێنێرجی + 0.0001 HEZ</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
         </div>
@@ -467,8 +467,8 @@
         }
 
         let balance = parseFloat(localStorage.getItem('hez_balance')) || 0;
-        let energy = parseInt(localStorage.getItem('hez_energy')) || 500;
-        const maxEnergy = 500;
+        let energy = parseFloat(localStorage.getItem('hez_energy')) || 5.0;
+        const maxEnergy = 5.0;
         let tapCount = parseInt(localStorage.getItem('hez_tap_count')) || 0;
 
         const balanceEl = document.getElementById('balance');
@@ -480,8 +480,10 @@
         function updateUI() {
             balanceEl.innerText = balance.toFixed(6);
             coinsHeaderEl.innerText = balance.toFixed(6);
-            energyEl.innerText = energy;
+            // نیشاندانا ئێنێرجیێ ب ژمارا دروست (بێ پاشگرێن درێژ)
+            energyEl.innerText = energy.toFixed(1);
             energyFillEl.style.width = (energy / maxEnergy * 100) + '%';
+            
             localStorage.setItem('hez_balance', balance);
             localStorage.setItem('hez_energy', energy);
             localStorage.setItem('hez_tap_count', tapCount);
@@ -495,15 +497,17 @@
         }
 
         coinBtn.addEventListener('click', (e) => {
-            if (energy <= 0) {
+            if (energy < 0.01) {
                 if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
                 alert('ئێنێرجیا تە ب دوماهیک هات!');
                 return;
             }
 
-            // Click adds 0.000001
+            // Click adds coin and decreases energy by 0.01 (so 100 clicks = 1 energy, total 500 clicks for 5 energy)
             balance += 0.000001;
-            energy -= 1;
+            energy -= 0.01;
+            if (energy < 0) energy = 0;
+            
             tapCount += 1;
             updateUI();
 
@@ -529,12 +533,7 @@
             }
         });
 
-        setInterval(() => {
-            if (energy < maxEnergy) {
-                energy += 1;
-                updateUI();
-            }
-        }, 3000);
+        // زێدەکرنا خودکار یا ئێنێرجیێ هاتیە لادان، چونکی تە دڤێت ب تنێ ب ڕێکلامان ئێنێرجی بگەڕێتەڤە
 
         function watchAdForEnergy() {
             const adBtn = document.getElementById('adBtn');
@@ -557,10 +556,12 @@
                     if (!adHandled) {
                         adHandled = true;
                         clearTimeout(safetyTimeout);
-                        energy = maxEnergy;
+                        
+                        // زێدەکرنا 1 ئێنێرجی (یان پڕکرنا ڤەگەراندنا تەڤایا 5 ئێنێرجیان لدیڤ خواستا تە)
+                        energy = maxEnergy; 
                         balance += 0.0001;
                         updateUI();
-                        alert('پیرۆزە! تە ڕێکلام تەماشا کر و ئێنێرجی هاتە پڕکرن.');
+                        alert('پیرۆزە! تە ڕێکلام تەماشا کر و 1 ئێنێرجیا تە هاتە پڕکرن.');
                         adBtn.disabled = false;
                         adBtn.innerText = 'تەماشابکە';
                     }
