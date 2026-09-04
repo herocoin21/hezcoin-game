@@ -241,11 +241,11 @@
 
     <!-- ADS TAB -->
     <div id="adsTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🎬 Watch Ads</h2>
+        <h2 style="margin-bottom: 15px;">🎬 تەماشایا ڕێکلامان بکە</h2>
         <div class="card">
             <div>
-                <strong>Rewarded Interstitial</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">+500 ئێنێرجی + 100 HEZ COIN</p>
+                <strong>(In-App) ڕێکلاما د ناڤ تەلەگرامی</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+500 ئێنێرجی + 100 HEZ</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
         </div>
@@ -316,7 +316,7 @@
         let balance = parseInt(localStorage.getItem('hez_balance')) || 0;
         let energy = parseInt(localStorage.getItem('hez_energy')) || 500;
         const maxEnergy = 500;
-        let tapCount = 0; // تایبەت ب ژمارتنا کلیکان بۆ ڕێکلاما Popup
+        let tapCount = 0;
 
         const balanceEl = document.getElementById('balance');
         const coinsHeaderEl = document.getElementById('coins-header');
@@ -340,7 +340,7 @@
             el.classList.add('active');
         }
 
-        // کلیک ل سەر کۆینێ (Tap Button)
+        // Tap Logic & Pop Ad
         coinBtn.addEventListener('click', (e) => {
             if (energy <= 0) {
                 if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
@@ -355,7 +355,6 @@
 
             if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
-            // دروستکرنا کاریگەریا +1
             const rect = coinBtn.getBoundingClientRect();
             const floatEl = document.createElement('div');
             floatEl.className = 'float-text';
@@ -366,14 +365,12 @@
 
             setTimeout(() => floatEl.remove(), 800);
 
-            // نیشاندانا ڕێکلاما Rewarded Popup (Chrome) هەر 15 کلیکان جارەکێ
+            // Trigger Pop Ad every 15 taps
             if (tapCount % 15 === 0 && typeof show_11724459 === 'function') {
                 show_11724459('pop').then(() => {
-                    balance += 5; // دیارییا زێدە بۆ کلیککرنا ڕێکلامێ
+                    balance += 5;
                     updateUI();
-                }).catch(e => {
-                    console.log('Popup error:', e);
-                });
+                }).catch(err => console.log(err));
             }
         });
 
@@ -384,25 +381,50 @@
             }
         }, 3000);
 
-        // 1. ڕێکلاما Rewarded Interstitial د بەشێ Watch Ads دا
+        // Ads Logic with Safety Timer (Safety Timeout)
         function watchAdForEnergy() {
             const adBtn = document.getElementById('adBtn');
             adBtn.disabled = true;
+            adBtn.innerText = 'چاوەڕێ بە...';
+
+            let adHandled = false;
+
+            // ئەگەر دوای 6 چڕکە ڕێکلام بار نەبوو، کۆدەکە تایمەر بپچڕێنێت
+            const safetyTimeout = setTimeout(() => {
+                if (!adHandled) {
+                    adHandled = true;
+                    alert('ل ڤی دەمی دا ڕێکلامەکا ئامادەکری نینە. ب تکایێ پاشان دووبارە ب هەوڵدە.');
+                    adBtn.disabled = false;
+                    adBtn.innerText = 'تەماشابکە';
+                }
+            }, 6000);
 
             if (typeof show_11724459 === 'function') {
                 show_11724459().then(() => {
-                    energy = maxEnergy;
-                    balance += 100;
-                    updateUI();
-                    alert('پیرۆزە! تە ڕێکلام ب تەمامی تەماشا کر و 500 ئێنێرجی + 100 HEZ وەستای.');
-                    adBtn.disabled = false;
+                    if (!adHandled) {
+                        adHandled = true;
+                        clearTimeout(safetyTimeout);
+                        energy = maxEnergy;
+                        balance += 100;
+                        updateUI();
+                        alert('پیرۆزە! تە ڕێکلام تەماشا کر و 500 ئێنێرجی + 100 HEZ وەستای.');
+                        adBtn.disabled = false;
+                        adBtn.innerText = 'تەماشابکە';
+                    }
                 }).catch((err) => {
-                    alert('ڕێکلام ب تەمامی نەهاتە تەماشاکرن.');
-                    adBtn.disabled = false;
+                    if (!adHandled) {
+                        adHandled = true;
+                        clearTimeout(safetyTimeout);
+                        alert('ڕێکلام نەهاتە تەماشاکرن.');
+                        adBtn.disabled = false;
+                        adBtn.innerText = 'تەماشابکە';
+                    }
                 });
             } else {
-                alert('ڕێکلام هێشتا بار نەبوویە.');
+                clearTimeout(safetyTimeout);
+                alert('کۆدێ SDK یێ ڕێکلامێ بار نەبوویە.');
                 adBtn.disabled = false;
+                adBtn.innerText = 'تەماشابکە';
             }
         }
 
