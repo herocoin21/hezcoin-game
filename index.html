@@ -225,6 +225,19 @@
             color: #ffffff;
         }
 
+        /* دوگمەیا بینینێ (View) یا نوی */
+        .btn-view {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            color: #ffffff;
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 6px;
+        }
+
         .card {
             width: 100%;
             background: var(--card-bg);
@@ -259,7 +272,6 @@
             border-radius: 10px;
             overflow: hidden;
             border: 2px solid var(--accent-yellow);
-            cursor: pointer;
             flex-shrink: 0;
         }
 
@@ -288,7 +300,14 @@
             font-weight: 600;
         }
 
-        .modal {
+        .shop-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        /* Detailed Modal Card for Shop Items (پەنجەرا بینینا وێنە و پێزانینان) */
+        .item-detail-modal {
             display: none;
             position: fixed;
             z-index: 100;
@@ -296,31 +315,54 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.9);
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(6px);
             align-items: center;
             justify-content: center;
-            flex-direction: column;
             padding: 20px;
         }
 
-        .modal-content {
-            max-width: 100%;
-            max-height: 75vh;
-            border-radius: 12px;
+        .detail-box {
+            background: #1e293b;
             border: 2px solid var(--accent-yellow);
-            box-shadow: 0 0 30px rgba(245,158,11,0.5);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 340px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(245,158,11,0.4);
+            text-align: center;
         }
 
-        .close-modal {
-            margin-top: 20px;
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 8px;
+        .detail-box img {
+            width: 140px;
+            height: 140px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid var(--accent-yellow);
+            margin-bottom: 12px;
+        }
+
+        .detail-box h3 {
+            font-size: 18px;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .detail-box p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .detail-box .price-tag {
+            font-size: 15px;
+            color: var(--accent-yellow);
             font-weight: bold;
-            cursor: pointer;
-            outline: none;
+            margin-bottom: 15px;
         }
 
         .navbar {
@@ -372,7 +414,6 @@
             <img src="logo.png" alt="Hero Coin Logo">
         </div>
 
-        <!-- HUD Panel -->
         <div class="game-hud-panel">
             <div class="hud-row">
                 <span>📦 پەکێت:</span>
@@ -433,22 +474,31 @@
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="buyEnergy()">بکڕە</button>
         </div>
 
+        <!-- تیمی یاریزانان (Squad) ل گەل دوگمەیا (بینین) ل ژێر دوگمەیا کڕینێ -->
         <div class="shop-item-card">
-            <div class="shop-thumb" onclick="openImageModal('shop_item.jpg')">
+            <div class="shop-thumb">
                 <img src="shop_item.jpg" alt="Squad">
             </div>
             <div class="shop-info">
                 <h4>تیمی یاریزانان (Squad)</h4>
                 <p>نرخ: 5 HEZ</p>
             </div>
-            <button class="btn btn-shop" style="width: auto; padding: 8px 14px;" onclick="buyItem(5, 'تیمی یاریزانان')">بکڕە</button>
+            <div class="shop-actions">
+                <button class="btn btn-shop" style="width: auto; padding: 6px 14px; font-size: 13px;" onclick="buyItem(5, 'تیمی یاریزانان')">بکڕە</button>
+                <button class="btn-view" onclick="openItemDetail('تیمی یاریزانان (Squad)', 'ئەڤە پەکەکا تایبەتە ب تیمی یاریزانێن تە، شیان و هێزا تەک مفا ددەت و د یاریێ دا هاریکاریا تە دکەت.', '5 HEZ', 'shop_item.jpg')">👁️ بینین</button>
+            </div>
         </div>
     </div>
 
-    <!-- Image Preview Modal -->
-    <div id="imageModal" class="modal" onclick="closeImageModal()">
-        <img class="modal-content" id="modalImg" src="">
-        <button class="close-modal">داخستن</button>
+    <!-- Modal بۆ نیشاندانا وێنەیێ مەزن و پێزانینان دەمێ دوگمەیا بینینێ لێ ددەیت -->
+    <div id="itemDetailModal" class="item-detail-modal" onclick="closeItemDetail()">
+        <div class="detail-box" onclick="event.stopPropagation()">
+            <img id="detailImg" src="" alt="Item Image">
+            <h3 id="detailTitle">ناڤێ تشتێ</h3>
+            <p id="detailDesc">پێزانین و راڤەکرنا ڤی تشتێ دڤێرەدا دیار دبت...</p>
+            <div class="price-tag" id="detailPrice">نرخ: 0 HEZ</div>
+            <button class="close-modal" onclick="closeItemDetail()" style="width: 100%; padding: 10px; border-radius: 10px; background: #ef4444; border: none; color: white; font-weight: bold; cursor: pointer;">داخستن</button>
+        </div>
     </div>
 
     <!-- NAVIGATION BAR -->
@@ -593,8 +643,6 @@
             adBtn.innerText = 'ڕێکلام بار دبت...';
 
             let adHandled = false;
-            
-            // دەمێ چاوەڕێکرنێ هاتە بلندکرن بۆ 15 چرکان دا زوو پەیاما شاش نەدەت
             const safetyTimeout = setTimeout(() => {
                 if (!adHandled) {
                     adHandled = true;
@@ -664,14 +712,17 @@
             }
         }
 
-        function openImageModal(imgSrc) {
-            const modal = document.getElementById('imageModal');
-            document.getElementById('modalImg').src = imgSrc;
-            modal.style.display = 'flex';
+        // Functions بۆ نیشاندانا پەنجەرا بینینێ (View)
+        function openItemDetail(title, desc, price, imgSrc) {
+            document.getElementById('detailTitle').innerText = title;
+            document.getElementById('detailDesc').innerText = desc;
+            document.getElementById('detailPrice').innerText = "نرخ: " + price;
+            document.getElementById('detailImg').src = imgSrc;
+            document.getElementById('itemDetailModal').style.display = 'flex';
         }
 
-        function closeImageModal() {
-            document.getElementById('imageModal').style.display = 'none';
+        function closeItemDetail() {
+            document.getElementById('itemDetailModal').style.display = 'none';
         }
 
         function inviteFriend() {
