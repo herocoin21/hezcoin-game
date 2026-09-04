@@ -77,6 +77,8 @@
             align-items: center;
             margin: auto 0;
             padding-bottom: 70px;
+            overflow-y: auto;
+            max-height: calc(100vh - 120px);
         }
 
         .tab-content.active {
@@ -179,6 +181,58 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
+        /* Shop Item Style for the Image Card */
+        .shop-item-card {
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            padding: 14px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .shop-img-box {
+            width: 65px;
+            height: 65px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--accent-yellow);
+            background: #1e293b;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shop-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .shop-info {
+            flex-grow: 1;
+            text-align: right;
+        }
+
+        .shop-info h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .shop-info p {
+            font-size: 12px;
+            color: var(--accent-yellow);
+            font-weight: 600;
+        }
+
         .navbar {
             position: fixed;
             bottom: 0;
@@ -192,6 +246,7 @@
             border-top: 1px solid #334155;
             max-width: 400px;
             margin: 0 auto;
+            z-index: 100;
         }
 
         .nav-item {
@@ -262,7 +317,7 @@
 
     <!-- ADS TAB -->
     <div id="adsTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🎬 تەماشایا ڕێکلامان بکە</h2>
+        <h2 style="margin-bottom: 15px; font-size: 18px;">🎬 تەماشایا ڕێکلامان بکە</h2>
         <div class="card">
             <div>
                 <strong>(In-App) ڕێکلاما د ناڤ تەلەگرامێ</strong>
@@ -274,7 +329,7 @@
 
     <!-- TASKS TAB -->
     <div id="tasksTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">📋 ئەرکێن ڕۆژانە</h2>
+        <h2 style="margin-bottom: 15px; font-size: 18px;">📋 ئەرکێن ڕۆژانە</h2>
         <div class="card">
             <div>
                 <strong>بەشداری کەناڵێ تەلەگرامێ ببە</strong>
@@ -286,20 +341,34 @@
 
     <!-- INVITE TAB -->
     <div id="inviteTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">👥 بانگهێشتکرنا هەڤالان</h2>
+        <h2 style="margin-bottom: 15px; font-size: 18px;">👥 بانگهێشتکرنا هەڤالان</h2>
         <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">بۆ هر هەڤالەکێ تۆ بانگهێشت بکەی 500 HEZ COIN وەربگرە.</p>
         <button class="btn btn-ad" onclick="inviteFriend()">🔗 لینکی خۆ بپۆشە</button>
     </div>
 
     <!-- SHOP TAB -->
     <div id="shopTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🛒 فرۆشگەهـ</h2>
+        <h2 style="margin-bottom: 15px; font-size: 18px;">🛒 فرۆشگەهـ</h2>
+        
+        <!-- Energy Refill Card -->
         <div class="card">
             <div>
                 <strong>پڕکرنا ئێنێرجیێ</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow);">کڕین ب 500 HEZ</p>
             </div>
             <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="buyEnergy()">بکڕە</button>
+        </div>
+
+        <!-- New Image Card Item (5 Coins) -->
+        <div class="shop-item-card">
+            <div class="shop-img-box">
+                <img src="1000047306.jpg" alt="FC Item">
+            </div>
+            <div class="shop-info">
+                <h4>کارتا یاریزانێ تایبەت</h4>
+                <p>نرخ: 5 کۆین</p>
+            </div>
+            <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="buyGameItem()">بکڕە</button>
         </div>
     </div>
 
@@ -458,7 +527,20 @@
                 updateUI();
                 alert('ئێنێرجیا تە ب تەمامی پڕ بوویەوە!');
             } else {
-                alert('کۆینێن تە نەتێرن!');
+                alert('کۆینێن تە نەتێرن بۆ کڕینا ئەڤی پڕکەرێ ئێنێرجیێ!');
+            }
+        }
+
+        // Function to buy the image item for 5 coins
+        function buyGameItem() {
+            if (balance >= 5) {
+                balance -= 5;
+                updateUI();
+                if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+                alert('پیرۆزە! تە کارتا یاریزانێ ب سەرکەفتن کڕی.');
+            } else {
+                if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
+                alert('کۆینێن تە نەتێرن! پێدڤی بە ب کێمترین 5 کۆینان.');
             }
         }
 
