@@ -433,7 +433,7 @@
 </head>
 <body>
 
-    <!-- CORNER PROFILE (ل گۆشەیا ژۆرین یا چەپێ) -->
+    <!-- CORNER PROFILE -->
     <div class="corner-profile" onclick="switchToProfile()">
         <img id="cornerAvatar" src="logo.png" alt="Avatar" class="corner-avatar">
         <div class="corner-info">
@@ -564,9 +564,12 @@
             tg.ready();
         }
 
-        const userId = tg?.initDataUnsafe?.user?.id ? String(tg.initDataUnsafe.user.id) : "test_user_123";
-        const userName = tg?.initDataUnsafe?.user?.first_name || "یاریزان";
-        const userPhoto = tg?.initDataUnsafe?.user?.photo_url || "logo.png";
+        // وەرگرتنا IDـا ڕاستەقینە یا تەلەگرامی (گەر ل دەرڤە بیت دێ IDـەکا ب گومان یان تایبەت چێکەت دا تێکەل نەبت)
+        const tgUser = tg?.initDataUnsafe?.user;
+        const userId = tgUser?.id ? String(tgUser.id) : "user_" + Math.floor(Math.random() * 1000000);
+        const userName = tgUser?.first_name || "یاریزان";
+        const userPhoto = tgUser?.photo_url || "logo.png";
+        
         const userRef = doc(db, "users", userId);
 
         let balance = 0;
@@ -633,7 +636,7 @@
                 }
                 userNameDisplay.innerText = userName;
                 cornerName.innerText = userName;
-                if(userPhoto) {
+                if(userPhoto && userPhoto !== "logo.png") {
                     userAvatar.src = userPhoto;
                     cornerAvatar.src = userPhoto;
                 }
@@ -766,7 +769,7 @@
 
             balance += 0.000001;
             currentClicks -= 1;
-            addXp(0.5); // هەر کلیکەک تنێ 0.5 XP ددەت (ئانکۆ ٢ کلیک = ١ XP)
+            addXp(0.5); 
 
             if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
@@ -790,7 +793,7 @@
                 show_11724459().then(() => {
                     if(energyPacks < maxPacks) energyPacks += 1;
                     balance += 0.0001;
-                    addXp(25); // ڕێکلام 25 XP
+                    addXp(25);
                     updateUI();
                     alert('پیرۆزە! 1 پەکێت و 25 XP بۆ تە هاتە زێدەکرن.');
                     adBtn.disabled = false;
