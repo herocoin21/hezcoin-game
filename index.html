@@ -48,7 +48,7 @@
             overflow: hidden;
         }
 
-        /* سەرێ شاشێ تنێ بۆ پەکێتان */
+        /* سەرێ شاشێ: تنێ پەکێت */
         .header {
             width: 100%;
             max-width: 400px;
@@ -160,7 +160,7 @@
             100% { opacity: 0; transform: translateY(-60px) scale(1); }
         }
 
-        /* پشکەیا ئێنێرجیا ل بن کۆینێ */
+        /* ئێنێرجیا ل بن کۆینێ */
         .energy-status-container {
             display: flex;
             align-items: center;
@@ -172,7 +172,6 @@
             color: var(--text-color);
         }
 
-        /* دوگمەیا USE یا بچووکتر و جوانتر */
         .use-pack-btn {
             width: 180px;
             padding: 8px 10px;
@@ -362,7 +361,7 @@
 </head>
 <body>
 
-    <!-- سەرێ شاشێ: تنێ پەکێت لێرە نەگۆڕی مایە -->
+    <!-- سەرێ شاشێ: تنێ پەکێت -->
     <div class="header">
         <div class="stat-box">
             <span>📦</span>
@@ -381,13 +380,13 @@
             <img src="logo.png" alt="Hero Coin Logo">
         </div>
 
-        <!-- ئێنێرجیا کلیکان ل بن کۆینێ -->
+        <!-- ئێنێرجی لێرە دکەفتە ژێر کۆینێ -->
         <div class="energy-status-container">
             <span>⚡ ئێنێرجی</span>
             <span><span id="currentClicks">500</span> / 500</span>
         </div>
 
-        <!-- دوگمەیا USE یا سەرنجڕاکێش ل بن ئێنێرجیێ -->
+        <!-- دوگمەیا USE -->
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
