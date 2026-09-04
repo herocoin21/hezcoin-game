@@ -50,7 +50,7 @@
             position: relative;
         }
 
-        /* گۆشەیا پروفایلی ل ژۆرێ (Top-Left Corner Profile Widget) */
+        /* گۆشەیا پروفایلی ل ژۆرێ */
         .corner-profile {
             position: absolute;
             top: 12px;
@@ -123,6 +123,33 @@
             display: flex;
         }
 
+        /* دوگمەیا پاشڤە (Back Button) */
+        .back-btn-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .btn-back {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: var(--accent-yellow);
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-back:active {
+            transform: scale(0.95);
+        }
+
         /* جزدانکا زێڕین */
         .wallet-badge {
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
@@ -192,6 +219,7 @@
             overflow: hidden;
             margin-bottom: 12px;
             box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+            cursor: pointer;
         }
 
         .profile-avatar-container img {
@@ -200,11 +228,39 @@
             object-fit: cover;
         }
 
+        .avatar-edit-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            font-size: 9px;
+            color: white;
+            padding: 2px 0;
+            font-weight: 700;
+        }
+
+        .profile-name-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+
         .profile-name {
             font-size: 18px;
             font-weight: 800;
             color: var(--text-color);
-            margin-bottom: 4px;
+        }
+
+        .edit-icon-text {
+            font-size: 12px;
+            color: var(--accent-yellow);
+            background: rgba(245, 158, 11, 0.15);
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
         .profile-level-badge {
@@ -475,13 +531,24 @@
 
     <!-- PROFILE TAB -->
     <div id="profileTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">👤 پروفایلا من</h2>
+        <div class="back-btn-container">
+            <button class="btn-back" onclick="switchToTap()">← پاشڤە (Back)</button>
+        </div>
+        <h2 style="margin-bottom: 12px;">👤 پروفایلا من</h2>
         
         <div class="profile-card">
-            <div class="profile-avatar-container">
+            <!-- گۆڕینا وێنەی پروفایلی -->
+            <div class="profile-avatar-container" onclick="changeUserAvatar()" title="گۆڕینا وێنەی">
                 <img id="userAvatar" src="logo.png" alt="Avatar">
+                <div class="avatar-edit-overlay">گۆڕین</div>
             </div>
-            <div class="profile-name" id="userNameDisplay">ناڤێ یاریزانی</div>
+
+            <!-- گۆڕینا ناڤی -->
+            <div class="profile-name-row" onclick="changeUserName()" title="گۆڕینا ناڤی">
+                <div class="profile-name" id="userNameDisplay">ناڤێ یاریزانی</div>
+                <span class="edit-icon-text">✏️ Edit</span>
+            </div>
+
             <div class="profile-level-badge" id="userLevelBadge">Level 1</div>
             
             <div class="xp-progress-box">
@@ -564,11 +631,11 @@
             tg.ready();
         }
 
-        // وەرگرتنا IDـا ڕاستەقینە یا تەلەگرامی (گەر ل دەرڤە بیت دێ IDـەکا ب گومان یان تایبەت چێکەت دا تێکەل نەبت)
         const tgUser = tg?.initDataUnsafe?.user;
         const userId = tgUser?.id ? String(tgUser.id) : "user_" + Math.floor(Math.random() * 1000000);
-        const userName = tgUser?.first_name || "یاریزان";
-        const userPhoto = tgUser?.photo_url || "logo.png";
+        
+        let userName = tgUser?.first_name || "یاریزان";
+        let userPhoto = tgUser?.photo_url || "logo.png";
         
         const userRef = doc(db, "users", userId);
 
@@ -613,6 +680,9 @@
                     currentXp = data.currentXp !== undefined ? data.currentXp : 0;
                     maxXp = data.maxXp !== undefined ? data.maxXp : 2000;
                     lastPackTime = data.lastPackTime || Date.now();
+                    
+                    if(data.name) userName = data.name;
+                    if(data.photo) userPhoto = data.photo;
                 } else {
                     balance = 0;
                     energyPacks = 4;
@@ -634,18 +704,10 @@
                         createdAt: new Date()
                     });
                 }
-                userNameDisplay.innerText = userName;
-                cornerName.innerText = userName;
-                if(userPhoto && userPhoto !== "logo.png") {
-                    userAvatar.src = userPhoto;
-                    cornerAvatar.src = userPhoto;
-                }
                 updateUI();
                 checkPackTimer();
             } catch (error) {
                 console.error("Error loading user data:", error);
-                userNameDisplay.innerText = userName;
-                cornerName.innerText = userName;
                 updateUI();
             }
         }
@@ -653,6 +715,8 @@
         async function syncToFirebase() {
             try {
                 await updateDoc(userRef, {
+                    name: userName,
+                    photo: userPhoto,
                     balance: balance,
                     energyPacks: energyPacks,
                     currentClicks: currentClicks,
@@ -678,7 +742,7 @@
                 else if (currentLevel === 5) maxXp = 35000;
                 else maxXp = Math.floor(maxXp * 2.2);
 
-                alert(`🎉 پیرۆزە! تو گەهشتیە Level ${currentLevel} - ئاستەک گەلەک سەخت و مەزن!`);
+                alert(`🎉 پیرۆزە! تو گەهشتیە Level ${currentLevel}`);
             }
             updateUI();
         }
@@ -688,16 +752,59 @@
             energyPacksEl.innerText = energyPacks;
             currentClicksEl.innerText = currentClicks;
             
+            userNameDisplay.innerText = userName;
+            cornerName.innerText = userName;
+            
             userLevelBadge.innerText = `Level ${currentLevel}`;
             cornerLevelBadge.innerText = `Lvl ${currentLevel}`;
             
             currentXpEl.innerText = currentXp;
             maxXpEl.innerText = maxXp;
             
+            if(userPhoto) {
+                userAvatar.src = userPhoto;
+                cornerAvatar.src = userPhoto;
+            }
+            
             const xpPercent = Math.min(100, (currentXp / maxXp) * 100);
             xpBarFill.style.width = xpPercent + '%';
             
             syncToFirebase();
+        }
+
+        window.switchTab = function(tabId, el) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if(el) el.classList.add('active');
+        }
+
+        window.switchToProfile = function() {
+            switchTab('profileTab', document.getElementById('navProfile'));
+        }
+
+        window.switchToTap = function() {
+            switchTab('tapTab', document.getElementById('navTap'));
+        }
+
+        // گۆڕینا ناڤی (Change Name)
+        window.changeUserName = function() {
+            const newName = prompt("ناڤێ خۆ یێ نوو بنڤیسە:", userName);
+            if (newName && newName.trim() !== "") {
+                userName = newName.trim();
+                updateUI();
+                alert("ناڤێ تە ب سەرکەفتیانە هاتە گۆڕین!");
+            }
+        }
+
+        // گۆڕینا وێنەی (Change Avatar URL)
+        window.changeUserAvatar = function() {
+            const newPhoto = prompt("لینکا وێنەیێ نوو (Image URL) ل ڤێرە دابنێ:", userPhoto);
+            if (newPhoto && newPhoto.trim() !== "") {
+                userPhoto = newPhoto.trim();
+                updateUI();
+                alert("وێنەیێ پروفایلا تە هاتە نووکرن!");
+            }
         }
 
         function checkPackTimer() {
@@ -729,20 +836,6 @@
         }
 
         setInterval(checkPackTimer, 1000);
-
-        window.switchTab = function(tabId, el) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            el.classList.add('active');
-        }
-
-        window.switchToProfile = function() {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            document.getElementById('profileTab').classList.add('active');
-            document.getElementById('navProfile').classList.add('active');
-        }
 
         window.useEnergyPack = function() {
             if (currentClicks > 0) {
