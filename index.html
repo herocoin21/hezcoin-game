@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="kmr">
-<script src='https://libtl.com/sdk.js' data-zone='11724459' data-sdk='show_11724459'></script>
-
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>HEZ COIN - Telegram Mini App</title>
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
-    <!-- Monetag SDK Main Tag Zone 11724459 -->
-    <script src="https://alwingulla.com/88/tag.min.js" data-zone="11724459" async data-cfasync="false"></script>
+    <!-- Monetag SDK Tag Official Integration -->
+    <script src='https://libtl.com/sdk.js' data-zone='11724459' data-sdk='show_11724459'></script>
 
     <style>
         :root {
@@ -277,40 +276,11 @@
             }
         }, 3000);
 
-        // Monetag Rewarded Ad Call
-        // Monetag Rewarded Ad Call
-function watchAdForEnergy() {
-    const adBtn = document.getElementById('adBtn');
-    adBtn.disabled = true;
-    adBtn.innerText = 'چاوەڕێ بکه...';
+        function watchAdForEnergy() {
+            const adBtn = document.getElementById('adBtn');
+            adBtn.disabled = true;
+            adBtn.innerText = 'چاوەڕێ بکه...';
 
-    // ڕاستەوخۆ بانگکرنا فەنکشنا Monetag
-    if (typeof show_11724459 === 'function') {
-        show_11724459().then(() => {
-            energy = maxEnergy;
-            balance += 100;
-            updateUI();
-            
-            if (tg && tg.HapticFeedback) {
-                tg.HapticFeedback.notificationOccurred('success');
-            }
-            alert('پیرۆزە! 500 ئێنێرجی + 100 HEZ COIN هاتنە زێدەکرن.');
-            
-            adBtn.disabled = false;
-            adBtn.innerHTML = '<span>🎬</span> تەماشایا ڕێکلامێ بکە (+500 ئێنێرجی)';
-        }).catch((err) => {
-            console.error('Ad error:', err);
-            alert('ڕێکلام نەهاتە نیشاندان یان هاتە گرتن.');
-            adBtn.disabled = false;
-            adBtn.innerHTML = '<span>🎬</span> تەماشایا ڕێکلامێ بکە (+500 ئێنێرجی)';
-        });
-    } else {
-        alert('ڕێکلام هێشتا بار نەبوویە، تکایە چەند چروکان چاوەڕێ بکه یان لاپەڕەی ڕیفڕێش بکە.');
-        adBtn.disabled = false;
-        adBtn.innerHTML = '<span>🎬</span> تەماشایا ڕێکلامێ بکە (+500 ئێنێرجی)';
-    }
-}
-،
             if (typeof show_11724459 === 'function') {
                 show_11724459().then(() => {
                     energy = maxEnergy;
@@ -326,18 +296,14 @@ function watchAdForEnergy() {
                     adBtn.innerHTML = '<span>🎬</span> تەماشایا ڕێکلامێ بکە (+500 ئێنێرجی)';
                 }).catch((err) => {
                     console.error('Ad error:', err);
-                    alert('ڕێکلام ب تەمامی نەهاتە تەماشاکرن یان ئاریشەیەک چێبوو.');
+                    alert('ڕێکلام ب تەمامی نەهاتە تەماشاکرن یان هاتە گرتن.');
                     adBtn.disabled = false;
                     adBtn.innerHTML = '<span>🎬</span> تەماشایا ڕێکلامێ بکە (+500 ئێنێرجی)';
                 });
             } else {
-                setTimeout(() => {
-                    energy = maxEnergy;
-                    updateUI();
-                    alert('ئێنێرجیا تە ب تەمامی پڕ بوو!');
-                    adBtn.disabled = false;
-                    adBtn.innerHTML = '<span>🎬</span> تەماشایا ڕێکلامێ بکە (+500 ئێنێرجی)';
-                }, 1000);
+                alert('ڕێکلام هێشتا بار نەبوویە، تکایە چەند چروکان چاوەڕێ بکه یان لاپەڕەی ڕیفڕێش بکە.');
+                adBtn.disabled = false;
+                adBtn.innerHTML = '<span>🎬</span> تەماشایا ڕێکلامێ بکە (+500 ئێنێرجی)';
             }
         }
 
