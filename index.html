@@ -9,8 +9,8 @@
 
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.85);
+            --bg-color: #0b0f19;
+            --card-bg: rgba(20, 24, 33, 0.88);
             --accent-yellow: #f59e0b;
             --accent-green: #10b981;
             --accent-blue: #3b82f6;
@@ -30,7 +30,7 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.92)), url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1000&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(11, 15, 25, 0.78), rgba(11, 15, 25, 0.88)), url('https://i.ibb.co/1G058tB/1000047276.jpg');
             background-size: cover;
             background-position: center;
             color: var(--text-color);
@@ -50,7 +50,7 @@
             position: absolute;
             top: 12px;
             left: 12px;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(20, 24, 33, 0.95) 0%, rgba(11, 15, 25, 0.95) 100%);
             border: 2px solid rgba(245, 158, 11, 0.6);
             border-radius: 14px;
             padding: 6px 10px;
@@ -101,7 +101,7 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(20, 24, 33, 0.95) 0%, rgba(11, 15, 25, 0.95) 100%);
             border: 2px solid rgba(245, 158, 11, 0.6);
             padding: 6px 12px;
             border-radius: 14px;
@@ -166,7 +166,7 @@
         }
 
         .btn-back {
-            background: rgba(30, 41, 59, 0.85);
+            background: rgba(20, 24, 33, 0.85);
             border: 1px solid rgba(245, 158, 11, 0.4);
             color: var(--accent-yellow);
             padding: 6px 14px;
@@ -258,7 +258,7 @@
 
         .xp-progress-box {
             width: 100%;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(11, 15, 25, 0.6);
             border-radius: 12px;
             padding: 10px;
             border: 1px solid rgba(255,255,255,0.1);
@@ -313,7 +313,7 @@
 
         .float-box {
             position: absolute;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(11, 15, 25, 0.9);
             border: 2px solid var(--accent-yellow);
             padding: 4px 8px;
             border-radius: 8px;
@@ -334,7 +334,7 @@
         .game-hud-panel {
             width: 100%;
             max-width: 280px;
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(20, 24, 33, 0.88);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(245, 158, 11, 0.3);
             border-radius: 16px;
@@ -425,11 +425,11 @@
             border-radius: 10px;
             object-fit: cover;
             border: 1px solid rgba(245, 158, 11, 0.4);
-            background: #0f172a;
+            background: #0b0f19;
             padding: 2px;
         }
 
-        /* Beautiful Shop Coming Soon Box */
+        /* Shop Coming Soon */
         .shop-coming-soon {
             display: flex;
             flex-direction: column;
@@ -443,12 +443,6 @@
             width: 100%;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(245, 158, 11, 0.2);
             margin-top: 10px;
-            animation: fadeInShop 0.5s ease-out;
-        }
-
-        @keyframes fadeInShop {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
         }
 
         .shop-cs-icon {
@@ -463,12 +457,6 @@
             font-size: 34px;
             margin-bottom: 16px;
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
-            animation: pulseGlow 2s infinite ease-in-out;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); }
-            50% { transform: scale(1.06); box-shadow: 0 0 25px rgba(245, 158, 11, 0.6); }
         }
 
         .shop-divider {
@@ -530,12 +518,13 @@
             color: #34d399;
         }
 
+        /* Navbar Layout - Ordered Left-to-Right starting from Tasks */
         .navbar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(30, 41, 59, 0.95);
+            background: rgba(20, 24, 33, 0.95);
             display: flex;
             justify-content: space-around;
             padding: 8px 0;
@@ -608,7 +597,7 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
-    <!-- SHOP TAB (Coming Soon - New Design) -->
+    <!-- SHOP TAB -->
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 5px;">🛒 فرۆشگەها فەرمی</h2>
         
@@ -689,7 +678,7 @@
                 <strong>👥 هەڤالێن خۆ بانگهێشت بکە</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow); margin-top: 4px;">بۆ هەر هەڤالەکێ ل سەر لینکێ تە داخل ببט: +0.001 HEZ + 100 XP</p>
             </div>
-            <input type="text" id="inviteLinkInput" readonly style="width: 100%; padding: 8px; background: #0f172a; border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; color: #fff; font-size: 11px;" value="باردبت...">
+            <input type="text" id="inviteLinkInput" readonly style="width: 100%; padding: 8px; background: #0b0f19; border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; color: #fff; font-size: 11px;" value="باردبت...">
             <button class="btn btn-ad" style="width: 100%; padding: 8px;" onclick="copyInviteLink()">🔗 کۆپیکرنا لینکێ بانگهێشتێ</button>
         </div>
 
@@ -705,27 +694,27 @@
         </div>
     </div>
 
-    <!-- NAVIGATION BAR -->
+    <!-- NAVIGATION BAR (Left-to-Right: Tasks -> Ads -> Rank -> Shop -> Tap) -->
     <div class="navbar">
-        <div class="nav-item active" id="navTap" onclick="switchTab('tapTab', this)">
-            <span class="nav-icon">👆</span>
-            <span>Tap</span>
+        <div class="nav-item" id="navTasks" onclick="switchTab('tasksTab', this)">
+            <span class="nav-icon">📋</span>
+            <span>Tasks</span>
+        </div>
+        <div class="nav-item" id="navAds" onclick="switchTab('adsTab', this)">
+            <span class="nav-icon">🎬</span>
+            <span>Ads</span>
+        </div>
+        <div class="nav-item" id="navRank" onclick="switchTab('rankTab', this); loadLeaderboard();">
+            <span class="nav-icon">🏆</span>
+            <span>Rank</span>
         </div>
         <div class="nav-item" id="navShop" onclick="switchTab('shopTab', this)">
             <span class="nav-icon">🛒</span>
             <span>Shop</span>
         </div>
-        <div class="nav-item" onclick="switchTab('rankTab', this); loadLeaderboard();">
-            <span class="nav-icon">🏆</span>
-            <span>Rank</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('adsTab', this)">
-            <span class="nav-icon">🎬</span>
-            <span>Ads</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('tasksTab', this)">
-            <span class="nav-icon">📋</span>
-            <span>Tasks</span>
+        <div class="nav-item active" id="navTap" onclick="switchTab('tapTab', this)">
+            <span class="nav-icon">👆</span>
+            <span>Tap</span>
         </div>
     </div>
 
