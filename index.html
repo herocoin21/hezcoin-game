@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="kmr">
+<html lang="kmr" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -30,11 +30,7 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: url('bg.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            background-image: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -50,7 +46,7 @@
         .corner-profile {
             position: absolute;
             top: 12px;
-            left: 12px;
+            right: 12px;
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
             border: 2px solid rgba(245, 158, 11, 0.6);
             border-radius: 14px;
@@ -100,7 +96,7 @@
         .wallet-badge {
             position: absolute;
             top: 12px;
-            right: 12px;
+            left: 12px;
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
             border: 2px solid rgba(245, 158, 11, 0.6);
             padding: 6px 12px;
@@ -394,11 +390,6 @@
             gap: 8px;
         }
 
-        .btn-shop {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: #ffffff;
-        }
-
         .btn-ad {
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             color: #ffffff;
@@ -432,6 +423,32 @@
             border: 1px solid rgba(245, 158, 11, 0.4);
             background: #0f172a;
             padding: 2px;
+        }
+
+        /* Coming Soon Box for Shop */
+        .shop-coming-soon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 20px;
+            padding: 30px 20px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            margin-top: 10px;
+        }
+
+        .shop-cs-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
         }
 
         .rank-item {
@@ -476,7 +493,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            text-align: left;
+            text-align: right;
         }
 
         .rank-score {
@@ -561,50 +578,25 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
-    <!-- SHOP TAB -->
+    <!-- SHOP TAB (Coming Soon) -->
     <div id="shopTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🛒 فرۆشگەها فەرمی</h2>
+        <h2 style="margin-bottom: 10px;">🛒 فرۆشگەها فەرمی</h2>
         
-        <!-- eFootball -->
-        <div class="card">
-            <div class="shop-item-left">
-                <img src="efootball.png" alt="eFootball" class="shop-item-img">
-                <div>
-                    <strong>100 eFootball Coins</strong>
-                    <p style="font-size: 11px; color: var(--accent-yellow);">نرخ: 0.01 HEZ</p>
-                </div>
+        <div class="shop-coming-soon">
+            <div class="shop-cs-icon">🛍️</div>
+            <h3 style="font-size: 17px; margin-bottom: 8px; color: #fff;">فرۆشگەهـ یێ دهێتە چێکرن</h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px;">
+                هەتا نوکە چ تشت بەردەست نینن. ئەم کار لسەر ئامادەکرن و چێکرنا بەرهەمێن نوی دکەین!
+            </p>
+            <div style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; padding: 6px 14px; border-radius: 15px; font-size: 11px; font-weight: 700;">
+                ب زوویی دێ کەفتە کار
             </div>
-            <button class="btn btn-shop" style="width: auto; padding: 7px 10px; font-size: 12px;" onclick="orderGameItem('100 eFootball Coins', 0.01)">داخواز بکە</button>
-        </div>
-
-        <!-- UC -->
-        <div class="card">
-            <div class="shop-item-left">
-                <img src="uc.png" alt="PUBG UC" class="shop-item-img">
-                <div>
-                    <strong>60 UC (PUBG Mobile)</strong>
-                    <p style="font-size: 11px; color: var(--accent-yellow);">نرخ: 0.015 HEZ</p>
-                </div>
-            </div>
-            <button class="btn btn-shop" style="width: auto; padding: 7px 10px; font-size: 12px;" onclick="orderGameItem('60 UC PUBG', 0.015)">داخواز بکە</button>
-        </div>
-
-        <!-- Korek -->
-        <div class="card">
-            <div class="shop-item-left">
-                <img src="korek.png" alt="Korek" class="shop-item-img">
-                <div>
-                    <strong>پشکا کۆڕەک / فایبەر ($5)</strong>
-                    <p style="font-size: 11px; color: var(--accent-yellow);">نرخ: 0.05 HEZ</p>
-                </div>
-            </div>
-            <button class="btn btn-shop" style="width: auto; padding: 7px 10px; font-size: 12px;" onclick="orderGameItem('Korek / Fiber Card 5$', 0.05)">داخواز بکە</button>
         </div>
     </div>
 
     <!-- RANKING TAB -->
     <div id="rankTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🏆 رێزبەندیا یاریزانان (Ranking)</h2>
+        <h2 style="margin-bottom: 15px;">🏆 رێزبەندیا یاریزانان</h2>
         <div style="width: 100%;" id="leaderboardList">
             <p style="color: var(--text-muted); font-size: 13px;">باردبت...</p>
         </div>
@@ -663,7 +655,7 @@
         
         <div class="card" style="flex-direction: column; align-items: flex-start; gap: 10px;">
             <div>
-                <strong>👥 هەڤالێن خۆ بانگهێشت بکە (Invite Friends)</strong>
+                <strong>👥 هەڤالێن خۆ بانگهێشت بکە</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow); margin-top: 4px;">بۆ هەر هەڤالەکێ ل سەر لینکێ تە داخل ببט: +0.001 HEZ + 100 XP</p>
             </div>
             <input type="text" id="inviteLinkInput" readonly style="width: 100%; padding: 8px; background: #0f172a; border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; color: #fff; font-size: 11px;" value="باردبت...">
@@ -677,7 +669,7 @@
             </div>
             <div style="display: flex; gap: 6px;">
                 <button class="btn btn-ad" style="width: auto; padding: 8px 12px;" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی</button>
-                <button class="btn btn-shop" style="width: auto; padding: 8px 12px; display: none;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
+                <button class="btn btn-shop" style="width: auto; padding: 8px 12px; display: none; background: #f59e0b; color:#fff; border:none; border-radius:8px; font-weight:700;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
             </div>
         </div>
     </div>
@@ -708,7 +700,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, query, orderBy, limit, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBLAm1amoybyoAdCGZLfTbZzUkspPIEmhk",
@@ -861,6 +853,7 @@
         }
 
         window.loadLeaderboard = async function() {
+            const leaderboardList = document.getElementById('leaderboardList');
             leaderboardList.innerHTML = `<p style="color: var(--text-muted); font-size: 13px; text-align: center;">ئەپدەیت دبت...</p>`;
             try {
                 const q = query(collection(db, "users"), orderBy("balance", "desc"), limit(20));
@@ -949,28 +942,6 @@
         window.changeUserAvatar = function() {
             const newPhoto = prompt("لینکا وێنەیێ نوو دابنێ:", userPhoto);
             if (newPhoto?.trim()) { userPhoto = newPhoto.trim(); updateUI(); alert("وێنە هاتە نووکرن!"); }
-        }
-
-        window.orderGameItem = async function(itemName, cost) {
-            if (balance < cost) { alert('پارێ تە نەبسە!'); return; }
-            const playerId = prompt(`بۆ کڕینا (${itemName})، ID یا خۆ بنڤیسە:`);
-            if (!playerId?.trim()) return;
-
-            try {
-                balance -= cost;
-                updateUI();
-                await addDoc(collection(db, "orders"), {
-                    userId: userId,
-                    userName: userName,
-                    item: itemName,
-                    targetAccount: playerId.trim(),
-                    status: "Pending",
-                    timestamp: new Date()
-                });
-                alert('داخوازا تە ب سەرکەفتیانە هاتە هنارتن!');
-            } catch (err) {
-                alert('چەوتییەک چێبوو.');
-            }
         }
 
         window.copyInviteLink = function() {
