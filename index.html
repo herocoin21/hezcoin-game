@@ -769,27 +769,27 @@
             <div class="vip-plan">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #f3e8ff; font-size: 14px;">⭐ پرێمیوما هەیڤانە (30 رۆژ)</strong>
-                    <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$4</span>
+                    <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$4 (~300 Stars)</span>
                 </div>
                 <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
                     <li>دەبڵ کلیک (x2 Coin) بۆ هەر تەکەکێ</li>
                     <li>هێزا بریسیێ و نیشانا VIP ل Ranking</li>
                     <li>١٠ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
-                <button class="vip-btn-monthly" onclick="buyVip('monthly')">کڕینا هەیڤانە (ارسال به تلگرام)</button>
+                <button class="vip-btn-monthly" onclick="buyVip('monthly')">کڕینا هەیڤانە ب Stars</button>
             </div>
 
             <!-- پرێمیوما حەڤتیانە (1$) -->
             <div class="vip-plan weekly">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #e2e8f0; font-size: 14px;">⭐ پرێمیوما حەڤتیانە (7 رۆژ)</strong>
-                    <span style="background: #475569; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$1</span>
+                    <span style="background: #475569; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$1 (~85 Stars)</span>
                 </div>
                 <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
                     <li>دەبڵ کلیک (x2 Coin) بۆ هەر تەکەکێ</li>
                     <li>٧ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
-                <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە (ارسال به تلگرام)</button>
+                <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>
             </div>
         </div>
     </div>
@@ -1047,12 +1047,11 @@
         const PACK_INTERVAL_MS = 4 * 3600 * 1000 + 48 * 60 * 1000;
 
         function checkVipStatus() {
-            if (isVip && Date.now() > vipExpiry) {
+            if (isVip && vipExpiry > 0 && Date.now() > vipExpiry) {
                 isVip = false;
-                maxPacks = 5;
             }
             if (isVip) {
-                maxPacks = vipExpiry - Date.now() > 7 * 24 * 3600 * 1000 ? 10 : 7;
+                maxPacks = (vipExpiry === 0 || vipExpiry - Date.now() > 7 * 24 * 3600 * 1000) ? 10 : 7;
                 if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'block';
             } else {
                 maxPacks = 5;
@@ -1185,8 +1184,6 @@
                     currentXp: currentXp,
                     maxXp: maxXp,
                     lastPackTime: lastPackTime,
-                    isVip: isVip,
-                    vipExpiry: vipExpiry,
                     channelJoined: channelJoined
                 });
             } catch (error) {
@@ -1209,7 +1206,7 @@
                     let rName = d.name || "یاریزان";
                     let rPhoto = d.photo && d.photo.startsWith('http') ? d.photo : "logo.png";
                     let rBalance = (d.balance || 0).toFixed(6);
-                    let rIsVip = d.isVip && (d.vipExpiry > Date.now());
+                    let rIsVip = d.isVip && (d.vipExpiry === 0 || d.vipExpiry > Date.now());
                     
                     let medal = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : `#${rank}`;
 
@@ -1351,19 +1348,28 @@
             }
         }
 
-        // ⭐ سیستەمێ نوو یێ ڤەگۆهاستنا یاریزانی بۆ ئەکاونتێ تە یێ تەلەگرامێ (@arko0o_o)
         window.buyVip = function(type) {
-            let myTelegramUsername = "arko0o_o";
-            let planName = type === 'monthly' ? "⭐ پرێمیوما هەیڤانە (30 رۆژ - $4)" : "⭐ پرێمیوما حەڤتیانە (7 رۆژ - $1)";
-            
-            let messageText = `سڵاو! من دڤێت ڤی پشکێ بکڕم:\n📌 ${planName}\n🆔 یوزەرێ من: @${tgUser?.username || userId}\n👤 ناڤێ من: ${userName}`;
-            
-            let targetUrl = `https://t.me/${myTelegramUsername}?text=${encodeURIComponent(messageText)}`;
-            
-            if (tg && tg.openTelegramLink) {
-                tg.openTelegramLink(targetUrl);
+            if (tg && tg.openInvoice) {
+                let invoiceUrl = type === 'monthly' 
+                    ? 'https://t.me/$INVOICE_LINK_MONTHLY_HERE' 
+                    : 'https://t.me/$INVOICE_LINK_WEEKLY_HERE';
+
+                tg.openInvoice(invoiceUrl, function(status) {
+                    if (status === 'paid') {
+                        isVip = true;
+                        let daysToAdd = type === 'monthly' ? 30 : 7;
+                        vipExpiry = Date.now() + (daysToAdd * 24 * 3600 * 1000);
+                        checkVipStatus();
+                        updateUI();
+                        alert('🎉 پیرۆزە! پارەدانا تە ب سەرکەفتیانە هاتە کرن و پرێمیوم بۆ تە چالاک بوو.');
+                    } else if (status === 'cancelled') {
+                        alert('پارەدان هاتە هەلوەشاندن.');
+                    } else {
+                        alert('چەوتییەک د پرۆسەیا پارەدانێ دا رویدا.');
+                    }
+                });
             } else {
-                window.open(targetUrl, '_blank');
+                alert('تکایە یاریێ ل ناڤ تەلەگرامێ ڤەکە داکو بشێی ب ستاران بکڕی.');
             }
         }
 
