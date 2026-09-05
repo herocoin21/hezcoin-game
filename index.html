@@ -544,7 +544,6 @@
             padding: 2px;
         }
 
-        /* Redesigned Shop Tab Styles */
         .shop-container {
             width: 100%;
             display: flex;
@@ -640,7 +639,6 @@
             gap: 4px;
         }
 
-        /* Leaderboard Items Styling */
         .rank-item {
             width: 100%;
             background: var(--card-bg);
@@ -703,7 +701,6 @@
             color: #34d399;
         }
 
-        /* Navbar Layout */
         .navbar {
             position: fixed;
             bottom: 0;
@@ -822,7 +819,7 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
-    <!-- SHOP TAB (Redesigned & Modern) -->
+    <!-- SHOP TAB -->
     <div id="shopTab" class="tab-content">
         <div class="shop-container">
             <div class="shop-header-title">🛒 فرۆشگەها یارییێ</div>
@@ -830,7 +827,6 @@
                 ✨ پشک و ئامێرێن پێشکەفتی بۆ زێدەکرنا مفا و کوینێن تە ب زوویترین دەم دێ بەردەست بن.
             </div>
 
-            <!-- Shop Item: Sold Out / Not Available -->
             <div class="shop-item-card">
                 <div class="shop-item-info">
                     <div class="shop-item-icon-box">
@@ -1355,9 +1351,32 @@
             }
         }
 
+        // ⭐ سیستەمێ کڕینا VIP ب رێکا فەرمی یا Telegram Stars (openInvoice)
         window.buyVip = function(type) {
-            let planName = type === 'monthly' ? 'هەیڤانە (4$)' : 'حەڤتیانە (1$)';
-            alert(`بۆ کڕینا پرێمیوما ${planName}، لینک و فاکتۆرا ستاران د زووترین دەمدا دێ هاتە گرێدان.`);
+            if (tg && tg.openInvoice) {
+                // ل ڤێرە لینکا فاکتورێ (Invoice Link) دابنە یا کو ژ بۆتێ خۆ (Backend) وەرگرتییە:
+                let invoiceUrl = type === 'monthly' 
+                    ? 'https://t.me/$INVOICE_LINK_MONTHLY_HERE' 
+                    : 'https://t.me/$INVOICE_LINK_WEEKLY_HERE';
+
+                tg.openInvoice(invoiceUrl, function(status) {
+                    if (status === 'paid') {
+                        isVip = true;
+                        let daysToAdd = type === 'monthly' ? 30 : 7;
+                        vipExpiry = Date.now() + (daysToAdd * 24 * 3600 * 1000);
+                        checkVipStatus();
+                        updateUI();
+                        alert('🎉 پیرۆزە! پارەدانا تە ب سەرکەفتیانە هاتە کرن و پرێمیوم بۆ تە چالاک بوو.');
+                    } else if (status === 'cancelled') {
+                        alert('پارەدان هاتە هەلوەشاندن.');
+                    } else {
+                        alert('چەوتییەک د پرۆسەیا پارەدانێ دا رویدا.');
+                    }
+                });
+            } else {
+                // بۆ تاقیکرنێ ئەگەر ل دەرڤەی تەلەگرامێ بیت
+                alert('تکایە یاریێ ل ناڤ تەلەگرامێ ڤەکە داکو بشێی ب ستاران بکڕی.');
+            }
         }
 
         function checkAndShowPopupAd() {
