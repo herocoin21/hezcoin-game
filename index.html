@@ -769,27 +769,27 @@
             <div class="vip-plan">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #f3e8ff; font-size: 14px;">⭐ پرێمیوما هەیڤانە (30 رۆژ)</strong>
-                    <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$4 (~300 Stars)</span>
+                    <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$4</span>
                 </div>
                 <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
                     <li>دەبڵ کلیک (x2 Coin) بۆ هەر تەکەکێ</li>
                     <li>هێزا بریسیێ و نیشانا VIP ل Ranking</li>
                     <li>١٠ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
-                <button class="vip-btn-monthly" onclick="buyVip('monthly')">کڕینا هەیڤانە ب Stars</button>
+                <button class="vip-btn-monthly" onclick="buyVip('monthly')">کڕینا هەیڤانە (ارسال به تلگرام)</button>
             </div>
 
             <!-- پرێمیوما حەڤتیانە (1$) -->
             <div class="vip-plan weekly">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #e2e8f0; font-size: 14px;">⭐ پرێمیوما حەڤتیانە (7 رۆژ)</strong>
-                    <span style="background: #475569; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$1 (~85 Stars)</span>
+                    <span style="background: #475569; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$1</span>
                 </div>
                 <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
                     <li>دەبڵ کلیک (x2 Coin) بۆ هەر تەکەکێ</li>
                     <li>٧ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
-                <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>
+                <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە (ارسال به تلگرام)</button>
             </div>
         </div>
     </div>
@@ -1351,33 +1351,19 @@
             }
         }
 
-        // ⭐ چارەسەری: کڕینا VIP ب ڕێکا لینکا فەرمی یا فاکتورێ (Invoice Link)
+        // ⭐ سیستەمێ نوو یێ ڤەگۆهاستنا یاریزانی بۆ ئەکاونتێ تە یێ تەلەگرامێ (@arko0o_o)
         window.buyVip = function(type) {
-            // ئەگەر لینکا تەلەگرامێ هەبێت (تۆ دشێی لینکێ فاکتورێ یێ ڕاستەقینە ل ڤێرە دابنێی)
-            let invoiceUrl = type === 'monthly' 
-                ? 'https://t.me/$xxxxxx' // لینکا هەیڤانە ل ڤێرە دابنە
-                : 'https://t.me/$xxxxxx'; // لینکا حەڤتیانە ل ڤێرە دابنە
-
-            if (tg && tg.openInvoice) {
-                tg.openInvoice(invoiceUrl, function(status) {
-                    if (status === 'paid') {
-                        isVip = true;
-                        let daysToAdd = type === 'monthly' ? 30 : 7;
-                        vipExpiry = Date.now() + (daysToAdd * 24 * 3600 * 1000);
-                        checkVipStatus();
-                        updateUI();
-                        alert('🎉 پیرۆزە! پارەدانا تە ب سەرکەفتیانە هاتە کرن و پرێمیوم بۆ تە چالاک بوو.');
-                    } else if (status === 'cancelled') {
-                        alert('پارەدان هاتە هەلوەشاندن.');
-                    } else {
-                        alert('چەوتییەک د پرۆسەیا پارەدانێ دا رویدا.');
-                    }
-                });
+            let myTelegramUsername = "arko0o_o";
+            let planName = type === 'monthly' ? "⭐ پرێمیوما هەیڤانە (30 رۆژ - $4)" : "⭐ پرێمیوما حەڤتیانە (7 رۆژ - $1)";
+            
+            let messageText = `سڵاو! من دڤێت ڤی پشکێ کڕنم:\n📌 ${planName}\n🆔 یوزەرێ من: @${tgUser?.username || userId}\n👤 ناڤێ من: ${userName}`;
+            
+            let targetUrl = `https://t.me/${myTelegramUsername}?text=${encodeURIComponent(messageText)}`;
+            
+            if (tg && tg.openTelegramLink) {
+                tg.openTelegramLink(targetUrl);
             } else {
-                // ڕێکا دووەم یا ئاسان ئەگەر تەلەگرام وەک App ڤەنەکەی: راستەوخۆ دەنێرێتە ناڤ بۆتێ خۆ
-                let botUsername = "hezcoin_bot";
-                let directLink = `https://t.me/${botUsername}?start=vip_${type}`;
-                window.open(directLink, '_blank');
+                window.open(targetUrl, '_blank');
             }
         }
 
