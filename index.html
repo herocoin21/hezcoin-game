@@ -1017,14 +1017,18 @@
             }
         }
 
-        function checkAndShowInterstitialAd() {
+        function checkAndShowPopupAd() {
             tapCountForAd++;
-            if (tapCountForAd >= 170) {
+            if (tapCountForAd >= 120) {
                 tapCountForAd = 0;
                 
                 if (typeof show_11724459 === 'function') {
-                    show_11724459().then(() => {}).catch(e => {
-                        console.log("Ad error:", e);
+                    show_11724459('pop').then(() => {
+                        // user watch ad till the end or close it in interstitial format
+                        // your code to reward user for rewarded format
+                    }).catch(e => {
+                        // user get error during playing ad
+                        // do nothing or whatever you want
                     });
                 }
             }
@@ -1039,7 +1043,7 @@
             balance += 0.000001;
             currentClicks -= 1;
             addXp(0.5);
-            checkAndShowInterstitialAd();
+            checkAndShowPopupAd();
 
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
