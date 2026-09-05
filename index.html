@@ -446,6 +446,15 @@
             font-size: 13px;
         }
 
+        .vip-active-box {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid #10b981;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            margin-top: 8px;
+        }
+
         .game-hud-panel {
             width: 100%;
             max-width: 280px;
@@ -587,7 +596,7 @@
             color: #34d399;
         }
 
-        /* NEW PREMIUM ADS SECTION STYLES */
+        /* ADS SECTION STYLES */
         .ads-hero-box {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             border: 1px solid rgba(59, 130, 246, 0.4);
@@ -736,7 +745,7 @@
             </div>
 
             <!-- پرێمیوما ١٤ رۆژی ($4) -->
-            <div class="vip-plan">
+            <div class="vip-plan" id="plan14DayContainer">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #f3e8ff; font-size: 14px;">⭐ پرێمیوما 14 رۆژی</strong>
                     <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$4 (~300 Stars)</span>
@@ -746,11 +755,13 @@
                     <li>١٠ پاکێتێن ئێنێرجیێ ل هەر ٢٤ دەمژمێراندا</li>
                     <li>چوارگوشەکا زێڕین و بریسقەدار ل Ranking و Profile</li>
                 </ul>
-                <button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>
+                <div id="action14DayArea">
+                    <button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>
+                </div>
             </div>
 
             <!-- پرێمیوما حەڤتیانە ($2) - بێ بریسقەدار -->
-            <div class="vip-plan weekly">
+            <div class="vip-plan weekly" id="planWeeklyContainer">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #e2e8f0; font-size: 14px;">⭐ پرێمیوما حەڤتیانە (7 رۆژ)</strong>
                     <span style="background: #475569; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$2 (~150 Stars)</span>
@@ -759,7 +770,9 @@
                     <li>١.٥ کلیک (1.5x) بۆ هەر تەکەکێ</li>
                     <li>٧ پاکێتێن ئێنێرجیێ ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
-                <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>
+                <div id="actionWeeklyArea">
+                    <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>
+                </div>
             </div>
         </div>
     </div>
@@ -843,7 +856,7 @@
         </div>
     </div>
 
-    <!-- ADS TAB (REFINED MODERN DESIGN) -->
+    <!-- ADS TAB -->
     <div id="adsTab" class="tab-content">
         <h2 style="margin-bottom: 8px;">📺 ناوەندا ڕیکلامان</h2>
         <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px; text-align: center;">ڤیدیۆیان تەماشە بکە و کۆینێن زێدە وەک دیاری وەرگرە!</p>
@@ -855,7 +868,7 @@
             <div class="ads-main-title">تەماشاکرنا ڤیدیۆیا تبلیغاتی</div>
             <div class="ads-desc">تەماشەی ڤیدیۆیێ بکە و بەهایەکێ مه‌زن یێ کۆینان و ئەزموونێ ب دەستخوە ڤەئینە!</div>
             <div class="ads-reward-tag">
-                <span>🎁</span> پاداشت: <strong>+0.000005 HEZ</strong> + <strong>20 XP</strong>
+                <span>🎁</span> پاداشت: <strong>+0.0001 HEZ</strong> + <strong>20 XP</strong>
             </div>
             <button class="ads-watch-btn" onclick="watchAd()">
                 <span>▶ دەستپێکرنا تەماشەکرنێ</span>
@@ -971,6 +984,7 @@
         let packIntervalMs = 4 * 3600 * 1000; 
         let lastPackTime = Date.now();
         let packTimerInterval = null;
+        let vipCountdownInterval = null;
 
         const balanceEl = document.getElementById('balance');
         const energyPacksEl = document.getElementById('energyPacks');
@@ -1025,10 +1039,60 @@
                 if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'none';
             }
             if(maxPacksDisplayEl) maxPacksDisplayEl.innerText = maxPacks;
+            updateVipUIState();
+        }
+
+        function updateVipUIState() {
+            const action14DayArea = document.getElementById('action14DayArea');
+            const actionWeeklyArea = document.getElementById('actionWeeklyArea');
+
+            if (!action14DayArea || !actionWeeklyArea) return;
+
+            if (isVip) {
+                const now = Date.now();
+                const timeLeft = vipExpiry > 0 ? vipExpiry - now : 0;
+                
+                if (vipType === '14day') {
+                    action14DayArea.innerHTML = `
+                        <div class="vip-active-box">
+                            <div style="font-size: 12px; font-weight: 800; color: #34d399;">✨ پرێمیوما ١٤ ڕۆژی چالاکە</div>
+                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;" id="vip14TimerText">دەمێ مایی: ${formatDuration(timeLeft)}</div>
+                        </div>
+                    `;
+                    actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>`;
+                } else if (vipType === 'weekly') {
+                    actionWeeklyArea.innerHTML = `
+                        <div class="vip-active-box">
+                            <div style="font-size: 12px; font-weight: 800; color: #34d399;">✨ پرێمیوما حەڤتیانە چالاکە</div>
+                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;" id="vipWeeklyTimerText">دەمێ مایی: ${formatDuration(timeLeft)}</div>
+                        </div>
+                    `;
+                    action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>`;
+                }
+            } else {
+                action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>`;
+                actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>`;
+            }
+        }
+
+        function formatDuration(ms) {
+            if (ms <= 0) return "سەعاتەکا کێم خلاس دبت";
+            const seconds = Math.floor(ms / 1000);
+            const days = Math.floor(seconds / (3600 * 24));
+            const hours = Math.floor((seconds % (3600 * 24)) / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+
+            if (days > 0) {
+                return `${days} رۆژ و ${hours} دەمژمێر`;
+            } else {
+                return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            }
         }
 
         function startEnergyTimer() {
             if (packTimerInterval) clearInterval(packTimerInterval);
+            if (vipCountdownInterval) clearInterval(vipCountdownInterval);
 
             packTimerInterval = setInterval(() => {
                 checkVipStatus();
@@ -1063,6 +1127,12 @@
                     if (packTimerText) {
                         packTimerText.innerText = "پاکێت تژی نە :)";
                     }
+                }
+            }, 1000);
+
+            vipCountdownInterval = setInterval(() => {
+                if (isVip && vipExpiry > 0) {
+                    updateVipUIState();
                 }
             }, 1000);
         }
@@ -1181,7 +1251,6 @@
                     let rIsVip = d.isVip && (d.vipExpiry === 0 || d.vipExpiry > Date.now());
                     let rVipType = d.vipType || '14day';
                     
-                    // تنێ یێ ١٤ ڕۆژی بریسقەدارە، یێ حەڤتیانە بێ بریسقەدارە
                     let showSparkle = rIsVip && (rVipType === '14day');
 
                     let isMeClass = (docId === userId) ? " is-me" : "";
@@ -1348,10 +1417,10 @@
         window.watchAd = function() {
             if (typeof show_11724459 === 'function') {
                 show_11724459().then(() => {
-                    balance += 0.000005;
+                    balance += 0.0001;
                     addXp(20);
                     updateUI();
-                    alert('🎉 پیرۆزە! پاداشتێ تبلیغێ بۆ تە هاتە زێدەکرن.');
+                    alert('🎉 پیرۆزە! پاداشتێ تبلیغێ (+0.0001 HEZ) بۆ تە هاتە زێدەکرن.');
                 }).catch(e => {
                     alert('نوکە چ تبلیغ بەردەست نینن، دووبارە هەول بدە.');
                 });
@@ -1360,7 +1429,7 @@
             }
         }
 
-        /* Coin Clicker Logic with Distinct VIP Support */
+        /* Coin Clicker Logic */
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
@@ -1377,7 +1446,7 @@
                     xpIncrement = 1.0;
                     floatText = '+0.000002 (2x)';
                 } else if (vipType === 'weekly') {
-                    coinIncrement = 0.0000015; // 1.5x بۆ حەڤتیانە
+                    coinIncrement = 0.0000015;
                     xpIncrement = 0.75;
                     floatText = '+0.0000015 (1.5x)';
                 }
