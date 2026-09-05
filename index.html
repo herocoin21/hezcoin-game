@@ -527,7 +527,7 @@
             color: #34d399;
         }
 
-        /* Navbar Layout - Left-to-Right Ordered */
+        /* Navbar Layout - Left-to-Right: Tasks -> Ads -> Rank -> Shop -> Tap */
         .navbar {
             position: fixed;
             bottom: 0;
@@ -665,278 +665,477 @@
 
     <!-- ADS TAB -->
     <div id="adsTab" class="tab-content">
-        <h2 style="margin-bottom: 12px;">📺 وەرگرتنا کۆینان ب پشکداریکرنێ</h2>
+        <h2 style="margin-bottom: 15px;">🎬 تەماشایا ڕێکلامان بکە</h2>
         <div class="card">
             <div class="shop-item-left">
                 <img src="logo.png" alt="Ad" class="shop-item-img">
                 <div>
-                    <h4 style="font-size: 14px; margin-bottom: 2px;">ڤیدیۆیا سپۆنسەرکری</h4>
-                    <p style="font-size: 11px; color: var(--text-muted);">تیرۆک و کۆینێن زێدە وەرگرە</p>
+                    <strong>ڕێکلاما ناڤ تەلەگرامێ</strong>
+                    <p style="font-size: 11px; color: var(--accent-yellow);">+1 پەکێت + 0.0001 HEZ</p>
                 </div>
             </div>
-            <button class="btn btn-ad" onclick="watchAd()">سەیرکە (Watch)</button>
+            <button class="btn btn-ad" style="width: auto; padding: 7px 10px; font-size: 12px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
         </div>
     </div>
 
     <!-- TASKS TAB -->
     <div id="tasksTab" class="tab-content">
-        <h2 style="margin-bottom: 12px;">📋 ئەکتیڤیتى و ئەرک</h2>
-        <div class="card">
-            <div class="shop-item-left">
-                <div class="shop-item-img" style="display:flex;align-items:center;justify-content:center;font-size:20px;">📢</div>
-                <div>
-                    <h4 style="font-size: 14px; margin-bottom: 2px;">سەردانا کەناڵێ</h4>
-                    <p style="font-size: 11px; color: var(--text-muted);">+0.050000 HEZ</p>
-                </div>
+        <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
+        
+        <div class="card" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+            <div>
+                <strong>👥 هەڤالێن خۆ بانگهێشت بکە</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow); margin-top: 4px;">بۆ هەر هەڤالەکێ ل سەر لینکێ تە داخل ببט: +0.001 HEZ + 100 XP</p>
             </div>
-            <button class="btn" style="background:var(--accent-yellow); color:#000;" onclick="completeTask(this)">جێبەجێکرن</button>
+            <input type="text" id="inviteLinkInput" readonly style="width: 100%; padding: 8px; background: #0b0f19; border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; color: #fff; font-size: 11px;" value="باردبت...">
+            <button class="btn btn-ad" style="width: 100%; padding: 8px;" onclick="copyInviteLink()">🔗 کۆپیکرنا لینکێ بانگهێشتێ</button>
+        </div>
+
+        <div class="card">
+            <div>
+                <strong>بەشداری کەناڵی ببە</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ + 50 XP</p>
+            </div>
+            <div style="display: flex; gap: 6px;">
+                <button class="btn btn-ad" style="width: auto; padding: 8px 12px;" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی</button>
+                <button class="btn" style="width: auto; padding: 8px 12px; display: none; background: #f59e0b; color:#fff; border:none; border-radius:8px; font-weight:700;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
+            </div>
         </div>
     </div>
 
-    <!-- NAVBAR (Left-to-Right Ordered) -->
+    <!-- NAVIGATION BAR -->
     <div class="navbar">
-        <div class="nav-item active" onclick="switchTab('tapTab', this)">
-            <span class="nav-icon">👆</span>
-            <span>Tap</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('shopTab', this)">
-            <span class="nav-icon">🛒</span>
-            <span>Shop</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('rankTab', this)">
-            <span class="nav-icon">🏆</span>
-            <span>Rank</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('adsTab', this)">
-            <span class="nav-icon">ads</span>
-            <span>Ads</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('tasksTab', this)">
+        <div class="nav-item" id="navTasks" onclick="switchTab('tasksTab', this)">
             <span class="nav-icon">📋</span>
             <span>Tasks</span>
         </div>
+        <div class="nav-item" id="navAds" onclick="switchTab('adsTab', this)">
+            <span class="nav-icon">🎬</span>
+            <span>Ads</span>
+        </div>
+        <div class="nav-item" id="navRank" onclick="switchTab('rankTab', this); loadLeaderboard();">
+            <span class="nav-icon">🏆</span>
+            <span>Rank</span>
+        </div>
+        <div class="nav-item" id="navShop" onclick="switchTab('shopTab', this)">
+            <span class="nav-icon">🛒</span>
+            <span>Shop</span>
+        </div>
+        <div class="nav-item active" id="navTap" onclick="switchTab('tapTab', this)">
+            <span class="nav-icon">👆</span>
+            <span>Tap</span>
+        </div>
     </div>
 
-    <script>
-        // Telegram WebApp Initialization
-        let tg = window.Telegram.WebApp;
-        tg.expand();
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Game State Variables
-        let balance = 0.000000;
-        let currentClicks = 500;
-        let maxClicks = 500;
+        const firebaseConfig = {
+            apiKey: "AIzaSyBLAm1amoybyoAdCGZLfTbZzUkspPIEmhk",
+            authDomain: "hez-coin-bot.firebaseapp.com",
+            projectId: "hez-coin-bot",
+            storageBucket: "hez-coin-bot.firebasestorage.app",
+            messagingSenderId: "374007175499",
+            appId: "1:374007175499:web:5c58392a3f4bd98d5770ce"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const tg = window.Telegram ? window.Telegram.WebApp : null;
+        if (tg) {
+            tg.expand();
+            tg.ready();
+        }
+
+        const tgUser = tg?.initDataUnsafe?.user;
+        const userId = tgUser?.id ? String(tgUser.id) : "user_" + Math.floor(Math.random() * 1000000);
+        
+        let userName = tgUser?.first_name || "یاریزان";
+        let userPhoto = tgUser?.photo_url || "logo.png";
+        
+        const userRef = doc(db, "users", userId);
+
+        let balance = 0;
         let energyPacks = 4;
+        let currentClicks = 500;
+        let currentLevel = 1;
         let currentXp = 0;
         let maxXp = 2000;
-        let userLevel = 1;
-        let userName = "یاریزان";
-        let userAvatar = "logo.png";
+        let tapCountForAd = 0;
+        let channelJoined = false;
 
-        // Timer Variables for Next Packet (4 hours 48 minutes = 17280 seconds)
-        let totalSeconds = 4 * 3600 + 48 * 60;
+        const maxClicksPerPack = 500;
+        const maxPacks = 5;
+        let lastPackTime = Date.now();
+        let packTimerInterval = null;
+
+        const balanceEl = document.getElementById('balance');
+        const energyPacksEl = document.getElementById('energyPacks');
+        const currentClicksEl = document.getElementById('currentClicks');
+        const coinBtn = document.getElementById('coinBtn');
+        const packTimerText = document.getElementById('packTimerText');
+        
+        const userNameDisplay = document.getElementById('userNameDisplay');
+        const userLevelBadge = document.getElementById('userLevelBadge');
+        const userAvatar = document.getElementById('userAvatar');
+        const cornerName = document.getElementById('cornerName');
+        const cornerAvatar = document.getElementById('cornerAvatar');
+        const cornerLevelBadge = document.getElementById('cornerLevelBadge');
+        
+        const currentXpEl = document.getElementById('currentXp');
+        const maxXpEl = document.getElementById('maxXp');
+        const xpBarFill = document.getElementById('xpBarFill');
+        const inviteLinkInput = document.getElementById('inviteLinkInput');
+        
+        const channelJoinBtn = document.getElementById('channelJoinBtn');
+        const channelCheckBtn = document.getElementById('channelCheckBtn');
+
+        const botUsername = "hezcoin_bot";
+        const inviteLink = `https://t.me/${botUsername}/PlayHez?startapp=ref_${userId}`;
+        if(inviteLinkInput) {
+            inviteLinkInput.value = inviteLink;
+        }
+
+        // Timer Logic for Energy Packs (4 hours 48 minutes = 17280000 ms)
+        const PACK_INTERVAL_MS = 4 * 3600 * 1000 + 48 * 60 * 1000;
 
         function startEnergyTimer() {
-            let timerInterval = setInterval(function() {
-                if (totalSeconds <= 0) {
-                    totalSeconds = 4 * 3600 + 48 * 60; 
-                    if (energyPacks < 5) {
-                        energyPacks++;
+            if (packTimerInterval) clearInterval(packTimerInterval);
+
+            packTimerInterval = setInterval(() => {
+                const now = Date.now();
+                const elapsed = now - lastPackTime;
+
+                if (energyPacks < maxPacks) {
+                    if (elapsed >= PACK_INTERVAL_MS) {
+                        // How many packs earned
+                        const packsEarned = Math.floor(elapsed / PACK_INTERVAL_MS);
+                        energyPacks = Math.min(maxPacks, energyPacks + packsEarned);
+                        lastPackTime += packsEarned * PACK_INTERVAL_MS;
                         updateUI();
                     }
+
+                    const remainingTime = PACK_INTERVAL_MS - (elapsed % PACK_INTERVAL_MS);
+                    const totalSeconds = Math.floor(remainingTime / 1000);
+                    
+                    const hours = Math.floor(totalSeconds / 3600);
+                    const minutes = Math.floor((totalSeconds % 3600) / 60);
+                    const seconds = totalSeconds % 60;
+
+                    const formattedTime = 
+                        String(hours).padStart(2, '0') + ":" + 
+                        String(minutes).padStart(2, '0') + ":" + 
+                        String(seconds).padStart(2, '0');
+
+                    if (packTimerText) {
+                        packTimerText.innerText = "پەکێتا داهاتی: " + formattedTime;
+                    }
                 } else {
-                    totalSeconds--;
-                }
-
-                let hours = Math.floor(totalSeconds / 3600);
-                let minutes = Math.floor((totalSeconds % 3600) / 60);
-                let seconds = totalSeconds % 60;
-
-                let formattedTime = 
-                    String(hours).padStart(2, '0') + ":" + 
-                    String(minutes).padStart(2, '0') + ":" + 
-                    String(seconds).padStart(2, '0');
-
-                let timerElement = document.getElementById("packTimerText");
-                if (timerElement) {
-                    timerElement.innerText = "پەکێتا داهاتی: " + formattedTime;
+                    lastPackTime = now;
+                    if (packTimerText) {
+                        packTimerText.innerText = "پەکێت تژی نە :)";
+                    }
                 }
             }, 1000);
         }
 
-        // Initialize User Data from Telegram if available
-        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            let user = tg.initDataUnsafe.user;
-            if (user.first_name) {
-                userName = user.first_name;
-                if (user.last_name) userName += " " + user.last_name;
+        async function initUser() {
+            try {
+                const docSnap = await getDoc(userRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    balance = data.balance ?? 0;
+                    energyPacks = data.energyPacks ?? 4;
+                    currentClicks = data.currentClicks ?? 500;
+                    currentLevel = data.currentLevel ?? 1;
+                    currentXp = data.currentXp ?? 0;
+                    maxXp = data.maxXp ?? 2000;
+                    lastPackTime = data.lastPackTime || Date.now();
+                    if(data.name) userName = data.name;
+                    if(data.photo) userPhoto = data.photo;
+                    
+                    if (data.channelJoined) {
+                        channelJoined = true;
+                        if(channelJoinBtn) {
+                            channelJoinBtn.innerText = 'وەرگرتییە ✅';
+                            channelJoinBtn.disabled = true;
+                            channelJoinBtn.style.background = '#334155';
+                            if(channelCheckBtn) channelCheckBtn.style.display = 'none';
+                        }
+                    }
+                } else {
+                    let startParam = tg?.initDataUnsafe?.start_param;
+                    let referredBy = null;
+                    if (startParam && startParam.startsWith("ref_")) {
+                        referredBy = startParam.replace("ref_", "");
+                    }
+
+                    if (referredBy && referredBy !== userId) {
+                        try {
+                            const refUserRef = doc(db, "users", referredBy);
+                            const refSnap = await getDoc(refUserRef);
+                            if (refSnap.exists()) {
+                                const refData = refSnap.data();
+                                await updateDoc(refUserRef, {
+                                    balance: Number((refData.balance || 0) + 0.001),
+                                    currentXp: Number((refData.currentXp || 0) + 100)
+                                });
+                            }
+                        } catch(e) { console.log("Ref error", e); }
+                    }
+
+                    await setDoc(userRef, {
+                        name: userName,
+                        photo: userPhoto,
+                        balance: 0,
+                        energyPacks: 4,
+                        currentClicks: 500,
+                        currentLevel: 1,
+                        currentXp: 0,
+                        maxXp: 2000,
+                        lastPackTime: Date.now(),
+                        channelJoined: false,
+                        referredBy: referredBy || null,
+                        createdAt: new Date()
+                    });
+                }
+            } catch (error) {
+                console.error("Firebase load error:", error);
             }
-            if (user.photo_url) {
-                userAvatar = user.photo_url;
+            updateUI();
+            startEnergyTimer();
+        }
+
+        async function syncToFirebase() {
+            try {
+                await updateDoc(userRef, {
+                    name: userName,
+                    photo: userPhoto,
+                    balance: balance,
+                    energyPacks: energyPacks,
+                    currentClicks: currentClicks,
+                    currentLevel: currentLevel,
+                    currentXp: currentXp,
+                    maxXp: maxXp,
+                    lastPackTime: lastPackTime,
+                    channelJoined: channelJoined
+                });
+            } catch (error) {
+                console.error("Firebase sync error:", error);
             }
+        }
+
+        window.loadLeaderboard = async function() {
+            const leaderboardList = document.getElementById('leaderboardList');
+            leaderboardList.innerHTML = `<p style="color: var(--text-muted); font-size: 13px; text-align: center;">ئەپدەیت دبت...</p>`;
+            try {
+                const q = query(collection(db, "users"), orderBy("balance", "desc"), limit(20));
+                const querySnapshot = await getDocs(q);
+                let html = "";
+                let rank = 1;
+                
+                querySnapshot.forEach((docSnap) => {
+                    let d = docSnap.data();
+                    let rName = d.name || "یاریزان";
+                    let rPhoto = d.photo && d.photo.startsWith('http') ? d.photo : "logo.png";
+                    let rBalance = (d.balance || 0).toFixed(6);
+                    
+                    let medal = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : `#${rank}`;
+
+                    html += `
+                        <div class="rank-item">
+                            <div class="rank-left">
+                                <span class="rank-number">${medal}</span>
+                                <img src="${rPhoto}" alt="" class="rank-avatar">
+                                <span class="rank-name">${rName}</span>
+                            </div>
+                            <span class="rank-score">${rBalance} HEZ</span>
+                        </div>
+                    `;
+                    rank++;
+                });
+
+                if(html === "") {
+                    leaderboardList.innerHTML = `<p style="color: var(--text-muted); font-size: 13px; text-align: center;">چ یاریزان نینن هێشتا.</p>`;
+                } else {
+                    leaderboardList.innerHTML = html;
+                }
+            } catch (err) {
+                console.error("Leaderboard error:", err);
+                leaderboardList.innerHTML = `<p style="color: #ef4444; font-size: 13px; text-align: center;">کێشە د ڤەکریبا لێستێ دا چێبوو.</p>`;
+            }
+        }
+
+        function addXp(amount) {
+            currentXp += amount;
+            if (currentXp >= maxXp) {
+                currentLevel += 1;
+                currentXp -= maxXp;
+                maxXp = Math.floor(maxXp * 2.2);
+                alert(`🎉 پیرۆزە! تو گەهشتیە Level ${currentLevel}`);
+            }
+            updateUI();
         }
 
         function updateUI() {
-            document.getElementById("balance").innerText = balance.toFixed(6);
-            document.getElementById("currentClicks").innerText = currentClicks;
-            document.getElementById("energyPacks").innerText = energyPacks;
-            document.getElementById("cornerName").innerText = userName;
-            document.getElementById("userNameDisplay").innerText = userName;
-            document.getElementById("cornerLevelBadge").innerText = "Lvl " + userLevel;
-            document.getElementById("userLevelBadge").innerText = "Level " + userLevel;
-            document.getElementById("currentXp").innerText = currentXp;
-            document.getElementById("maxXp").innerText = maxXp;
+            balanceEl.innerText = balance.toFixed(6);
+            energyPacksEl.innerText = energyPacks;
+            currentClicksEl.innerText = currentClicks;
+            userNameDisplay.innerText = userName;
+            cornerName.innerText = userName;
+            userLevelBadge.innerText = `Level ${currentLevel}`;
+            cornerLevelBadge.innerText = `Lvl ${currentLevel}`;
+            currentXpEl.innerText = currentXp;
+            maxXpEl.innerText = maxXp;
             
-            let xpPercent = (currentXp / maxXp) * 100;
-            if(xpPercent > 100) xpPercent = 100;
-            document.getElementById("xpBarFill").style.width = xpPercent + "%";
-
-            document.getElementById("cornerAvatar").src = userAvatar;
-            document.getElementById("userAvatar").src = userAvatar;
+            if(userPhoto) {
+                userAvatar.src = userPhoto;
+                cornerAvatar.src = userPhoto;
+            }
+            
+            xpBarFill.style.width = Math.min(100, (currentXp / maxXp) * 100) + '%';
+            syncToFirebase();
         }
 
-        // Tab Navigation Logic
-        function switchTab(tabId, element) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
+        window.switchTab = function(tabId, el) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            if(element) element.classList.add('active');
+            if(el) el.classList.add('active');
         }
 
-        function switchToProfile() {
-            switchTab('profileTab', null);
+        window.switchToProfile = () => switchTab('profileTab', null);
+        window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
+
+        window.changeUserName = function() {
+            const newName = prompt("ناڤێ خۆ یێ نوو بنڤیسە:", userName);
+            if (newName?.trim()) { userName = newName.trim(); updateUI(); alert("هاتە گۆڕین!"); }
         }
 
-        function switchToTap() {
-            switchTab('tapTab', document.querySelector('.nav-item'));
+        window.changeUserAvatar = function() {
+            const newPhoto = prompt("لینکا وێنەیێ نوو دابنێ:", userPhoto);
+            if (newPhoto?.trim()) { userPhoto = newPhoto.trim(); updateUI(); alert("وێنە هاتە نووکرن!"); }
         }
 
-        // Tap Mechanics
-        const coinBtn = document.getElementById('coinBtn');
-        coinBtn.addEventListener('click', function(e) {
+        window.copyInviteLink = function() {
+            if(inviteLinkInput) {
+                inviteLinkInput.select();
+                inviteLinkInput.setSelectionRange(0, 9999);
+                navigator.clipboard.writeText(inviteLinkInput.value);
+                alert('🔗 لینکێ بانگهێشتێ هاتە کۆپیکرن! بۆ هەڤالێن خۆ بنێرە.');
+            }
+        }
+
+        window.openChannelLink = function() {
+            if (channelJoined) return;
+            window.open('https://t.me/hezcoinchannel', '_blank');
+            
+            if(channelJoinBtn) {
+                channelJoinBtn.innerText = 'چوو ناڤ کەناڵی ↗';
+            }
+            if(channelCheckBtn) {
+                channelCheckBtn.style.display = 'inline-block';
+            }
+        }
+
+        window.verifyChannelJoin = function() {
+            if (channelJoined) return;
+
+            let checkConfirm = confirm("ئایا تە بەشداری د کەناڵێ (Hez Coin) دا کر؟ داکو دیارییا خۆ وەربگریت.");
+            if (checkConfirm) {
+                channelJoined = true;
+                balance += 0.001;
+                addXp(50);
+                
+                if(channelJoinBtn) {
+                    channelJoinBtn.innerText = 'وەرگرتییە ✅';
+                    channelJoinBtn.disabled = true;
+                    channelJoinBtn.style.background = '#334155';
+                }
+                if(channelCheckBtn) {
+                    channelCheckBtn.style.display = 'none';
+                }
+
+                syncToFirebase();
+                alert('🎉 پیرۆزە! پاداشت ب سەرکەفتیانە بۆ حسابێ تە هاتە زێدەکرن.');
+            }
+        }
+
+        function checkAndShowPopupAd() {
+            tapCountForAd++;
+            if (tapCountForAd >= 120) {
+                tapCountForAd = 0;
+                
+                if (typeof show_11724459 === 'function') {
+                    show_11724459('pop').then(() => {}).catch(e => {});
+                }
+            }
+        }
+
+        coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
-                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
+                alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
                 return;
             }
 
-            currentClicks--;
             balance += 0.000001;
-            currentXp += 10;
+            currentClicks -= 1;
+            addXp(0.5);
+            checkAndShowPopupAd();
 
-            if (currentXp >= maxXp) {
-                currentXp -= maxXp;
-                userLevel++;
-                maxXp = Math.floor(maxXp * 1.5);
-                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-            } else {
-                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-            }
+            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
-            updateUI();
-
-            // Floating Number Animation
-            let rect = coinBtn.getBoundingClientRect();
-            let x = e.clientX - rect.left;
-            let y = e.clientY - rect.top;
-
-            let floatBox = document.createElement('div');
+            const rect = coinBtn.getBoundingClientRect();
+            const floatBox = document.createElement('div');
             floatBox.className = 'float-box';
-            floatBox.innerText = '+0.000001 HEZ';
-            floatBox.style.left = (x - 20) + 'px';
-            floatBox.style.top = (y - 20) + 'px';
+            floatBox.innerText = '+0.000001';
+            floatBox.style.left = (e.clientX - rect.left - 20) + 'px';
+            floatBox.style.top = (e.clientY - rect.top - 30) + 'px';
             coinBtn.appendChild(floatBox);
 
-            setTimeout(() => {
-                floatBox.remove();
-            }, 800);
+            setTimeout(() => floatBox.remove(), 800);
         });
 
-        function useEnergyPack() {
-            if (energyPacks > 0) {
-                energyPacks--;
-                currentClicks = maxClicks;
-                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-                updateUI();
-            } else {
-                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
-            }
+        window.useEnergyPack = function() {
+            if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
+            if (energyPacks <= 0) { alert('پەکێت نینن!'); return; }
+            energyPacks -= 1;
+            currentClicks = maxClicksPerPack;
+            lastPackTime = Date.now();
+            updateUI();
+            alert('500 ئێنێرجی بۆ تە هاتە دان.');
         }
 
-        function watchAd() {
+        window.watchAdForEnergy = function() {
+            const adBtn = document.getElementById('adBtn');
+            adBtn.disabled = true;
+            adBtn.innerText = 'ڕێکلام بار دبت...';
+
             if (typeof show_11724459 === 'function') {
                 show_11724459().then(() => {
-                    balance += 0.005000;
+                    if(energyPacks < maxPacks) energyPacks += 1;
+                    balance += 0.0001;
+                    addXp(25);
                     updateUI();
-                }).catch((e) => {
-                    console.log("Ad error", e);
+                    alert('You have seen an ad!');
+                    adBtn.disabled = false;
+                    adBtn.innerText = 'تەماشابکە';
+                }).catch((err) => {
+                    console.error("Ad load error:", err);
+                    alert('ببورە، ڕێکلام نەهاتە بارکرن. تکایە پاشتر تاقی بکە.');
+                    adBtn.disabled = false;
+                    adBtn.innerText = 'تەماشابکە';
                 });
             } else {
-                balance += 0.005000;
-                updateUI();
+                alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە.');
+                adBtn.disabled = false;
+                adBtn.innerText = 'تەماشابکە';
             }
         }
 
-        function completeTask(btn) {
-            btn.innerText = "✔ تەواو بوو";
-            btn.style.background = "#10b981";
-            btn.disabled = true;
-            balance += 0.050000;
-            updateUI();
-        }
-
-        function changeUserName() {
-            let newName = prompt("ناڤێ نوو بنڤیسە:", userName);
-            if (newName && newName.trim() !== "") {
-                userName = newName.trim();
-                updateUI();
-            }
-        }
-
-        function changeUserAvatar() {
-            let newUrl = prompt("لینکێ وێنەیێ نوو (URL) بنڤیسە:", userAvatar);
-            if (newUrl && newUrl.trim() !== "") {
-                userAvatar = newUrl.trim();
-                updateUI();
-            }
-        }
-
-        // Load Leaderboard Mock Data
-        function loadLeaderboard() {
-            let list = document.getElementById('leaderboardList');
-            let mockData = [
-                {name: "Aram", score: "0.154200 HEZ", avatar: userAvatar},
-                {name: "KurdCoder", score: "0.123000 HEZ", avatar: "logo.png"},
-                {name: "HezMaster", score: "0.098500 HEZ", avatar: "logo.png"},
-                {name: userName, score: balance.toFixed(6) + " HEZ", avatar: userAvatar}
-            ];
-
-            let html = "";
-            mockData.forEach((item, index) => {
-                html += `
-                    <div class="rank-item">
-                        <div class="rank-left">
-                            <span class="rank-number">#${index + 1}</span>
-                            <img src="${item.avatar}" class="rank-avatar" alt="Avatar">
-                            <span class="rank-name">${item.name}</span>
-                        </div>
-                        <span class="rank-score">${item.score}</span>
-                    </div>
-                `;
-            });
-            list.innerHTML = html;
-        }
-
-        // Run Timer and Initial Updates on Load
-        window.onload = function() {
-            updateUI();
-            startEnergyTimer();
-            loadLeaderboard();
-        };
+        initUser();
     </script>
 </body>
 </html>
