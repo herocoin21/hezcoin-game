@@ -98,6 +98,31 @@
             margin-top: 2px;
         }
 
+        /* VIP Button next to Profile Top Left */
+        .header-vip-btn {
+            position: absolute;
+            top: 12px;
+            left: 135px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            border: none;
+            padding: 9px 12px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 11px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            animation: pulseVip 2s infinite;
+            z-index: 40;
+        }
+
+        @keyframes pulseVip {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+            100% { transform: scale(1); }
+        }
+
         /* Wallet Top Right */
         .wallet-badge {
             position: absolute;
@@ -438,42 +463,57 @@
             padding: 2px;
         }
 
-        /* Shop Coming Soon */
-        .shop-coming-soon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            border-radius: 24px;
-            padding: 35px 20px;
+        /* VIP Store Container Styling */
+        .vip-store-container {
             width: 100%;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(245, 158, 11, 0.2);
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            backdrop-filter: blur(16px);
+            border: 2px solid #8b5cf6;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(139, 92, 246, 0.3);
             margin-top: 10px;
+            text-align: right;
         }
 
-        .shop-cs-icon {
-            width: 75px;
-            height: 75px;
-            background: rgba(245, 158, 11, 0.15);
-            border: 2px solid var(--accent-yellow);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 34px;
-            margin-bottom: 16px;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+        .vip-plan {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid #a855f7;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 12px;
         }
 
-        .shop-divider {
-            width: 40px;
-            height: 3px;
-            background: var(--accent-yellow);
-            border-radius: 2px;
-            margin: 10px 0 14px 0;
+        .vip-plan.weekly {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid #475569;
+        }
+
+        .vip-btn-monthly {
+            width: 100%;
+            background: linear-gradient(90deg, #9333ea, #c084fc);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 13px;
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.4);
+        }
+
+        .vip-btn-weekly {
+            width: 100%;
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 13px;
         }
 
         /* Leaderboard Items Styling */
@@ -489,11 +529,16 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Highlight Style for Current User in Ranking */
         .rank-item.is-me {
             background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(20, 24, 33, 0.95) 100%);
             border: 2px solid var(--accent-yellow);
             box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        }
+
+        /* VIP Ranking Highlight Style */
+        .rank-item.is-vip {
+            border: 2px solid #a855f7;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(20, 24, 33, 0.95) 100%);
         }
 
         .rank-left {
@@ -582,6 +627,9 @@
         </div>
     </div>
 
+    <!-- VIP Button next to Profile -->
+    <button class="header-vip-btn" onclick="switchToShop()">💎 پرێمیۆم</button>
+
     <!-- Wallet Top Right -->
     <div class="wallet-badge">
         <div class="wallet-icon-box">
@@ -600,7 +648,7 @@
         <div class="game-hud-panel">
             <div class="hud-row">
                 <span>📦 پەکێت:</span>
-                <span style="color: var(--accent-yellow);"><span id="energyPacks">4</span>/5</span>
+                <span style="color: var(--accent-yellow);"><span id="energyPacks">4</span>/<span id="maxPacksDisplay">5</span></span>
             </div>
             <div class="hud-timer-sub" id="packTimerText">پەکێتا داهاتی: 04:48:00</div>
             
@@ -614,19 +662,41 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
-    <!-- SHOP TAB -->
+    <!-- SHOP TAB (VIP & Packages) -->
     <div id="shopTab" class="tab-content">
-        <h2 style="margin-bottom: 5px;">🛒 فرۆشگەها فەرمی</h2>
+        <h2 style="margin-bottom: 5px;">🛒 فرۆشگەها پرێمیۆم (VIP)</h2>
         
-        <div class="shop-coming-soon">
-            <div class="shop-cs-icon">🛍️</div>
-            <h3 style="font-size: 18px; color: #fff; font-weight: 800;">فرۆشگەهـ یێ دهێتە چێکرن</h3>
-            <div class="shop-divider"></div>
-            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
-                هەتا نوکە چ بەرهەم ل فرۆشگەهێ نینن. ئەم گەلەک ب سەبرڤە کار لسەر ئامادەکرنا باشترین و جوانترین کالا بۆ تە دکەین!
-            </p>
-            <div style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 6px;">
-                <span>✨</span> ب زوویی دێ کەفتە کار
+        <div class="vip-store-container">
+            <div style="text-align: center; margin-bottom: 12px;">
+                <h3 style="color: #c084fc; margin: 0; font-size: 17px;">⭐ ئەندامێتییا تایبەت</h3>
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">یارییا خۆ بێ سنور پێشکەش بکە و بهێز بکە!</p>
+            </div>
+
+            <!-- پرێمیوما هەیڤانە (4$) -->
+            <div class="vip-plan">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong style="color: #f3e8ff; font-size: 14px;">⭐ پرێمیوما هەیڤانە (30 رۆژ)</strong>
+                    <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$4 (~300 Stars)</span>
+                </div>
+                <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
+                    <li>دەبڵ کلیک (x2 Coin) بۆ هەر تەکەکێ</li>
+                    <li>هێزا بریسیێ و نیشانا VIP ل Ranking</li>
+                    <li>١٠ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
+                </ul>
+                <button class="vip-btn-monthly" onclick="buyVip('monthly')">کڕینا هەیڤانە ب Stars</button>
+            </div>
+
+            <!-- پرێمیوما حەڤتیانە (1$) -->
+            <div class="vip-plan weekly">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong style="color: #e2e8f0; font-size: 14px;">⭐ پرێمیوما حەڤتیانە (7 رۆژ)</strong>
+                    <span style="background: #475569; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$1 (~85 Stars)</span>
+                </div>
+                <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
+                    <li>دەبڵ کلیک (x2 Coin) بۆ هەر تەکەکێ</li>
+                    <li>٧ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
+                </ul>
+                <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>
             </div>
         </div>
     </div>
@@ -659,6 +729,10 @@
 
             <div class="profile-level-badge" id="userLevelBadge">Level 1</div>
             
+            <div id="vipStatusBadgeBox" style="margin-bottom: 12px; display: none;">
+                <span style="background: linear-gradient(135deg, #9333ea, #c084fc); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800;">⚡ پرێمیۆم چالاکە</span>
+            </div>
+
             <div class="xp-progress-box">
                 <div class="xp-info-row">
                     <span>ئاستێ ئەزموونێ (XP)</span>
@@ -693,7 +767,7 @@
         <div class="card" style="flex-direction: column; align-items: flex-start; gap: 10px;">
             <div>
                 <strong>👥 هەڤالێن خۆ بانگهێشت بکە</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow); margin-top: 4px;">بۆ هەر هەڤالەکێ ل سەر لینکێ تە داخل ببט: +0.001 HEZ + 100 XP</p>
+                <p style="font-size: 12px; color: var(--accent-yellow); margin-top: 4px;">بۆ هەر هەڤالەکێ ل سەر لینکێ تە داخل ببە: +0.001 HEZ + 100 XP</p>
             </div>
             <input type="text" id="inviteLinkInput" readonly style="width: 100%; padding: 8px; background: #0b0f19; border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; color: #fff; font-size: 11px;" value="باردبت...">
             <button class="btn btn-ad" style="width: 100%; padding: 8px;" onclick="copyInviteLink()">🔗 کۆپیکرنا لینکێ بانگهێشتێ</button>
@@ -774,19 +848,25 @@
         let tapCountForAd = 0;
         let channelJoined = false;
 
-        const maxClicksPerPack = 500;
-        const maxPacks = 5;
+        // VIP States
+        let isVip = false;
+        let vipExpiry = 0;
+
+        let maxClicksPerPack = 500;
+        let maxPacks = 5; // دێ بو پرێمیۆم بیتە 10 یان 7 ل خوارێ
         let lastPackTime = Date.now();
         let packTimerInterval = null;
 
         const balanceEl = document.getElementById('balance');
         const energyPacksEl = document.getElementById('energyPacks');
+        const maxPacksDisplayEl = document.getElementById('maxPacksDisplay');
         const currentClicksEl = document.getElementById('currentClicks');
         const coinBtn = document.getElementById('coinBtn');
         const packTimerText = document.getElementById('packTimerText');
         
         const userNameDisplay = document.getElementById('userNameDisplay');
         const userLevelBadge = document.getElementById('userLevelBadge');
+        const vipStatusBadgeBox = document.getElementById('vipStatusBadgeBox');
         const userAvatar = document.getElementById('userAvatar');
         const cornerName = document.getElementById('cornerName');
         const cornerAvatar = document.getElementById('cornerAvatar');
@@ -808,10 +888,26 @@
 
         const PACK_INTERVAL_MS = 4 * 3600 * 1000 + 48 * 60 * 1000;
 
+        function checkVipStatus() {
+            if (isVip && Date.now() > vipExpiry) {
+                isVip = false;
+                maxPacks = 5;
+            }
+            if (isVip) {
+                maxPacks = vipExpiry - Date.now() > 7 * 24 * 3600 * 1000 ? 10 : 7; // حەیڤانە 10، حەڤتیانە 7
+                if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'block';
+            } else {
+                maxPacks = 5;
+                if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'none';
+            }
+            if(maxPacksDisplayEl) maxPacksDisplayEl.innerText = maxPacks;
+        }
+
         function startEnergyTimer() {
             if (packTimerInterval) clearInterval(packTimerInterval);
 
             packTimerInterval = setInterval(() => {
+                checkVipStatus();
                 const now = Date.now();
                 const elapsed = now - lastPackTime;
 
@@ -859,6 +955,8 @@
                     currentXp = data.currentXp ?? 0;
                     maxXp = data.maxXp ?? 2000;
                     lastPackTime = data.lastPackTime || Date.now();
+                    isVip = data.isVip ?? false;
+                    vipExpiry = data.vipExpiry ?? 0;
                     if(data.name) userName = data.name;
                     if(data.photo) userPhoto = data.photo;
                     
@@ -902,6 +1000,8 @@
                         currentXp: 0,
                         maxXp: 2000,
                         lastPackTime: Date.now(),
+                        isVip: false,
+                        vipExpiry: 0,
                         channelJoined: false,
                         referredBy: referredBy || null,
                         createdAt: new Date()
@@ -910,6 +1010,7 @@
             } catch (error) {
                 console.error("Firebase load error:", error);
             }
+            checkVipStatus();
             updateUI();
             startEnergyTimer();
         }
@@ -926,6 +1027,8 @@
                     currentXp: currentXp,
                     maxXp: maxXp,
                     lastPackTime: lastPackTime,
+                    isVip: isVip,
+                    vipExpiry: vipExpiry,
                     channelJoined: channelJoined
                 });
             } catch (error) {
@@ -948,18 +1051,20 @@
                     let rName = d.name || "یاریزان";
                     let rPhoto = d.photo && d.photo.startsWith('http') ? d.photo : "logo.png";
                     let rBalance = (d.balance || 0).toFixed(6);
+                    let rIsVip = d.isVip && (d.vipExpiry > Date.now());
                     
                     let medal = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : `#${rank}`;
 
-                    // Check if this item belongs to the currently logged in user
                     let isMeClass = (docId === userId) ? " is-me" : "";
+                    let isVipClass = rIsVip ? " is-vip" : "";
+                    let vipLightning = rIsVip ? " ⚡" : "";
 
                     html += `
-                        <div class="rank-item${isMeClass}">
+                        <div class="rank-item${isMeClass}${isVipClass}">
                             <div class="rank-left">
                                 <span class="rank-number">${medal}</span>
                                 <img src="${rPhoto}" alt="" class="rank-avatar">
-                                <span class="rank-name">${rName}</span>
+                                <span class="rank-name">${rName}${vipLightning}</span>
                             </div>
                             <span class="rank-score">${rBalance} HEZ</span>
                         </div>
@@ -992,6 +1097,7 @@
         function updateUI() {
             balanceEl.innerText = balance.toFixed(6);
             energyPacksEl.innerText = energyPacks;
+            maxPacksDisplayEl.innerText = maxPacks;
             currentClicksEl.innerText = currentClicks;
             userNameDisplay.innerText = userName;
             cornerName.innerText = userName;
@@ -1017,6 +1123,7 @@
         }
 
         window.switchToProfile = () => switchTab('profileTab', null);
+        window.switchToShop = () => switchTab('shopTab', document.getElementById('navShop'));
         window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
 
         window.changeUserName = function() {
@@ -1073,6 +1180,17 @@
             }
         }
 
+        // فەنکشنا کڕینا پرێمیۆم (ڕەوانەکرنا بۆتی ب ستێرەکان)
+        window.buyVip = function(type) {
+            let planName = type === 'monthly' ? 'هەیڤانە (4$)' : 'حەڤتیانە (1$)';
+            
+            if (tg) {
+                tg.openTelegramLink(`https://t.me/hezcoin_bot?start=buy_${type}`);
+            } else {
+                alert(`تکایە ڤی مینی ئەپی ل ناڤ تەلەگرامێ ڤەکە بۆ کڕینا پرێمیوما ${planName}.`);
+            }
+        }
+
         function checkAndShowPopupAd() {
             tapCountForAd++;
             if (tapCountForAd >= 120) {
@@ -1090,9 +1208,13 @@
                 return;
             }
 
-            balance += 0.000001;
+            // ئەگەر پرێمیۆم بیت دوو قات کلیک دەهێتە ژماردن (x2)
+            let coinIncrement = isVip ? 0.000002 : 0.000001;
+            let xpIncrement = isVip ? 1 : 0.5;
+
+            balance += coinIncrement;
             currentClicks -= 1;
-            addXp(0.5);
+            addXp(xpIncrement);
             checkAndShowPopupAd();
 
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
@@ -1100,7 +1222,7 @@
             const rect = coinBtn.getBoundingClientRect();
             const floatBox = document.createElement('div');
             floatBox.className = 'float-box';
-            floatBox.innerText = '+0.000001';
+            floatBox.innerText = isVip ? '+0.000002 (VIP)' : '+0.000001';
             floatBox.style.left = (e.clientX - rect.left - 20) + 'px';
             floatBox.style.top = (e.clientY - rect.top - 30) + 'px';
             coinBtn.appendChild(floatBox);
