@@ -1016,7 +1016,7 @@
             inviteLinkInput.value = inviteLink;
         }
 
-        // پشکنینا راستی یا VIP دگەل رێکوپێکرنا بڕیاران
+        // پشکنینا راستی یا VIP دگەل رێکوپێکرنا بڕیاران (هەکە vipExpiry مەزنتر بیت لە Date.now)
         function checkVipStatus() {
             if (vipExpiry > 0 && vipExpiry > Date.now()) {
                 isVip = true;
