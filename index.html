@@ -495,53 +495,15 @@
             margin-top: 6px;
         }
 
-        .btn {
-            width: 100%;
-            padding: 10px;
-            border-radius: 12px;
-            border: none;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-ad {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: #ffffff;
-        }
-
         .card {
             width: 100%;
             background: var(--card-bg);
-            padding: 12px 14px;
-            border-radius: 14px;
+            padding: 16px;
+            border-radius: 16px;
             margin-bottom: 12px;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255,255,255,0.1);
-            gap: 10px;
-        }
-
-        .shop-item-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .shop-item-img {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            object-fit: cover;
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            background: #0b0f19;
-            padding: 2px;
+            text-align: center;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .shop-container {
@@ -784,30 +746,30 @@
                 <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">یارییا خۆ پێشخە و دیارییا وەرگرە!</p>
             </div>
 
-            <!-- پرێمیوما ١٤ رۆژی (١.٥ کلیک 1.5x) -->
+            <!-- پرێمیوما ١٤ رۆژی -->
             <div class="vip-plan">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #f3e8ff; font-size: 14px;">⭐ پرێمیوما 14 رۆژی</strong>
                     <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$2 (~150 Stars)</span>
                 </div>
                 <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
-                    <li>١.٥ کلیک (1.5x Coin = 0.0000015) بۆ هەر تەکەکێ</li>
+                    <li>١.٥ کلیک (1.5x) بۆ هەر تەکەکێ</li>
+                    <li>١٠ پاکێتێن ئێنێرجیێ ل هەر ٢٤ دەمژمێراندا</li>
                     <li>چوارگوشەکا زێڕین و بریسقەدار ل Ranking و Profile</li>
-                    <li>٨ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
                 <button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>
             </div>
 
-            <!-- پرێمیوما حەڤتیانە (١.٥ کلیک 1.5x) -->
+            <!-- پرێمیوما حەڤتیانە -->
             <div class="vip-plan weekly">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #e2e8f0; font-size: 14px;">⭐ پرێمیوما حەڤتیانە (7 رۆژ)</strong>
                     <span style="background: #475569; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$1 (~85 Stars)</span>
                 </div>
                 <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
-                    <li>١.٥ کلیک (1.5x Coin = 0.0000015) بۆ هەر تەکەکێ</li>
+                    <li>١.٥ کلیک (1.5x) بۆ هەر تەکەکێ</li>
+                    <li>٧ پاکێتێن ئێنێرجیێ ل هەر ٢٤ دەمژمێراندا</li>
                     <li>چوارگوشەکا زێڕین و بریسقەدار ل Ranking و Profile</li>
-                    <li>٧ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
                 <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>
             </div>
@@ -824,10 +786,10 @@
 
         <div class="game-hud-panel">
             <div class="hud-row">
-                <span>📦 پەکێت:</span>
+                <span>📦 پاکێتا ئێنێرجیا:</span>
                 <span style="color: var(--accent-yellow);"><span id="energyPacks">4</span>/<span id="maxPacksDisplay">5</span></span>
             </div>
-            <div class="hud-timer-sub" id="packTimerText">پەکێتا داهاتی: 04:48:00</div>
+            <div class="hud-timer-sub" id="packTimerText">پاکێتا داهاتی: 00:00:00</div>
             
             <div class="hud-divider"></div>
             <div class="hud-row">
@@ -925,16 +887,11 @@
 
     <!-- ADS TAB -->
     <div id="adsTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🎬 تەماشایا ڕێکلامان بکە</h2>
+        <h2 style="margin-bottom: 15px;">✨ د نێزیکدا دێ هێتە ڤەکرن</h2>
         <div class="card">
-            <div class="shop-item-left">
-                <img src="logo.png" alt="Ad" class="shop-item-img">
-                <div>
-                    <strong>ڕێکلاما ناڤ تەلەگرامێ</strong>
-                    <p style="font-size: 11px; color: var(--accent-yellow);">+1 پەکێت + 0.0001 HEZ</p>
-                </div>
-            </div>
-            <button class="btn btn-ad" style="width: auto; padding: 7px 10px; font-size: 12px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
+            <p style="font-size: 15px; font-weight: 700; color: var(--accent-yellow); line-height: 1.6;">
+                چاوەڕێی تشتێن نوو و نایاب بن، ئەڤ بەشە د نێزیکترین دەمدا دێ کەڤیتە خزمەتا هوە!
+            </p>
         </div>
     </div>
 
@@ -942,23 +899,23 @@
     <div id="tasksTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
         
-        <div class="card" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+        <div class="card" style="text-align: right; flex-direction: column; align-items: flex-start; gap: 10px;">
             <div>
                 <strong>👥 هەڤالێن خۆ بانگهێشت بکە</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow); margin-top: 4px;">بۆ هەر هەڤالەکێ ل سەر لینکێ تە داخل ببە: +0.001 HEZ + 100 XP</p>
             </div>
             <input type="text" id="inviteLinkInput" readonly style="width: 100%; padding: 8px; background: #0b0f19; border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; color: #fff; font-size: 11px;" value="باردبت...">
-            <button class="btn btn-ad" style="width: 100%; padding: 8px;" onclick="copyInviteLink()">🔗 کۆپیکرنا لینکێ بانگهێشتێ</button>
+            <button class="btn" style="width: 100%; padding: 8px; background: #3b82f6; color: #fff; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;" onclick="copyInviteLink()">🔗 کۆپیکرنا لینکێ بانگهێشتێ</button>
         </div>
 
-        <div class="card">
+        <div class="card" style="text-align: right; display: flex; justify-content: space-between; align-items: center;">
             <div>
                 <strong>بەشداری کەناڵی ببە</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ + 50 XP</p>
             </div>
             <div style="display: flex; gap: 6px;">
-                <button class="btn btn-ad" style="width: auto; padding: 8px 12px;" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی</button>
-                <button class="btn" style="width: auto; padding: 8px 12px; display: none; background: #f59e0b; color:#fff; border:none; border-radius:8px; font-weight:700;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
+                <button class="btn" style="width: auto; padding: 8px 12px; background: #3b82f6; color: #fff; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی</button>
+                <button class="btn" style="width: auto; padding: 8px 12px; display: none; background: #f59e0b; color:#fff; border:none; border-radius:10px; font-weight:700; cursor: pointer;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
             </div>
         </div>
     </div>
@@ -970,8 +927,8 @@
             <span>Tasks</span>
         </div>
         <div class="nav-item" id="navAds" onclick="switchTab('adsTab', this)">
-            <span class="nav-icon">🎬</span>
-            <span>Ads</span>
+            <span class="nav-icon">✨</span>
+            <span>Soon</span>
         </div>
         <div class="nav-item" id="navRank" onclick="switchTab('rankTab', this); loadLeaderboard();">
             <span class="nav-icon">🏆</span>
@@ -1014,6 +971,7 @@
         
         let userName = tgUser?.first_name || "یاریزان";
         let userPhoto = tgUser?.photo_url || "logo.png";
+        let userUsername = tgUser?.username ? "@" + tgUser.username : "نەدیار";
         
         const userRef = doc(db, "users", userId);
 
@@ -1027,11 +985,12 @@
         let channelJoined = false;
 
         let isVip = false;
-        let vipType = '14day'; // '14day' یا 'weekly'
+        let vipType = '14day'; 
         let vipExpiry = 0;
 
         let maxClicksPerPack = 500;
         let maxPacks = 5;
+        let packIntervalMs = 4 * 3600 * 1000; 
         let lastPackTime = Date.now();
         let packTimerInterval = null;
 
@@ -1065,18 +1024,22 @@
             inviteLinkInput.value = inviteLink;
         }
 
-        const PACK_INTERVAL_MS = 4 * 3600 * 1000 + 48 * 60 * 1000;
-
         function checkVipStatus() {
             if (isVip && vipExpiry > 0 && Date.now() > vipExpiry) {
                 isVip = false;
             }
             if (isVip) {
-                // ئەگەر حەڤتیانە بیت 7 پاکێت، ئەگەر 14 رۆژی بیت 8 پاکێت
-                maxPacks = (vipType === 'weekly') ? 7 : 8;
+                if (vipType === '14day') {
+                    maxPacks = 10;
+                    packIntervalMs = (24 * 3600 * 1000) / 10;
+                } else if (vipType === 'weekly') {
+                    maxPacks = 7;
+                    packIntervalMs = (24 * 3600 * 1000) / 7;
+                }
                 if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'block';
             } else {
                 maxPacks = 5;
+                packIntervalMs = (24 * 3600 * 1000) / 6;
                 if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'none';
             }
             if(maxPacksDisplayEl) maxPacksDisplayEl.innerText = maxPacks;
@@ -1091,14 +1054,14 @@
                 const elapsed = now - lastPackTime;
 
                 if (energyPacks < maxPacks) {
-                    if (elapsed >= PACK_INTERVAL_MS) {
-                        const packsEarned = Math.floor(elapsed / PACK_INTERVAL_MS);
+                    if (elapsed >= packIntervalMs) {
+                        const packsEarned = Math.floor(elapsed / packIntervalMs);
                         energyPacks = Math.min(maxPacks, energyPacks + packsEarned);
-                        lastPackTime += packsEarned * PACK_INTERVAL_MS;
+                        lastPackTime += packsEarned * packIntervalMs;
                         updateUI();
                     }
 
-                    const remainingTime = PACK_INTERVAL_MS - (elapsed % PACK_INTERVAL_MS);
+                    const remainingTime = packIntervalMs - (elapsed % packIntervalMs);
                     const totalSeconds = Math.floor(remainingTime / 1000);
                     
                     const hours = Math.floor(totalSeconds / 3600);
@@ -1111,12 +1074,12 @@
                         String(seconds).padStart(2, '0');
 
                     if (packTimerText) {
-                        packTimerText.innerText = "پەکێتا داهاتی: " + formattedTime;
+                        packTimerText.innerText = "پاکێتا داهاتی: " + formattedTime;
                     }
                 } else {
                     lastPackTime = now;
                     if (packTimerText) {
-                        packTimerText.innerText = "پەکێت تژی نە :)";
+                        packTimerText.innerText = "پاکێت تژی نە :)";
                     }
                 }
             }, 1000);
@@ -1376,34 +1339,21 @@
         }
 
         window.buyVip = function(type) {
-            if (tg && tg.openInvoice) {
-                let invoiceUrl = type === '14day' 
-                    ? 'https://t.me/$INVOICE_LINK_14DAY_HERE' 
-                    : 'https://t.me/$INVOICE_LINK_WEEKLY_HERE';
+            let planName = type === '14day' ? '⭐ پرێمیوما 14 رۆژی ($2)' : '⭐ پرێمیوما حەڤتیانە ($1)';
+            
+            let messageText = `سڵاو، من دڤێت ڤێ پاکێتا پرێمیوم بکڕم:\n\n` +
+                              `📦 جۆرێ پاکێتێ: ${planName}\n` +
+                              `👤 ناڤێ یاریزانی: ${userName}\n` +
+                              `🆔 ئایدی (ID): ${userId}\n` +
+                              `🔗 یوزرنەیم: ${userUsername}\n` +
+                              `💰 کۆینێن من: ${balance.toFixed(6)} HEZ`;
 
-                tg.openInvoice(invoiceUrl, function(status) {
-                    if (status === 'paid') {
-                        isVip = true;
-                        vipType = type;
-                        let daysToAdd = type === '14day' ? 14 : 7;
-                        vipExpiry = Date.now() + (daysToAdd * 24 * 3600 * 1000);
-                        checkVipStatus();
-                        updateUI();
-                        alert('🎉 پیرۆزە! پارەدانا تە ب سەرکەفتیانە هاتە کرن و پرێمیوم بۆ تە چالاک بوو.');
-                    } else if (status === 'cancelled') {
-                        alert('پارەدان هاتە هەلوەشاندن.');
-                    } else {
-                        alert('چەوتییەک د پرۆسەیا پارەدانێ دا رویدا.');
-                    }
-                });
+            let telegramUrl = `https://t.me/arko0o_o?text=${encodeURIComponent(messageText)}`;
+
+            if (tg && tg.openTelegramLink) {
+                tg.openTelegramLink(telegramUrl);
             } else {
-                isVip = true;
-                vipType = type;
-                let daysToAdd = type === '14day' ? 14 : 7;
-                vipExpiry = Date.now() + (daysToAdd * 24 * 3600 * 1000);
-                checkVipStatus();
-                updateUI();
-                alert(`🎉 (Test Mode) پرێمیوما ${type === '14day' ? '14 رۆژی (1.5x)' : 'حەڤتیانە (1.5x)'} بۆ تە هاتە چالاککرن!`);
+                window.open(telegramUrl, '_blank');
             }
         }
 
@@ -1428,9 +1378,8 @@
             let xpIncrement = 0.5;
 
             if (isVip) {
-                // هەردوو جۆرێن 14 رۆژی و حەڤتیانە ١.٥ کلیک (1.5x) نە
                 if (vipType === '14day' || vipType === 'weekly') {
-                    coinIncrement = 0.0000015; // 1.5x (١.٥)
+                    coinIncrement = 0.0000015; 
                     xpIncrement = 0.75;
                 }
             }
@@ -1455,39 +1404,12 @@
 
         window.useEnergyPack = function() {
             if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
-            if (energyPacks <= 0) { alert('پەکێت نینن!'); return; }
+            if (energyPacks <= 0) { alert('پاکێت نینن!'); return; }
             energyPacks -= 1;
             currentClicks = maxClicksPerPack;
             lastPackTime = Date.now();
             updateUI();
             alert('500 ئێنێرجی بۆ تە هاتە دان.');
-        }
-
-        window.watchAdForEnergy = function() {
-            const adBtn = document.getElementById('adBtn');
-            adBtn.disabled = true;
-            adBtn.innerText = 'ڕێکلام بار دبت...';
-
-            if (typeof show_11724459 === 'function') {
-                show_11724459().then(() => {
-                    if(energyPacks < maxPacks) energyPacks += 1;
-                    balance += 0.0001;
-                    addXp(25);
-                    updateUI();
-                    alert('You have seen an ad!');
-                    adBtn.disabled = false;
-                    adBtn.innerText = 'تەماشابکە';
-                }).catch((err) => {
-                    console.error("Ad load error:", err);
-                    alert('ببورە، ڕێکلام نەهاتە بارکرن. تکایە پاشتر تاقی بکە.');
-                    adBtn.disabled = false;
-                    adBtn.innerText = 'تەماشابکە';
-                });
-            } else {
-                alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە.');
-                adBtn.disabled = false;
-                adBtn.innerText = 'تەماشابکە';
-            }
         }
 
         initUser();
