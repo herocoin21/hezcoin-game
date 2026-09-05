@@ -760,7 +760,7 @@
                 </div>
             </div>
 
-            <!-- پرێمیوما حەڤتیانە ($2) - بێ بریسقەدار -->
+            <!-- پرێمیوما حەڤتیانە ($2) -->
             <div class="vip-plan weekly" id="planWeeklyContainer">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #e2e8f0; font-size: 14px;">⭐ پرێمیوما حەڤتیانە (7 رۆژ)</strong>
@@ -1016,10 +1016,14 @@
             inviteLinkInput.value = inviteLink;
         }
 
+        // پشکنینا راستی یا VIP دگەل زێدەکرنا کەنالا خودکارکار بۆ دابینکرنا `isVip = true` دەمێ تاریخ ژ دەمێ نوو مەزنتر
         function checkVipStatus() {
-            if (isVip && vipExpiry > 0 && Date.now() > vipExpiry) {
+            if (vipExpiry > 0 && vipExpiry > Date.now()) {
+                isVip = true;
+            } else if (vipExpiry > 0 && Date.now() > vipExpiry) {
                 isVip = false;
             }
+            
             if (isVip) {
                 if (vipType === '14day') {
                     maxPacks = 10;
