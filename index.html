@@ -687,10 +687,12 @@
         const xpBarFill = document.getElementById('xpBarFill');
         const inviteLinkInput = document.getElementById('inviteLinkInput');
 
-        // دروستکرنا لینکێ بانگهێشتێ بۆ بۆتێ تلەگرامێ
-        const botUsername = "HezCoinBot"; // ناڤێ بۆتێ خۆ لڤێرە بگۆڕە ب ناڤێ بۆتێ خۆ بێ @
-        const inviteLink = `https://t.me/${botUsername}?start=ref_${userId}`;
-        inviteLinkInput.value = inviteLink;
+        // دروستکرنا لینکێ بانگهێشتێ ب ڕێکا startapp (بێ مشکیلە و ڕاستڤەکری)
+        const botUsername = "hezcoin_bot"; // ناڤێ بۆتا خۆ لڤێرە دابنە بێ @
+        const inviteLink = `https://t.me/${botUsername}?startapp=ref_${userId}`;
+        if(inviteLinkInput) {
+            inviteLinkInput.value = inviteLink;
+        }
 
         async function initUser() {
             try {
@@ -707,14 +709,14 @@
                     if(data.name) userName = data.name;
                     if(data.photo) userPhoto = data.photo;
                 } else {
-                    // پشکنینا ئایا ب رێکا لینکێ ئێکێ هاتوو یە (Referral System)
+                    // وەرگرتنا start_param (یان startapp) ژ ڕێکا تەلەگرامێ
                     let startParam = tg?.initDataUnsafe?.start_param;
                     let referredBy = null;
                     if (startParam && startParam.startsWith("ref_")) {
                         referredBy = startParam.replace("ref_", "");
                     }
 
-                    // ئەگەر ب رێکا کەسەکی هاتبت و خۆسەر نە ئێکەم جار بيت
+                    // ئەگەر کەسەکی ب رێکا لینکێ بانگهێشت کربت
                     if (referredBy && referredBy !== userId) {
                         try {
                             const refUserRef = doc(db, "users", referredBy);
@@ -722,8 +724,8 @@
                             if (refSnap.exists()) {
                                 const refData = refSnap.data();
                                 await updateDoc(refUserRef, {
-                                    balance: (refData.balance || 0) + 0.001,
-                                    currentXp: (refData.currentXp || 0) + 100
+                                    balance: Number((refData.balance || 0) + 0.001),
+                                    currentXp: Number((refData.currentXp || 0) + 100)
                                 });
                             }
                         } catch(e) { console.log("Ref error", e); }
@@ -850,10 +852,12 @@
         }
 
         window.copyInviteLink = function() {
-            inviteLinkInput.select();
-            inviteLinkInput.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(inviteLinkInput.value);
-            alert('🔗 لینکێ بانگهێشتێ هاتە کۆپیکرن! بۆ هەڤالێن خۆ بنێرە.');
+            if(inviteLinkInput) {
+                inviteLinkInput.select();
+                inviteLinkInput.setSelectionRange(0, 99999);
+                navigator.clipboard.writeText(inviteLinkInput.value);
+                alert('🔗 لینکێ بانگهێشتێ هاتە کۆپیکرن! بۆ هەڤالێن خۆ بنێرە.');
+            }
         }
 
         coinBtn.addEventListener('click', (e) => {
