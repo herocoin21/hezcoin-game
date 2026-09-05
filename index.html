@@ -417,6 +417,58 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
+        /* Leaderboard styling */
+        .rank-item {
+            width: 100%;
+            background: var(--card-bg);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .rank-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rank-number {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--accent-yellow);
+            width: 24px;
+            text-align: center;
+        }
+
+        .rank-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--accent-yellow);
+        }
+
+        .rank-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-color);
+            max-width: 120px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: left;
+        }
+
+        .rank-score {
+            font-size: 13px;
+            font-weight: 800;
+            color: #34d399;
+        }
+
         .navbar {
             position: fixed;
             bottom: 0;
@@ -538,6 +590,14 @@
         </div>
     </div>
 
+    <!-- RANKING TAB (LEADERBOARD) -->
+    <div id="rankTab" class="tab-content">
+        <h2 style="margin-bottom: 15px;">🏆 رێزبەندیا یاریزانان (Ranking)</h2>
+        <div style="width: 100%;" id="leaderboardList">
+            <p style="color: var(--text-muted); font-size: 13px;">باردبت...</p>
+        </div>
+    </div>
+
     <!-- PROFILE TAB -->
     <div id="profileTab" class="tab-content">
         <div class="back-btn-container">
@@ -614,6 +674,10 @@
             <span class="nav-icon">🛒</span>
             <span>Shop</span>
         </div>
+        <div class="nav-item" onclick="switchTab('rankTab', this); loadLeaderboard();">
+            <span class="nav-icon">🏆</span>
+            <span>Rank</span>
+        </div>
         <div class="nav-item" onclick="switchTab('adsTab', this)">
             <span class="nav-icon">🎬</span>
             <span>Ads</span>
@@ -626,7 +690,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, query, orderBy, limit, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBLAm1amoybyoAdCGZLfTbZzUkspPIEmhk",
@@ -660,6 +724,7 @@
         let currentLevel = 1;
         let currentXp = 0;
         let maxXp = 2000;
+        let tapCountForAd = 0; // حەژمارکەر بۆ 180 tapـان
 
         const maxClicksPerPack = 500;
         const maxPacks = 5;
@@ -681,8 +746,8 @@
         const maxXpEl = document.getElementById('maxXp');
         const xpBarFill = document.getElementById('xpBarFill');
         const inviteLinkInput = document.getElementById('inviteLinkInput');
+        const leaderboardList = document.getElementById('leaderboardList');
 
-        // دروستکرنا لینکا بانگهێشتێ ب شێوازەکێ مسۆگەر ل سەر PlayHez
         const botUsername = "hezcoin_bot";
         const inviteLink = `https://t.me/${botUsername}/PlayHez?startapp=ref_${userId}`;
         if(inviteLinkInput) {
@@ -759,6 +824,46 @@
                 });
             } catch (error) {
                 console.error("Firebase sync error:", error);
+            }
+        }
+
+        window.loadLeaderboard = async function() {
+            leaderboardList.innerHTML = `<p style="color: var(--text-muted); font-size: 13px; text-align: center;">ئەپدەیت دبت...</p>`;
+            try {
+                const q = query(collection(db, "users"), orderBy("balance", "desc"), limit(20));
+                const querySnapshot = await getDocs(q);
+                let html = "";
+                let rank = 1;
+                
+                querySnapshot.forEach((docSnap) => {
+                    let d = docSnap.data();
+                    let rName = d.name || "یاریزان";
+                    let rPhoto = d.photo && d.photo.startsWith('http') ? d.photo : "logo.png";
+                    let rBalance = (d.balance || 0).toFixed(6);
+                    
+                    let medal = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : `#${rank}`;
+
+                    html += `
+                        <div class="rank-item">
+                            <div class="rank-left">
+                                <span class="rank-number">${medal}</span>
+                                <img src="${rPhoto}" alt="" class="rank-avatar">
+                                <span class="rank-name">${rName}</span>
+                            </div>
+                            <span class="rank-score">${rBalance} HEZ</span>
+                        </div>
+                    `;
+                    rank++;
+                });
+
+                if(html === "") {
+                    leaderboardList.innerHTML = `<p style="color: var(--text-muted); font-size: 13px; text-align: center;">چ یاریزان نینن هێشتا.</p>`;
+                } else {
+                    leaderboardList.innerHTML = html;
+                }
+            } catch (err) {
+                console.error("Leaderboard error:", err);
+                leaderboardList.innerHTML = `<p style="color: #ef4444; font-size: 13px; text-align: center;">کێشە د ڤەکریبا لێستێ دا چێبوو (Index پێتڤیە).</p>`;
             }
         }
 
@@ -853,6 +958,17 @@
             }
         }
 
+        // هەر 180 tapـان، ڕێکلاما مالپەری (Interstitial Web Ad) ڤەدبت
+        function checkAndShowInterstitialAd() {
+            tapCountForAd++;
+            if (tapCountForAd >= 180) {
+                tapCountForAd = 0; // دووبارە دەستپێدکەتڤە
+                if (typeof show_11724459 === 'function') {
+                    show_11724459().catch(err => console.log("Ad error:", err));
+                }
+            }
+        }
+
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
@@ -862,6 +978,7 @@
             balance += 0.000001;
             currentClicks -= 1;
             addXp(0.5);
+            checkAndShowInterstitialAd(); // پشکنیرا 180 tapـان
 
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
