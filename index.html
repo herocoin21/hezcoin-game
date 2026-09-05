@@ -10,7 +10,7 @@
     <style>
         :root {
             --bg-color: #0b0f19;
-            --card-bg: rgba(20, 24, 33, 0.88);
+            --card-bg: rgba(20, 24, 33, 0.85);
             --accent-yellow: #f59e0b;
             --accent-green: #10b981;
             --accent-blue: #3b82f6;
@@ -30,9 +30,11 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: linear-gradient(rgba(11, 15, 25, 0.78), rgba(11, 15, 25, 0.88)), url('https://i.ibb.co/1G058tB/1000047276.jpg');
+            background-image: linear-gradient(rgba(11, 15, 25, 0.65), rgba(11, 15, 25, 0.80)), url('https://i.ibb.co/1G058tB/1000047276.jpg');
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -287,6 +289,7 @@
             width: 0%;
         }
 
+        /* Coin Button with Active Click Bounce Animation */
         .coin-button {
             width: 165px;
             height: 165px;
@@ -301,6 +304,12 @@
             position: relative;
             margin: 10px 0;
             outline: none;
+            transition: transform 0.08s ease-in-out, box-shadow 0.08s ease-in-out;
+        }
+
+        .coin-button:active {
+            transform: scale(0.90) translateY(4px);
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.4), inset 0 0 25px rgba(0,0,0,0.8);
         }
 
         .coin-button img {
@@ -334,7 +343,7 @@
         .game-hud-panel {
             width: 100%;
             max-width: 280px;
-            background: rgba(20, 24, 33, 0.88);
+            background: rgba(20, 24, 33, 0.85);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(245, 158, 11, 0.3);
             border-radius: 16px;
@@ -518,7 +527,7 @@
             color: #34d399;
         }
 
-        /* Navbar Layout - Ordered Left-to-Right starting from Tasks */
+        /* Navbar Layout - Left-to-Right Ordered */
         .navbar {
             position: fixed;
             bottom: 0;
