@@ -659,7 +659,7 @@
                 <strong>بەشداری کەناڵی ببە</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ + 50 XP</p>
             </div>
-            <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" onclick="completeTask(0.001, 50)">ئەنجامبدە</button>
+            <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="channelTaskBtn" onclick="joinChannelTask()">بەشداربە</button>
         </div>
     </div>
 
@@ -723,7 +723,8 @@
         let currentLevel = 1;
         let currentXp = 0;
         let maxXp = 2000;
-        let tapCountForAd = 0; // حەژمارکەر بۆ 170 tapـان
+        let tapCountForAd = 0;
+        let channelJoined = false;
 
         const maxClicksPerPack = 500;
         const maxPacks = 5;
@@ -746,6 +747,7 @@
         const xpBarFill = document.getElementById('xpBarFill');
         const inviteLinkInput = document.getElementById('inviteLinkInput');
         const leaderboardList = document.getElementById('leaderboardList');
+        const channelTaskBtn = document.getElementById('channelTaskBtn');
 
         const botUsername = "hezcoin_bot";
         const inviteLink = `https://t.me/${botUsername}/PlayHez?startapp=ref_${userId}`;
@@ -767,6 +769,15 @@
                     lastPackTime = data.lastPackTime || Date.now();
                     if(data.name) userName = data.name;
                     if(data.photo) userPhoto = data.photo;
+                    
+                    if (data.channelJoined) {
+                        channelJoined = true;
+                        if(channelTaskBtn) {
+                            channelTaskBtn.innerText = 'وەرگرتییە ✅';
+                            channelTaskBtn.disabled = true;
+                            channelTaskBtn.style.background = '#334155';
+                        }
+                    }
                 } else {
                     let startParam = tg?.initDataUnsafe?.start_param;
                     let referredBy = null;
@@ -798,6 +809,7 @@
                         currentXp: 0,
                         maxXp: 2000,
                         lastPackTime: Date.now(),
+                        channelJoined: false,
                         referredBy: referredBy || null,
                         createdAt: new Date()
                     });
@@ -819,7 +831,8 @@
                     currentLevel: currentLevel,
                     currentXp: currentXp,
                     maxXp: maxXp,
-                    lastPackTime: lastPackTime
+                    lastPackTime: lastPackTime,
+                    channelJoined: channelJoined
                 });
             } catch (error) {
                 console.error("Firebase sync error:", error);
@@ -957,17 +970,40 @@
             }
         }
 
-        // هەر 170 tapـان، ڕێکلاما Rewarded Popup ب شێوەیەکێ راستەوخۆ ڤەدبت
+        window.joinChannelTask = function() {
+            if (channelJoined) {
+                alert('تە پێشترڤە پاداشتێ ڤی ئەرکی وەرگرتییە!');
+                return;
+            }
+
+            window.open('https://t.me/hezcoinchannel', '_blank');
+
+            setTimeout(() => {
+                let confirmJoin = confirm("ئایا تە بەشداری د کەناڵی دا کر؟ بۆ وەرگرتنا پاداشتی OK لێبدە.");
+                if (confirmJoin) {
+                    channelJoined = true;
+                    balance += 0.001;
+                    addXp(50);
+                    
+                    if(channelTaskBtn) {
+                        channelTaskBtn.innerText = 'وەرگرتییە ✅';
+                        channelTaskBtn.disabled = true;
+                        channelTaskBtn.style.background = '#334155';
+                    }
+
+                    syncToFirebase();
+                    alert('پیرۆزە! پاداشت ب سەرکەفتیانە هاتە وەرگرتن.');
+                }
+            }, 1000);
+        }
+
         function checkAndShowInterstitialAd() {
             tapCountForAd++;
             if (tapCountForAd >= 170) {
-                tapCountForAd = 0; // دووبارە دەستپێدکەتڤە
+                tapCountForAd = 0;
                 
                 if (typeof show_11724459 === 'function') {
-                    show_11724459('pop').then(() => {
-                        // لێرە ڕێکلام ب dawî هات یان هاتە گرتن
-                    }).catch(e => {
-                        // چ هەڵە هەبیت
+                    show_11724459('pop').then(() => {}).catch(e => {
                         console.log("Ad error:", e);
                     });
                 }
@@ -983,7 +1019,7 @@
             balance += 0.000001;
             currentClicks -= 1;
             addXp(0.5);
-            checkAndShowInterstitialAd(); // پشکنیرا 170 tapـان
+            checkAndShowInterstitialAd();
 
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
@@ -1033,8 +1069,6 @@
                 adBtn.innerText = 'تەماشابکە';
             }
         }
-
-        window.completeTask = (r, x) => { balance += r; addXp(x); updateUI(); alert('پاداشت هاتە وەرگرتن!'); };
 
         initUser();
     </script>
