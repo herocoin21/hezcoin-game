@@ -587,6 +587,90 @@
             color: #34d399;
         }
 
+        /* NEW PREMIUM ADS SECTION STYLES */
+        .ads-hero-box {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 20px;
+            padding: 18px;
+            text-align: right;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .ads-hero-box::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; width: 4px; height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #10b981);
+        }
+
+        .ads-badge-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .ads-main-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .ads-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .ads-reward-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px dashed rgba(245, 158, 11, 0.4);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--accent-yellow);
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .ads-watch-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.1s;
+        }
+
+        .ads-watch-btn:active {
+            transform: scale(0.97);
+        }
+
         .navbar {
             position: fixed;
             bottom: 0;
@@ -759,31 +843,29 @@
         </div>
     </div>
 
-    <!-- ADS TAB -->
+    <!-- ADS TAB (REFINED MODERN DESIGN) -->
     <div id="adsTab" class="tab-content">
-        <h2 style="margin-bottom: 8px;">📺 Ads Center</h2>
+        <h2 style="margin-bottom: 8px;">📺 ناوەندا ڕیکلامان</h2>
         <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px; text-align: center;">ڤیدیۆیان تەماشە بکە و کۆینێن زێدە وەک دیاری وەرگرە!</p>
 
-        <!-- بڕگەیا یەکێ: تبلیغا سەرەکی -->
-        <div class="card" style="text-align: right; display: flex; flex-direction: column; gap: 10px; border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(20, 24, 33, 0.95) 100%);">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Featured Ad</span>
-                    <strong style="display: block; margin-top: 6px; font-size: 14px; color: #fff;">تەماشاکرنا ڤیدیۆیا تبلیغاتی</strong>
-                </div>
-                <span style="font-size: 24px;">🎬</span>
+        <div class="ads-hero-box">
+            <div class="ads-badge-top">
+                <span>⭐</span> Featured Reward
             </div>
-            <p style="font-size: 12px; color: var(--accent-yellow); background: rgba(245, 158, 11, 0.1); padding: 6px 10px; border-radius: 8px; border: 1px dashed rgba(245, 158, 11, 0.3);">
-                🎁 پاداشت: <strong>+0.000005 HEZ</strong> + <strong>20 XP</strong>
-            </p>
-            <button class="btn" style="width: 100%; padding: 10px; background: linear-gradient(90deg, #3b82f6, #2563eb); color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);" onclick="watchAd()">تەماشاکردنا ڤیدیۆیێ 🚀</button>
+            <div class="ads-main-title">تەماشاکرنا ڤیدیۆیا تبلیغاتی</div>
+            <div class="ads-desc">تەماشەی ڤیدیۆیێ بکە و بەهایەکێ مه‌زن یێ کۆینان و ئەزموونێ ب دەستخوە ڤەئینە!</div>
+            <div class="ads-reward-tag">
+                <span>🎁</span> پاداشت: <strong>+0.000005 HEZ</strong> + <strong>20 XP</strong>
+            </div>
+            <button class="ads-watch-btn" onclick="watchAd()">
+                <span>▶ دەستپێکرنا تەماشەکرنێ</span>
+            </button>
         </div>
 
-        <!-- بڕگەیا دوویێ: زانیاری و رێنمایی بۆ بکارهێنەری -->
         <div class="card" style="text-align: right; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08);">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
                 <span style="font-size: 16px;">💡</span>
-                <strong style="font-size: 13px; color: #38bdf8;">Tips & Rewards:</strong>
+                <strong style="font-size: 13px; color: #38bdf8;">ڕێنمایێن بەردەوام:</strong>
             </div>
             <ul style="font-size: 11px; color: var(--text-muted); padding-right: 15px; line-height: 1.6;">
                 <li>ڕۆژانە بەردەوام ڤیدیۆیان ببینە دا ڕێزبەندیا خۆ (Ranking) بلند بکەی.</li>
@@ -1099,6 +1181,7 @@
                     let rIsVip = d.isVip && (d.vipExpiry === 0 || d.vipExpiry > Date.now());
                     let rVipType = d.vipType || '14day';
                     
+                    // تنێ یێ ١٤ ڕۆژی بریسقەدارە، یێ حەڤتیانە بێ بریسقەدارە
                     let showSparkle = rIsVip && (rVipType === '14day');
 
                     let isMeClass = (docId === userId) ? " is-me" : "";
@@ -1277,6 +1360,7 @@
             }
         }
 
+        /* Coin Clicker Logic with Distinct VIP Support */
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
@@ -1293,7 +1377,7 @@
                     xpIncrement = 1.0;
                     floatText = '+0.000002 (2x)';
                 } else if (vipType === 'weekly') {
-                    coinIncrement = 0.0000015;
+                    coinIncrement = 0.0000015; // 1.5x بۆ حەڤتیانە
                     xpIncrement = 0.75;
                     floatText = '+0.0000015 (1.5x)';
                 }
