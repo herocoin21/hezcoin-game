@@ -687,9 +687,9 @@
         const xpBarFill = document.getElementById('xpBarFill');
         const inviteLinkInput = document.getElementById('inviteLinkInput');
 
-        // دروستکرنا لینکێ بانگهێشتێ ب ڕێکا startapp (بێ مشکیلە و ڕاستڤەکری)
-        const botUsername = "hezcoin_bot"; // ناڤێ بۆتا خۆ لڤێرە دابنە بێ @
-        const inviteLink = `https://t.me/${botUsername}?startapp=ref_${userId}`;
+        // دروستکرنا لینکێ بانگهێشتێ ب پشکا PlayHez (ڕاستڤەکری و تەمام)
+        const botUsername = "hezcoin_bot";
+        const inviteLink = `https://t.me/${botUsername}/PlayHez?startapp=ref_${userId}`;
         if(inviteLinkInput) {
             inviteLinkInput.value = inviteLink;
         }
@@ -709,14 +709,12 @@
                     if(data.name) userName = data.name;
                     if(data.photo) userPhoto = data.photo;
                 } else {
-                    // وەرگرتنا start_param (یان startapp) ژ ڕێکا تەلەگرامێ
                     let startParam = tg?.initDataUnsafe?.start_param;
                     let referredBy = null;
                     if (startParam && startParam.startsWith("ref_")) {
                         referredBy = startParam.replace("ref_", "");
                     }
 
-                    // ئەگەر کەسەکی ب رێکا لینکێ بانگهێشت کربت
                     if (referredBy && referredBy !== userId) {
                         try {
                             const refUserRef = doc(db, "users", referredBy);
@@ -892,6 +890,7 @@
             alert('500 ئێنێرجی بۆ تە هاتە دان.');
         }
 
+        // چارەسەریا پشکا ڕێکلامان (Monetag SDK Integration Safe Handler)
         window.watchAdForEnergy = function() {
             const adBtn = document.getElementById('adBtn');
             adBtn.disabled = true;
@@ -906,15 +905,35 @@
                     alert('پیرۆزە! 1 پەکێت و پاداشت بۆ تە هاتە زێدەکرن.');
                     adBtn.disabled = false;
                     adBtn.innerText = 'تەماشابکە';
-                }).catch(() => {
-                    alert('ڕێکلام نەهاتە بارکرن.');
+                }).catch((err) => {
+                    console.error("Ad load error:", err);
+                    alert('ببورە، ڕێکلام نەهاتە بارکرن (یان ئینتەرنێت لاوازە / AdBlock هەیە). سکریپتا ڕێکلامێ دیسان هاتە نووکرن.');
                     adBtn.disabled = false;
                     adBtn.innerText = 'تەماشابکە';
                 });
             } else {
-                alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە یان ئینتەرنێت لاوازە.');
-                adBtn.disabled = false;
-                adBtn.innerText = 'تەماشابکە';
+                // ئەگەر SDK هێشتا نەکەتبوونا کار، هەوڵ دەین ب کارهێنانا تێستێ یان دەستپێکرنا دوبارە
+                setTimeout(() => {
+                    if (typeof show_11724459 === 'function') {
+                        show_11724459().then(() => {
+                            if(energyPacks < maxPacks) energyPacks += 1;
+                            balance += 0.0001;
+                            addXp(25);
+                            updateUI();
+                            alert('پیرۆزە! 1 پەکێت و پاداشت بۆ تە هاتە زێدەکرن.');
+                            adBtn.disabled = false;
+                            adBtn.innerText = 'تەماشابکە';
+                        }).catch(() => {
+                            alert('ڕێکلام نەهاتە بارکرن. تکایە پاشتر تاقی بکە.');
+                            adBtn.disabled = false;
+                            adBtn.innerText = 'تەماشابکە';
+                        });
+                    } else {
+                        alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە. کێشە د پەیوەندییا ئینتەرنێتێ یا دەرەکی دا هەیە.');
+                        adBtn.disabled = false;
+                        adBtn.innerText = 'تەماشابکە';
+                    }
+                }, 1000);
             }
         }
 
