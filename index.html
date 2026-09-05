@@ -417,7 +417,6 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Leaderboard styling */
         .rank-item {
             width: 100%;
             background: var(--card-bg);
@@ -590,7 +589,7 @@
         </div>
     </div>
 
-    <!-- RANKING TAB (LEADERBOARD) -->
+    <!-- RANKING TAB -->
     <div id="rankTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">🏆 رێزبەندیا یاریزانان (Ranking)</h2>
         <div style="width: 100%;" id="leaderboardList">
@@ -724,7 +723,7 @@
         let currentLevel = 1;
         let currentXp = 0;
         let maxXp = 2000;
-        let tapCountForAd = 0; // حەژمارکەر بۆ 180 tapـان
+        let tapCountForAd = 0; // حەژمارکەر بۆ 170 tapـان
 
         const maxClicksPerPack = 500;
         const maxPacks = 5;
@@ -952,19 +951,25 @@
         window.copyInviteLink = function() {
             if(inviteLinkInput) {
                 inviteLinkInput.select();
-                inviteLinkInput.setSelectionRange(0, 99999);
+                inviteLinkInput.setSelectionRange(0, 9999);
                 navigator.clipboard.writeText(inviteLinkInput.value);
                 alert('🔗 لینکێ بانگهێشتێ هاتە کۆپیکرن! بۆ هەڤالێن خۆ بنێرە.');
             }
         }
 
-        // هەر 180 tapـان، ڕێکلاما مالپەری (Interstitial Web Ad) ڤەدبت
+        // هەر 170 tapـان، ڕێکلاما Rewarded Popup ب شێوەیەکێ راستەوخۆ ڤەدبت
         function checkAndShowInterstitialAd() {
             tapCountForAd++;
-            if (tapCountForAd >= 180) {
+            if (tapCountForAd >= 170) {
                 tapCountForAd = 0; // دووبارە دەستپێدکەتڤە
+                
                 if (typeof show_11724459 === 'function') {
-                    show_11724459().catch(err => console.log("Ad error:", err));
+                    show_11724459('pop').then(() => {
+                        // لێرە ڕێکلام ب dawî هات یان هاتە گرتن
+                    }).catch(e => {
+                        // چ هەڵە هەبیت
+                        console.log("Ad error:", e);
+                    });
                 }
             }
         }
@@ -978,7 +983,7 @@
             balance += 0.000001;
             currentClicks -= 1;
             addXp(0.5);
-            checkAndShowInterstitialAd(); // پشکنیرا 180 tapـان
+            checkAndShowInterstitialAd(); // پشکنیرا 170 tapـان
 
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
@@ -1008,7 +1013,7 @@
             adBtn.innerText = 'ڕێکلام بار دبت...';
 
             if (typeof show_11724459 === 'function') {
-                show_11724459().then(() => {
+                show_11724459('pop').then(() => {
                     if(energyPacks < maxPacks) energyPacks += 1;
                     balance += 0.0001;
                     addXp(25);
@@ -1023,27 +1028,9 @@
                     adBtn.innerText = 'تەماشابکە';
                 });
             } else {
-                setTimeout(() => {
-                    if (typeof show_11724459 === 'function') {
-                        show_11724459().then(() => {
-                            if(energyPacks < maxPacks) energyPacks += 1;
-                            balance += 0.0001;
-                            addXp(25);
-                            updateUI();
-                            alert('پیرۆزە! 1 پەکێت و پاداشت بۆ تە هاتە زێدەکرن.');
-                            adBtn.disabled = false;
-                            adBtn.innerText = 'تەماشابکە';
-                        }).catch(() => {
-                            alert('ڕێکلام نەهاتە بارکرن.');
-                            adBtn.disabled = false;
-                            adBtn.innerText = 'تەماشابکە';
-                        });
-                    } else {
-                        alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە.');
-                        adBtn.disabled = false;
-                        adBtn.innerText = 'تەماشابکە';
-                    }
-                }, 1000);
+                alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە.');
+                adBtn.disabled = false;
+                adBtn.innerText = 'تەماشابکە';
             }
         }
 
