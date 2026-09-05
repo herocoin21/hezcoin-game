@@ -658,8 +658,10 @@
         }
 
         .rank-item.is-vip {
-            border: 2px solid #a855f7;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(20, 24, 33, 0.95) 100%);
+            border: 2px solid #ffd700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.22) 0%, rgba(20, 24, 33, 0.95) 100%);
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.45);
+            position: relative;
         }
 
         .rank-left {
@@ -693,6 +695,23 @@
             overflow: hidden;
             text-overflow: ellipsis;
             text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .vip-gold-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #111;
+            font-size: 9px;
+            font-weight: 900;
+            padding: 1px 5px;
+            border-radius: 4px;
+            border: 1px solid #fff;
+            box-shadow: 0 0 8px #ffd700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .rank-score {
@@ -762,31 +781,32 @@
             <button class="vip-modal-close" onclick="closeVipModalDirect()">×</button>
             <div style="text-align: center; margin-bottom: 12px;">
                 <h3 style="color: #c084fc; margin: 0; font-size: 17px;">⭐ ئەندامێتییا پرێمیۆم</h3>
-                <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">یارییا خۆ بێ سنور پێشکەش بکە و بهێز بکە!</p>
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">یارییا خۆ پێشخە و دیارییا وەرگرە!</p>
             </div>
 
-            <!-- پرێمیوما هەیڤانە (4$) -->
+            <!-- پرێمیوما ١٤ رۆژی (١.٥ کلیک 1.5x) -->
             <div class="vip-plan">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <strong style="color: #f3e8ff; font-size: 14px;">⭐ پرێمیوما هەیڤانە (30 رۆژ)</strong>
-                    <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$4 (~300 Stars)</span>
+                    <strong style="color: #f3e8ff; font-size: 14px;">⭐ پرێمیوما 14 رۆژی</strong>
+                    <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$2 (~150 Stars)</span>
                 </div>
                 <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
-                    <li>دەبڵ کلیک (x2 Coin) بۆ هەر تەکەکێ</li>
-                    <li>هێزا بریسیێ و نیشانا VIP ل Ranking</li>
-                    <li>١٠ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
+                    <li>١.٥ کلیک (1.5x Coin = 0.0000015) بۆ هەر تەکەکێ</li>
+                    <li>چوارگوشەکا زێڕین و بریسقەدار ل Ranking و Profile</li>
+                    <li>٨ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
-                <button class="vip-btn-monthly" onclick="buyVip('monthly')">کڕینا هەیڤانە ب Stars</button>
+                <button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>
             </div>
 
-            <!-- پرێمیوما حەڤتیانە (1$) -->
+            <!-- پرێمیوما حەڤتیانە (١.٥ کلیک 1.5x) -->
             <div class="vip-plan weekly">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #e2e8f0; font-size: 14px;">⭐ پرێمیوما حەڤتیانە (7 رۆژ)</strong>
                     <span style="background: #475569; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$1 (~85 Stars)</span>
                 </div>
                 <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
-                    <li>دەبڵ کلیک (x2 Coin) بۆ هەر تەکەکێ</li>
+                    <li>١.٥ کلیک (1.5x Coin = 0.0000015) بۆ هەر تەکەکێ</li>
+                    <li>چوارگوشەکا زێڕین و بریسقەدار ل Ranking و Profile</li>
                     <li>٧ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
                 <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>
@@ -888,7 +908,7 @@
             <div class="profile-level-badge" id="userLevelBadge">Level 1</div>
             
             <div id="vipStatusBadgeBox" style="margin-bottom: 12px; display: none;">
-                <span style="background: linear-gradient(135deg, #9333ea, #c084fc); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800;">⚡ پرێمیۆم چالاکە</span>
+                <span style="background: linear-gradient(135deg, #ffd700, #ff8c00); color: #111; padding: 5px 14px; border-radius: 8px; font-size: 12px; font-weight: 900; border: 2px solid #fff; box-shadow: 0 0 12px #ffd700; display: inline-block;">⭐ VIP PREMIUM ⭐</span>
             </div>
 
             <div class="xp-progress-box">
@@ -1007,6 +1027,7 @@
         let channelJoined = false;
 
         let isVip = false;
+        let vipType = '14day'; // '14day' یا 'weekly'
         let vipExpiry = 0;
 
         let maxClicksPerPack = 500;
@@ -1051,7 +1072,8 @@
                 isVip = false;
             }
             if (isVip) {
-                maxPacks = (vipExpiry === 0 || vipExpiry - Date.now() > 7 * 24 * 3600 * 1000) ? 10 : 7;
+                // ئەگەر حەڤتیانە بیت 7 پاکێت، ئەگەر 14 رۆژی بیت 8 پاکێت
+                maxPacks = (vipType === 'weekly') ? 7 : 8;
                 if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'block';
             } else {
                 maxPacks = 5;
@@ -1113,6 +1135,7 @@
                     maxXp = data.maxXp ?? 2000;
                     lastPackTime = data.lastPackTime || Date.now();
                     isVip = data.isVip ?? false;
+                    vipType = data.vipType ?? '14day';
                     vipExpiry = data.vipExpiry ?? 0;
                     if(data.name) userName = data.name;
                     if(data.photo) userPhoto = data.photo;
@@ -1158,6 +1181,7 @@
                         maxXp: 2000,
                         lastPackTime: Date.now(),
                         isVip: false,
+                        vipType: '14day',
                         vipExpiry: 0,
                         channelJoined: false,
                         referredBy: referredBy || null,
@@ -1184,6 +1208,9 @@
                     currentXp: currentXp,
                     maxXp: maxXp,
                     lastPackTime: lastPackTime,
+                    isVip: isVip,
+                    vipType: vipType,
+                    vipExpiry: vipExpiry,
                     channelJoined: channelJoined
                 });
             } catch (error) {
@@ -1212,14 +1239,14 @@
 
                     let isMeClass = (docId === userId) ? " is-me" : "";
                     let isVipClass = rIsVip ? " is-vip" : "";
-                    let vipLightning = rIsVip ? " ⚡" : "";
+                    let vipBadgeHtml = rIsVip ? ` <span class="vip-gold-badge">⭐ VIP</span>` : "";
 
                     html += `
                         <div class="rank-item${isMeClass}${isVipClass}">
                             <div class="rank-left">
                                 <span class="rank-number">${medal}</span>
                                 <img src="${rPhoto}" alt="" class="rank-avatar">
-                                <span class="rank-name">${rName}${vipLightning}</span>
+                                <span class="rank-name">${rName}${vipBadgeHtml}</span>
                             </div>
                             <span class="rank-score">${rBalance} HEZ</span>
                         </div>
@@ -1350,14 +1377,15 @@
 
         window.buyVip = function(type) {
             if (tg && tg.openInvoice) {
-                let invoiceUrl = type === 'monthly' 
-                    ? 'https://t.me/$INVOICE_LINK_MONTHLY_HERE' 
+                let invoiceUrl = type === '14day' 
+                    ? 'https://t.me/$INVOICE_LINK_14DAY_HERE' 
                     : 'https://t.me/$INVOICE_LINK_WEEKLY_HERE';
 
                 tg.openInvoice(invoiceUrl, function(status) {
                     if (status === 'paid') {
                         isVip = true;
-                        let daysToAdd = type === 'monthly' ? 30 : 7;
+                        vipType = type;
+                        let daysToAdd = type === '14day' ? 14 : 7;
                         vipExpiry = Date.now() + (daysToAdd * 24 * 3600 * 1000);
                         checkVipStatus();
                         updateUI();
@@ -1369,7 +1397,13 @@
                     }
                 });
             } else {
-                alert('تکایە یاریێ ل ناڤ تەلەگرامێ ڤەکە داکو بشێی ب ستاران بکڕی.');
+                isVip = true;
+                vipType = type;
+                let daysToAdd = type === '14day' ? 14 : 7;
+                vipExpiry = Date.now() + (daysToAdd * 24 * 3600 * 1000);
+                checkVipStatus();
+                updateUI();
+                alert(`🎉 (Test Mode) پرێمیوما ${type === '14day' ? '14 رۆژی (1.5x)' : 'حەڤتیانە (1.5x)'} بۆ تە هاتە چالاککرن!`);
             }
         }
 
@@ -1390,8 +1424,16 @@
                 return;
             }
 
-            let coinIncrement = isVip ? 0.000002 : 0.000001;
-            let xpIncrement = isVip ? 1 : 0.5;
+            let coinIncrement = 0.000001;
+            let xpIncrement = 0.5;
+
+            if (isVip) {
+                // هەردوو جۆرێن 14 رۆژی و حەڤتیانە ١.٥ کلیک (1.5x) نە
+                if (vipType === '14day' || vipType === 'weekly') {
+                    coinIncrement = 0.0000015; // 1.5x (١.٥)
+                    xpIncrement = 0.75;
+                }
+            }
 
             balance += coinIncrement;
             currentClicks -= 1;
@@ -1403,7 +1445,7 @@
             const rect = coinBtn.getBoundingClientRect();
             const floatBox = document.createElement('div');
             floatBox.className = 'float-box';
-            floatBox.innerText = isVip ? '+0.000002 (VIP)' : '+0.000001';
+            floatBox.innerText = isVip ? '+0.0000015 (1.5x)' : '+0.000001';
             floatBox.style.left = (e.clientX - rect.left - 20) + 'px';
             floatBox.style.top = (e.clientY - rect.top - 30) + 'px';
             coinBtn.appendChild(floatBox);
