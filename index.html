@@ -659,7 +659,10 @@
                 <strong>بەشداری کەناڵی ببە</strong>
                 <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ + 50 XP</p>
             </div>
-            <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="channelTaskBtn" onclick="joinChannelTask()">بەشداربە</button>
+            <div style="display: flex; gap: 6px;">
+                <button class="btn btn-ad" style="width: auto; padding: 8px 12px;" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی</button>
+                <button class="btn btn-shop" style="width: auto; padding: 8px 12px; display: none;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
+            </div>
         </div>
     </div>
 
@@ -746,8 +749,9 @@
         const maxXpEl = document.getElementById('maxXp');
         const xpBarFill = document.getElementById('xpBarFill');
         const inviteLinkInput = document.getElementById('inviteLinkInput');
-        const leaderboardList = document.getElementById('leaderboardList');
-        const channelTaskBtn = document.getElementById('channelTaskBtn');
+        
+        const channelJoinBtn = document.getElementById('channelJoinBtn');
+        const channelCheckBtn = document.getElementById('channelCheckBtn');
 
         const botUsername = "hezcoin_bot";
         const inviteLink = `https://t.me/${botUsername}/PlayHez?startapp=ref_${userId}`;
@@ -772,10 +776,11 @@
                     
                     if (data.channelJoined) {
                         channelJoined = true;
-                        if(channelTaskBtn) {
-                            channelTaskBtn.innerText = 'وەرگرتییە ✅';
-                            channelTaskBtn.disabled = true;
-                            channelTaskBtn.style.background = '#334155';
+                        if(channelJoinBtn) {
+                            channelJoinBtn.innerText = 'وەرگرتییە ✅';
+                            channelJoinBtn.disabled = true;
+                            channelJoinBtn.style.background = '#334155';
+                            if(channelCheckBtn) channelCheckBtn.style.display = 'none';
                         }
                     }
                 } else {
@@ -875,7 +880,7 @@
                 }
             } catch (err) {
                 console.error("Leaderboard error:", err);
-                leaderboardList.innerHTML = `<p style="color: #ef4444; font-size: 13px; text-align: center;">کێشە د ڤەکریبا لێستێ دا چێبوو (Index پێتڤیە).</p>`;
+                leaderboardList.innerHTML = `<p style="color: #ef4444; font-size: 13px; text-align: center;">کێشە د ڤەکریبا لێستێ دا چێبوو.</p>`;
             }
         }
 
@@ -970,31 +975,43 @@
             }
         }
 
-        window.joinChannelTask = function() {
-            if (channelJoined) {
-                alert('تە پێشترڤە پاداشتێ ڤی ئەرکی وەرگرتییە!');
-                return;
-            }
-
+        // سیستمێ نوو بۆ ئەرکێ کەناڵی ب شێوەیەکێ جوان
+        window.openChannelLink = function() {
+            if (channelJoined) return;
+            // ڤەکرنا کەناڵی ل تەلەگرامێ
             window.open('https://t.me/hezcoinchannel', '_blank');
+            
+            // گوهۆڕینا دوگمەیان دا دکتە پشکنین (Check)
+            if(channelJoinBtn) {
+                channelJoinBtn.innerText = 'چوو ناڤ کەناڵی ↗';
+            }
+            if(channelCheckBtn) {
+                channelCheckBtn.style.display = 'inline-block';
+            }
+        }
 
-            setTimeout(() => {
-                let confirmJoin = confirm("ئایا تە بەشداری د کەناڵی دا کر؟ بۆ وەرگرتنا پاداشتی OK لێبدە.");
-                if (confirmJoin) {
-                    channelJoined = true;
-                    balance += 0.001;
-                    addXp(50);
-                    
-                    if(channelTaskBtn) {
-                        channelTaskBtn.innerText = 'وەرگرتییە ✅';
-                        channelTaskBtn.disabled = true;
-                        channelTaskBtn.style.background = '#334155';
-                    }
+        window.verifyChannelJoin = function() {
+            if (channelJoined) return;
 
-                    syncToFirebase();
-                    alert('پیرۆزە! پاداشت ب سەرکەفتیانە هاتە وەرگرتن.');
+            // پیامەک ددەتێ کو پشتڕاست بیت ک کەناڵی دیتوە، پاشان دیاریێ ددەتێ
+            let checkConfirm = confirm("ئایا تە بەشداری د کەناڵێ (Hez Coin) دا کر؟ داکو دیارییا خۆ وەربگریت.");
+            if (checkConfirm) {
+                channelJoined = true;
+                balance += 0.001;
+                addXp(50);
+                
+                if(channelJoinBtn) {
+                    channelJoinBtn.innerText = 'وەرگرتییە ✅';
+                    channelJoinBtn.disabled = true;
+                    channelJoinBtn.style.background = '#334155';
                 }
-            }, 1000);
+                if(channelCheckBtn) {
+                    channelCheckBtn.style.display = 'none';
+                }
+
+                syncToFirebase();
+                alert('🎉 پیرۆزە! پاداشت ب سەرکەفتیانە بۆ حسابێ تە هاتە زێدەکرن.');
+            }
         }
 
         function checkAndShowInterstitialAd() {
