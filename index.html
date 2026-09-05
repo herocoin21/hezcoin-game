@@ -476,6 +476,7 @@
             margin: 10px 0 14px 0;
         }
 
+        /* Leaderboard Items Styling */
         .rank-item {
             width: 100%;
             background: var(--card-bg);
@@ -486,6 +487,13 @@
             align-items: center;
             justify-content: space-between;
             border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Highlight Style for Current User in Ranking */
+        .rank-item.is-me {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(20, 24, 33, 0.95) 100%);
+            border: 2px solid var(--accent-yellow);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
         }
 
         .rank-left {
@@ -527,7 +535,7 @@
             color: #34d399;
         }
 
-        /* Navbar Layout - Left-to-Right: Tasks -> Ads -> Rank -> Shop -> Tap */
+        /* Navbar Layout */
         .navbar {
             position: fixed;
             bottom: 0;
@@ -798,7 +806,6 @@
             inviteLinkInput.value = inviteLink;
         }
 
-        // Timer Logic for Energy Packs (4 hours 48 minutes = 17280000 ms)
         const PACK_INTERVAL_MS = 4 * 3600 * 1000 + 48 * 60 * 1000;
 
         function startEnergyTimer() {
@@ -810,7 +817,6 @@
 
                 if (energyPacks < maxPacks) {
                     if (elapsed >= PACK_INTERVAL_MS) {
-                        // How many packs earned
                         const packsEarned = Math.floor(elapsed / PACK_INTERVAL_MS);
                         energyPacks = Math.min(maxPacks, energyPacks + packsEarned);
                         lastPackTime += packsEarned * PACK_INTERVAL_MS;
@@ -937,6 +943,7 @@
                 let rank = 1;
                 
                 querySnapshot.forEach((docSnap) => {
+                    let docId = docSnap.id;
                     let d = docSnap.data();
                     let rName = d.name || "یاریزان";
                     let rPhoto = d.photo && d.photo.startsWith('http') ? d.photo : "logo.png";
@@ -944,8 +951,11 @@
                     
                     let medal = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : `#${rank}`;
 
+                    // Check if this item belongs to the currently logged in user
+                    let isMeClass = (docId === userId) ? " is-me" : "";
+
                     html += `
-                        <div class="rank-item">
+                        <div class="rank-item${isMeClass}">
                             <div class="rank-left">
                                 <span class="rank-number">${medal}</span>
                                 <img src="${rPhoto}" alt="" class="rank-avatar">
