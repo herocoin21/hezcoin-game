@@ -47,7 +47,7 @@
             position: relative;
         }
 
-        /* Profile Top Left */
+        /* Profile Top Left (Moved slightly right) */
         .corner-profile {
             position: absolute;
             top: 12px;
@@ -98,32 +98,7 @@
             margin-top: 2px;
         }
 
-        /* VIP Button next to Profile Top Left */
-        .header-vip-btn {
-            position: absolute;
-            top: 12px;
-            left: 135px;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: white;
-            border: none;
-            padding: 9px 12px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 11px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            border: 2px solid rgba(255, 215, 0, 0.6);
-            animation: pulseVip 2s infinite;
-            z-index: 40;
-        }
-
-        @keyframes pulseVip {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.04); }
-            100% { transform: scale(1); }
-        }
-
-        /* Wallet Top Right */
+        /* Wallet Top Right (Positioned cleanly away from profile) */
         .wallet-badge {
             position: absolute;
             top: 12px;
@@ -314,7 +289,7 @@
             width: 0%;
         }
 
-        /* Coin Button with Active Click Bounce Animation */
+        /* Coin Button with Click Animation */
         .coin-button {
             width: 165px;
             height: 165px;
@@ -363,6 +338,113 @@
             0% { opacity: 1; transform: translateY(0) scale(0.8); }
             50% { transform: translateY(-25px) scale(1.1); }
             100% { opacity: 0; transform: translateY(-50px) scale(1); }
+        }
+
+        /* VIP Button inside Tap Tab only */
+        .tap-vip-btn {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            animation: pulseVip 2s infinite;
+            margin-bottom: 8px;
+        }
+
+        @keyframes pulseVip {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+            100% { transform: scale(1); }
+        }
+
+        /* VIP Modal Popup Styles */
+        .vip-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 16px;
+        }
+
+        .vip-modal-overlay.active {
+            display: flex;
+        }
+
+        .vip-store-container {
+            width: 100%;
+            max-width: 360px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            border: 2px solid #8b5cf6;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 20px rgba(139, 92, 246, 0.4);
+            text-align: right;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .vip-modal-close {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .vip-plan {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid #a855f7;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .vip-plan.weekly {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid #475569;
+        }
+
+        .vip-btn-monthly {
+            width: 100%;
+            background: linear-gradient(90deg, #9333ea, #c084fc);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 13px;
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.4);
+        }
+
+        .vip-btn-weekly {
+            width: 100%;
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 13px;
         }
 
         .game-hud-panel {
@@ -463,59 +545,6 @@
             padding: 2px;
         }
 
-        /* VIP Store Container Styling */
-        .vip-store-container {
-            width: 100%;
-            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
-            backdrop-filter: blur(16px);
-            border: 2px solid #8b5cf6;
-            border-radius: 20px;
-            padding: 16px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(139, 92, 246, 0.3);
-            margin-top: 10px;
-            text-align: right;
-        }
-
-        .vip-plan {
-            background: rgba(139, 92, 246, 0.15);
-            border: 1px solid #a855f7;
-            border-radius: 14px;
-            padding: 12px;
-            margin-bottom: 12px;
-        }
-
-        .vip-plan.weekly {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid #475569;
-        }
-
-        .vip-btn-monthly {
-            width: 100%;
-            background: linear-gradient(90deg, #9333ea, #c084fc);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: 800;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 13px;
-            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.4);
-        }
-
-        .vip-btn-weekly {
-            width: 100%;
-            background: #334155;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: 800;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 13px;
-        }
-
         /* Leaderboard Items Styling */
         .rank-item {
             width: 100%;
@@ -535,7 +564,6 @@
             box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
         }
 
-        /* VIP Ranking Highlight Style */
         .rank-item.is-vip {
             border: 2px solid #a855f7;
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(20, 24, 33, 0.95) 100%);
@@ -627,9 +655,6 @@
         </div>
     </div>
 
-    <!-- VIP Button next to Profile -->
-    <button class="header-vip-btn" onclick="switchToShop()">💎 پرێمیۆم</button>
-
     <!-- Wallet Top Right -->
     <div class="wallet-badge">
         <div class="wallet-icon-box">
@@ -639,36 +664,12 @@
         <span class="currency-tag">HEZ</span>
     </div>
 
-    <!-- TAP TAB -->
-    <div id="tapTab" class="tab-content active">
-        <button class="coin-button" id="coinBtn">
-            <img src="logo.png" alt="Hero Coin Logo">
-        </button>
-
-        <div class="game-hud-panel">
-            <div class="hud-row">
-                <span>📦 پەکێت:</span>
-                <span style="color: var(--accent-yellow);"><span id="energyPacks">4</span>/<span id="maxPacksDisplay">5</span></span>
-            </div>
-            <div class="hud-timer-sub" id="packTimerText">پەکێتا داهاتی: 04:48:00</div>
-            
-            <div class="hud-divider"></div>
-            <div class="hud-row">
-                <span>⚡ ئێنێرجی:</span>
-                <span><span id="currentClicks">500</span> / 500</span>
-            </div>
-        </div>
-
-        <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
-    </div>
-
-    <!-- SHOP TAB (VIP & Packages) -->
-    <div id="shopTab" class="tab-content">
-        <h2 style="margin-bottom: 5px;">🛒 فرۆشگەها پرێمیۆم (VIP)</h2>
-        
-        <div class="vip-store-container">
+    <!-- VIP Modal Popup -->
+    <div class="vip-modal-overlay" id="vipModalOverlay" onclick="closeVipModal(event)">
+        <div class="vip-store-container" onclick="event.stopPropagation()">
+            <button class="vip-modal-close" onclick="closeVipModalDirect()">×</button>
             <div style="text-align: center; margin-bottom: 12px;">
-                <h3 style="color: #c084fc; margin: 0; font-size: 17px;">⭐ ئەندامێتییا تایبەت</h3>
+                <h3 style="color: #c084fc; margin: 0; font-size: 17px;">⭐ ئەندامێتییا پرێمیۆم</h3>
                 <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">یارییا خۆ بێ سنور پێشکەش بکە و بهێز بکە!</p>
             </div>
 
@@ -697,6 +698,46 @@
                     <li>٧ پاکێتێن ئێنێرجیێ بلاش ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
                 <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAP TAB -->
+    <div id="tapTab" class="tab-content active">
+        <!-- VIP Button inside Tap Tab -->
+        <button class="tap-vip-btn" onclick="openVipModal()">💎 پرێمیۆم (VIP)</button>
+
+        <button class="coin-button" id="coinBtn">
+            <img src="logo.png" alt="Hero Coin Logo">
+        </button>
+
+        <div class="game-hud-panel">
+            <div class="hud-row">
+                <span>📦 پەکێت:</span>
+                <span style="color: var(--accent-yellow);"><span id="energyPacks">4</span>/<span id="maxPacksDisplay">5</span></span>
+            </div>
+            <div class="hud-timer-sub" id="packTimerText">پەکێتا داهاتی: 04:48:00</div>
+            
+            <div class="hud-divider"></div>
+            <div class="hud-row">
+                <span>⚡ ئێنێرجی:</span>
+                <span><span id="currentClicks">500</span> / 500</span>
+            </div>
+        </div>
+
+        <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
+    </div>
+
+    <!-- SHOP TAB (General Items if needed, without VIP clutter) -->
+    <div id="shopTab" class="tab-content">
+        <h2 style="margin-bottom: 15px;">🛒 فرۆشگەها یارییێ</h2>
+        <div class="card">
+            <div class="shop-item-left">
+                <img src="logo.png" alt="Item" class="shop-item-img">
+                <div>
+                    <strong>بێ تشت هێشتا</strong>
+                    <p style="font-size: 11px; color: var(--text-muted);">پاشتر پشکێن نوو دێ هاتنە زێدەکرن</p>
+                </div>
             </div>
         </div>
     </div>
@@ -848,12 +889,11 @@
         let tapCountForAd = 0;
         let channelJoined = false;
 
-        // VIP States
         let isVip = false;
         let vipExpiry = 0;
 
         let maxClicksPerPack = 500;
-        let maxPacks = 5; // دێ بو پرێمیۆم بیتە 10 یان 7 ل خوارێ
+        let maxPacks = 5;
         let lastPackTime = Date.now();
         let packTimerInterval = null;
 
@@ -879,6 +919,7 @@
         
         const channelJoinBtn = document.getElementById('channelJoinBtn');
         const channelCheckBtn = document.getElementById('channelCheckBtn');
+        const vipModalOverlay = document.getElementById('vipModalOverlay');
 
         const botUsername = "hezcoin_bot";
         const inviteLink = `https://t.me/${botUsername}/PlayHez?startapp=ref_${userId}`;
@@ -894,7 +935,7 @@
                 maxPacks = 5;
             }
             if (isVip) {
-                maxPacks = vipExpiry - Date.now() > 7 * 24 * 3600 * 1000 ? 10 : 7; // حەیڤانە 10، حەڤتیانە 7
+                maxPacks = vipExpiry - Date.now() > 7 * 24 * 3600 * 1000 ? 10 : 7;
                 if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'block';
             } else {
                 maxPacks = 5;
@@ -1123,8 +1164,22 @@
         }
 
         window.switchToProfile = () => switchTab('profileTab', null);
-        window.switchToShop = () => switchTab('shopTab', document.getElementById('navShop'));
         window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
+
+        // VIP Modal Controls
+        window.openVipModal = function() {
+            if(vipModalOverlay) vipModalOverlay.classList.add('active');
+        }
+
+        window.closeVipModal = function(e) {
+            if(e.target === vipModalOverlay) {
+                vipModalOverlay.classList.remove('active');
+            }
+        }
+
+        window.closeVipModalDirect = function() {
+            if(vipModalOverlay) vipModalOverlay.classList.remove('active');
+        }
 
         window.changeUserName = function() {
             const newName = prompt("ناڤێ خۆ یێ نوو بنڤیسە:", userName);
@@ -1180,12 +1235,19 @@
             }
         }
 
-        // فەنکشنا کڕینا پرێمیۆم (ڕەوانەکرنا بۆتی ب ستێرەکان)
+        // فەنکشنا کڕینا پرێمیۆم دگەل Stars (openInvoice) یان Bot Link
         window.buyVip = function(type) {
             let planName = type === 'monthly' ? 'هەیڤانە (4$)' : 'حەڤتیانە (1$)';
             
-            if (tg) {
-                tg.openTelegramLink(`https://t.me/hezcoin_bot?start=buy_${type}`);
+            if (tg && tg.openInvoice) {
+                // ئەگەر لینکا Invoice یا بۆتی هەبیت لێرە دەتوانێت ڕاستەوخۆ ڤەکەت
+                tg.openInvoice(`https://t.me/$INVOICE_LINK_HERE`, (result) => {
+                    if (result === 'paid') {
+                        alert('🎉 سوپاس بۆ کڕینا تە! پرێمیۆم بۆ تە چالاک بوو.');
+                    }
+                });
+            } else if (tg) {
+                tg.openTelegramLink(`https://t.me/${botUsername}?start=buy_${type}`);
             } else {
                 alert(`تکایە ڤی مینی ئەپی ل ناڤ تەلەگرامێ ڤەکە بۆ کڕینا پرێمیوما ${planName}.`);
             }
@@ -1208,7 +1270,6 @@
                 return;
             }
 
-            // ئەگەر پرێمیۆم بیت دوو قات کلیک دەهێتە ژماردن (x2)
             let coinIncrement = isVip ? 0.000002 : 0.000001;
             let xpIncrement = isVip ? 1 : 0.5;
 
