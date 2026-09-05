@@ -47,7 +47,7 @@
             position: relative;
         }
 
-        /* Profile Top Left (Moved slightly right) */
+        /* Profile Top Left */
         .corner-profile {
             position: absolute;
             top: 12px;
@@ -98,7 +98,7 @@
             margin-top: 2px;
         }
 
-        /* Wallet Top Right (Positioned cleanly away from profile) */
+        /* Wallet Top Right */
         .wallet-badge {
             position: absolute;
             top: 12px;
@@ -289,7 +289,7 @@
             width: 0%;
         }
 
-        /* Coin Button with Click Animation */
+        /* Coin Button */
         .coin-button {
             width: 165px;
             height: 165px;
@@ -340,7 +340,6 @@
             100% { opacity: 0; transform: translateY(-50px) scale(1); }
         }
 
-        /* VIP Button inside Tap Tab only */
         .tap-vip-btn {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
@@ -545,6 +544,102 @@
             padding: 2px;
         }
 
+        /* Redesigned Shop Tab Styles */
+        .shop-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .shop-header-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .shop-banner {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(20, 24, 33, 0.9) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 16px;
+            padding: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .shop-item-card {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .shop-item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+        }
+
+        .shop-item-icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(11, 15, 25, 0.8);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .shop-item-icon-box img {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+            filter: grayscale(80%);
+            opacity: 0.6;
+        }
+
+        .shop-item-details h4 {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 2px;
+        }
+
+        .shop-item-details p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .badge-unavailable {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         /* Leaderboard Items Styling */
         .rank-item {
             width: 100%;
@@ -704,7 +799,6 @@
 
     <!-- TAP TAB -->
     <div id="tapTab" class="tab-content active">
-        <!-- VIP Button inside Tap Tab -->
         <button class="tap-vip-btn" onclick="openVipModal()">💎 پرێمیۆم (VIP)</button>
 
         <button class="coin-button" id="coinBtn">
@@ -728,15 +822,42 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
-    <!-- SHOP TAB (General Items if needed, without VIP clutter) -->
+    <!-- SHOP TAB (Redesigned & Modern) -->
     <div id="shopTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🛒 فرۆشگەها یارییێ</h2>
-        <div class="card">
-            <div class="shop-item-left">
-                <img src="logo.png" alt="Item" class="shop-item-img">
-                <div>
-                    <strong>بێ تشت هێشتا</strong>
-                    <p style="font-size: 11px; color: var(--text-muted);">پاشتر پشکێن نوو دێ هاتنە زێدەکرن</p>
+        <div class="shop-container">
+            <div class="shop-header-title">🛒 فرۆشگەها یارییێ</div>
+            <div class="shop-banner">
+                ✨ پشک و ئامێرێن پێشکەفتی بۆ زێدەکرنا مفا و کوینێن تە ب زوویترین دەم دێ بەردەست بن.
+            </div>
+
+            <!-- Shop Item: Sold Out / Not Available -->
+            <div class="shop-item-card">
+                <div class="shop-item-info">
+                    <div class="shop-item-icon-box">
+                        <img src="logo.png" alt="Item">
+                    </div>
+                    <div class="shop-item-details">
+                        <h4>ئامێرێ تەککرنا ب خودکار (Auto Bot)</h4>
+                        <p>ب خۆ بخوە تەکەکێ دکەت</p>
+                    </div>
+                </div>
+                <div class="badge-unavailable">
+                    🔒 بەردەست نینە
+                </div>
+            </div>
+
+            <div class="shop-item-card">
+                <div class="shop-item-info">
+                    <div class="shop-item-icon-box">
+                        <img src="logo.png" alt="Item">
+                    </div>
+                    <div class="shop-item-details">
+                        <h4>پەکێتا زێڕین (Mega Booster)</h4>
+                        <p>ئێنێرجیا ب دابڕان نەدیار</p>
+                    </div>
+                </div>
+                <div class="badge-unavailable">
+                    ⏳ زوو نزیکدا
                 </div>
             </div>
         </div>
@@ -1166,7 +1287,6 @@
         window.switchToProfile = () => switchTab('profileTab', null);
         window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
 
-        // VIP Modal Controls
         window.openVipModal = function() {
             if(vipModalOverlay) vipModalOverlay.classList.add('active');
         }
@@ -1235,12 +1355,10 @@
             }
         }
 
-        // فەنکشنا کڕینا پرێمیۆم دگەل Stars (openInvoice) یان Bot Link
         window.buyVip = function(type) {
             let planName = type === 'monthly' ? 'هەیڤانە (4$)' : 'حەڤتیانە (1$)';
             
             if (tg && tg.openInvoice) {
-                // ئەگەر لینکا Invoice یا بۆتی هەبیت لێرە دەتوانێت ڕاستەوخۆ ڤەکەت
                 tg.openInvoice(`https://t.me/$INVOICE_LINK_HERE`, (result) => {
                     if (result === 'paid') {
                         alert('🎉 سوپاس بۆ کڕینا تە! پرێمیۆم بۆ تە چالاک بوو.');
