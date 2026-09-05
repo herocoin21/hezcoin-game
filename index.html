@@ -651,30 +651,29 @@
                 <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">یارییا خۆ پێشخە و دیارییا وەرگرە!</p>
             </div>
 
-            <!-- پرێمیوما ١٤ رۆژی -->
+            <!-- پرێمیوما ١٤ رۆژی ($4) -->
             <div class="vip-plan">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #f3e8ff; font-size: 14px;">⭐ پرێمیوما 14 رۆژی</strong>
-                    <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$2 (~150 Stars)</span>
+                    <span style="background: #7c3aed; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$4 (~300 Stars)</span>
                 </div>
                 <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
-                    <li>١.٥ کلیک (1.5x) بۆ هەر تەکەکێ</li>
+                    <li>٢ کلیک (2x) بۆ هەر تەکەکێ (دەبل کوین)</li>
                     <li>١٠ پاکێتێن ئێنێرجیێ ل هەر ٢٤ دەمژمێراندا</li>
                     <li>چوارگوشەکا زێڕین و بریسقەدار ل Ranking و Profile</li>
                 </ul>
                 <button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>
             </div>
 
-            <!-- پرێمیوما حەڤتیانە -->
+            <!-- پرێمیوما حەڤتیانە ($2) - بێ بریسقەدار -->
             <div class="vip-plan weekly">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #e2e8f0; font-size: 14px;">⭐ پرێمیوما حەڤتیانە (7 رۆژ)</strong>
-                    <span style="background: #475569; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$1 (~85 Stars)</span>
+                    <span style="background: #475569; color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px;">$2 (~150 Stars)</span>
                 </div>
                 <ul style="font-size: 11px; color: var(--text-muted); margin: 8px 0; padding-right: 15px; line-height: 1.5; text-align: right;">
                     <li>١.٥ کلیک (1.5x) بۆ هەر تەکەکێ</li>
                     <li>٧ پاکێتێن ئێنێرجیێ ل هەر ٢٤ دەمژمێراندا</li>
-                    <li>چوارگوشەکا زێڕین و بریسقەدار ل Ranking و Profile</li>
                 </ul>
                 <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>
             </div>
@@ -706,7 +705,7 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
-    <!-- SHOP TAB (گۆڕی بۆ: د نێزیکدا دێ هێتە ڤەکرن) -->
+    <!-- SHOP TAB -->
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">✨ د نێزیکدا دێ هێتە ڤەکرن</h2>
         <div class="card">
@@ -760,15 +759,36 @@
         </div>
     </div>
 
-    <!-- ADS TAB (وەکی خۆ مایە) -->
+    <!-- ADS TAB -->
     <div id="adsTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">📺 ڤیدیۆیێن تبلیغاتی</h2>
-        <div class="card" style="text-align: right; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-                <strong>تەماشاکرنا تبلیغەکێ</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow); margin-top: 4px;">+0.000005 HEZ + 20 XP</p>
+        <h2 style="margin-bottom: 8px;">📺 Ads Center</h2>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px; text-align: center;">ڤیدیۆیان تەماشە بکە و کۆینێن زێدە وەک دیاری وەرگرە!</p>
+
+        <!-- بڕگەیا یەکێ: تبلیغا سەرەکی -->
+        <div class="card" style="text-align: right; display: flex; flex-direction: column; gap: 10px; border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(20, 24, 33, 0.95) 100%);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Featured Ad</span>
+                    <strong style="display: block; margin-top: 6px; font-size: 14px; color: #fff;">تەماشاکرنا ڤیدیۆیا تبلیغاتی</strong>
+                </div>
+                <span style="font-size: 24px;">🎬</span>
             </div>
-            <button class="btn" style="width: auto; padding: 8px 14px; background: #3b82f6; color: #fff; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;" onclick="watchAd()">تەماشاکردن 🎬</button>
+            <p style="font-size: 12px; color: var(--accent-yellow); background: rgba(245, 158, 11, 0.1); padding: 6px 10px; border-radius: 8px; border: 1px dashed rgba(245, 158, 11, 0.3);">
+                🎁 پاداشت: <strong>+0.000005 HEZ</strong> + <strong>20 XP</strong>
+            </p>
+            <button class="btn" style="width: 100%; padding: 10px; background: linear-gradient(90deg, #3b82f6, #2563eb); color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);" onclick="watchAd()">تەماشاکردنا ڤیدیۆیێ 🚀</button>
+        </div>
+
+        <!-- بڕگەیا دوویێ: زانیاری و رێنمایی بۆ بکارهێنەری -->
+        <div class="card" style="text-align: right; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <span style="font-size: 16px;">💡</span>
+                <strong style="font-size: 13px; color: #38bdf8;">Tips & Rewards:</strong>
+            </div>
+            <ul style="font-size: 11px; color: var(--text-muted); padding-right: 15px; line-height: 1.6;">
+                <li>ڕۆژانە بەردەوام ڤیدیۆیان ببینە دا ڕێزبەندیا خۆ (Ranking) بلند بکەی.</li>
+                <li>هەموو تبلیغەک دەرفەتەکە بۆ زێدەکرنا پشکێن تە ب بێ بەرانبەر.</li>
+            </ul>
         </div>
     </div>
 
@@ -804,7 +824,7 @@
             <span>Tasks</span>
         </div>
         <div class="nav-item" id="navAds" onclick="switchTab('adsTab', this)">
-            <span class="nav-icon">✨</span>
+            <span class="nav-icon">📺</span>
             <span>Ads</span>
         </div>
         <div class="nav-item" id="navRank" onclick="switchTab('rankTab', this); loadLeaderboard();">
@@ -912,7 +932,11 @@
                     maxPacks = 7;
                     packIntervalMs = (24 * 3600 * 1000) / 7;
                 }
-                if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'block';
+                if(vipType === '14day') {
+                    if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'block';
+                } else {
+                    if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'none';
+                }
             } else {
                 maxPacks = 5;
                 packIntervalMs = (24 * 3600 * 1000) / 6;
@@ -1073,17 +1097,18 @@
                     let rPhoto = d.photo && d.photo.startsWith('http') ? d.photo : "logo.png";
                     let rBalance = (d.balance || 0).toFixed(6);
                     let rIsVip = d.isVip && (d.vipExpiry === 0 || d.vipExpiry > Date.now());
+                    let rVipType = d.vipType || '14day';
                     
-                    let medal = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : `#${rank}`;
+                    let showSparkle = rIsVip && (rVipType === '14day');
 
                     let isMeClass = (docId === userId) ? " is-me" : "";
-                    let isVipClass = rIsVip ? " is-vip" : "";
-                    let vipBadgeHtml = rIsVip ? ` <span class="vip-gold-badge">⭐ VIP</span>` : "";
+                    let isVipClass = showSparkle ? " is-vip" : "";
+                    let vipBadgeHtml = showSparkle ? ` <span class="vip-gold-badge">⭐ VIP</span>` : "";
 
                     html += `
                         <div class="rank-item${isMeClass}${isVipClass}">
                             <div class="rank-left">
-                                <span class="rank-number">${medal}</span>
+                                <span class="rank-number">${medalText(rank)}</span>
                                 <img src="${rPhoto}" alt="" class="rank-avatar">
                                 <span class="rank-name">${rName}${vipBadgeHtml}</span>
                             </div>
@@ -1102,6 +1127,10 @@
                 console.error("Leaderboard error:", err);
                 leaderboardList.innerHTML = `<p style="color: #ef4444; font-size: 13px; text-align: center;">کێشە د ڤەکریبا لێستێ دا چێبوو.</p>`;
             }
+        }
+
+        function medalText(rank) {
+            return rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : `#${rank}`;
         }
 
         function addXp(amount) {
@@ -1215,7 +1244,7 @@
         }
 
         window.buyVip = function(type) {
-            let planName = type === '14day' ? '⭐ پرێمیوما 14 رۆژی ($2)' : '⭐ پرێمیوما حەڤتیانە ($1)';
+            let planName = type === '14day' ? '⭐ پرێمیوما 14 رۆژی ($4)' : '⭐ پرێمیوما حەڤتیانە ($2)';
             
             let messageText = `سڵاو، من دڤێت ڤێ پاکێتا پرێمیوم بکڕم:\n\n` +
                               `📦 جۆرێ پاکێتێ: ${planName}\n` +
@@ -1256,11 +1285,17 @@
 
             let coinIncrement = 0.000001;
             let xpIncrement = 0.5;
+            let floatText = '+0.000001';
 
             if (isVip) {
-                if (vipType === '14day' || vipType === 'weekly') {
-                    coinIncrement = 0.0000015; 
+                if (vipType === '14day') {
+                    coinIncrement = 0.000002;
+                    xpIncrement = 1.0;
+                    floatText = '+0.000002 (2x)';
+                } else if (vipType === 'weekly') {
+                    coinIncrement = 0.0000015;
                     xpIncrement = 0.75;
+                    floatText = '+0.0000015 (1.5x)';
                 }
             }
 
@@ -1273,7 +1308,7 @@
             const rect = coinBtn.getBoundingClientRect();
             const floatBox = document.createElement('div');
             floatBox.className = 'float-box';
-            floatBox.innerText = isVip ? '+0.0000015 (1.5x)' : '+0.000001';
+            floatBox.innerText = floatText;
             floatBox.style.left = (e.clientX - rect.left - 20) + 'px';
             floatBox.style.top = (e.clientY - rect.top - 30) + 'px';
             coinBtn.appendChild(floatBox);
