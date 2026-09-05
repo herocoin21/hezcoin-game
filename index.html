@@ -30,7 +30,9 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.92)), url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -43,10 +45,11 @@
             position: relative;
         }
 
+        /* Profile Top Left */
         .corner-profile {
             position: absolute;
             top: 12px;
-            right: 12px;
+            left: 12px;
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
             border: 2px solid rgba(245, 158, 11, 0.6);
             border-radius: 14px;
@@ -93,10 +96,11 @@
             margin-top: 2px;
         }
 
+        /* Wallet Top Right */
         .wallet-badge {
             position: absolute;
             top: 12px;
-            left: 12px;
+            right: 12px;
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
             border: 2px solid rgba(245, 158, 11, 0.6);
             padding: 6px 12px;
@@ -425,30 +429,54 @@
             padding: 2px;
         }
 
-        /* Coming Soon Box for Shop */
+        /* Beautiful Shop Coming Soon Box */
         .shop-coming-soon {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background: var(--card-bg);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 20px;
-            padding: 30px 20px;
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 24px;
+            padding: 35px 20px;
             width: 100%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(245, 158, 11, 0.2);
             margin-top: 10px;
+            animation: fadeInShop 0.5s ease-out;
+        }
+
+        @keyframes fadeInShop {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .shop-cs-icon {
-            font-size: 45px;
-            margin-bottom: 12px;
+            width: 75px;
+            height: 75px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 2px solid var(--accent-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            margin-bottom: 16px;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
             animation: pulseGlow 2s infinite ease-in-out;
         }
 
         @keyframes pulseGlow {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+            0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); }
+            50% { transform: scale(1.06); box-shadow: 0 0 25px rgba(245, 158, 11, 0.6); }
+        }
+
+        .shop-divider {
+            width: 40px;
+            height: 3px;
+            background: var(--accent-yellow);
+            border-radius: 2px;
+            margin: 10px 0 14px 0;
         }
 
         .rank-item {
@@ -539,6 +567,7 @@
 </head>
 <body>
 
+    <!-- Profile Top Left -->
     <div class="corner-profile" onclick="switchToProfile()">
         <img id="cornerAvatar" src="logo.png" alt="Avatar" class="corner-avatar">
         <div class="corner-info">
@@ -547,6 +576,7 @@
         </div>
     </div>
 
+    <!-- Wallet Top Right -->
     <div class="wallet-badge">
         <div class="wallet-icon-box">
             <img src="logo.png" alt="Coin" class="mini-coin-icon">
@@ -578,18 +608,19 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
-    <!-- SHOP TAB (Coming Soon) -->
+    <!-- SHOP TAB (Coming Soon - New Design) -->
     <div id="shopTab" class="tab-content">
-        <h2 style="margin-bottom: 10px;">🛒 فرۆشگەها فەرمی</h2>
+        <h2 style="margin-bottom: 5px;">🛒 فرۆشگەها فەرمی</h2>
         
         <div class="shop-coming-soon">
             <div class="shop-cs-icon">🛍️</div>
-            <h3 style="font-size: 17px; margin-bottom: 8px; color: #fff;">فرۆشگەهـ یێ دهێتە چێکرن</h3>
-            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px;">
-                هەتا نوکە چ تشت بەردەست نینن. ئەم کار لسەر ئامادەکرن و چێکرنا بەرهەمێن نوی دکەین!
+            <h3 style="font-size: 18px; color: #fff; font-weight: 800;">فرۆشگەهـ یێ دهێتە چێکرن</h3>
+            <div class="shop-divider"></div>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+                هەتا نوکە چ بەرهەم ل فرۆشگەهێ نینن. ئەم گەلەک ب سەبرڤە کار لسەر ئامادەکرنا باشترین و جوانترین کالا بۆ تە دکەین!
             </p>
-            <div style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; padding: 6px 14px; border-radius: 15px; font-size: 11px; font-weight: 700;">
-                ب زوویی دێ کەفتە کار
+            <div style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+                <span>✨</span> ب زوویی دێ کەفتە کار
             </div>
         </div>
     </div>
@@ -669,7 +700,7 @@
             </div>
             <div style="display: flex; gap: 6px;">
                 <button class="btn btn-ad" style="width: auto; padding: 8px 12px;" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی</button>
-                <button class="btn btn-shop" style="width: auto; padding: 8px 12px; display: none; background: #f59e0b; color:#fff; border:none; border-radius:8px; font-weight:700;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
+                <button class="btn" style="width: auto; padding: 8px 12px; display: none; background: #f59e0b; color:#fff; border:none; border-radius:8px; font-weight:700;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
             </div>
         </div>
     </div>
