@@ -71,9 +71,8 @@ function buyPremiumWithStars() {
         // ل ڤێرە تەلەگرام ب خۆ پشکا Telegram Stars ڤەدکەت ئەگەر لینکەکی فەرمی هەبێت
         // یان تو دشێی بڕێکا بۆتێ تەلەگرامێ فاکتورێ بۆ بنێری
         alert('بۆ کڕینا پرێمیۆم ب Stars، تکایە بچە ناڤ بۆتێ تەلەگرامێ یێ فەرمی.');
-        tg.openTelegramLink('https://t.me/NAvêBótێ_Bot?start=buy'); // لێرە ناڤێ بۆتێ خۆ دانە
+        tg.openTelegramLink('https://t.me/hezcoin_bot?start=buy'); // لێرە ناڤێ بۆتێ خۆ دانە
     } else {
         alert('تکایە ڤی مینی ئەپی ل ناڤ تەلەگرامێ ڤەکە.');
     }
 }
-پ
