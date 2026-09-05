@@ -1016,11 +1016,11 @@
             inviteLinkInput.value = inviteLink;
         }
 
-        // پشکنینا راستی یا VIP دگەل زێدەکرنا کەنالا خودکارکار بۆ دابینکرنا `isVip = true` دەمێ تاریخ ژ دەمێ نوو مەزنتر
+        // پشکنینا راستی یا VIP دگەل رێکوپێکرنا بڕیاران
         function checkVipStatus() {
             if (vipExpiry > 0 && vipExpiry > Date.now()) {
                 isVip = true;
-            } else if (vipExpiry > 0 && Date.now() > vipExpiry) {
+            } else {
                 isVip = false;
             }
             
@@ -1032,11 +1032,7 @@
                     maxPacks = 7;
                     packIntervalMs = (24 * 3600 * 1000) / 7;
                 }
-                if(vipType === '14day') {
-                    if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'block';
-                } else {
-                    if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'none';
-                }
+                if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'block';
             } else {
                 maxPacks = 5;
                 packIntervalMs = (24 * 3600 * 1000) / 6;
