@@ -1351,14 +1351,14 @@
             }
         }
 
-        // ⭐ سیستەمێ کڕینا VIP ب ڕێکا فەرمی یا Telegram Stars (openInvoice)
+        // ⭐ چارەسەری: کڕینا VIP ب ڕێکا لینکا فەرمی یا فاکتورێ (Invoice Link)
         window.buyVip = function(type) {
-            if (tg && tg.openInvoice) {
-                // ل ڤێرە لینکا فاکتورێ (Invoice Link) دابنە یا کو ژ بۆتێ خۆ (Backend) وەرگرتییە:
-                let invoiceUrl = type === 'monthly' 
-                    ? 'https://t.me/$INVOICE_LINK_MONTHLY_HERE' 
-                    : 'https://t.me/$INVOICE_LINK_WEEKLY_HERE';
+            // ئەگەر لینکا تەلەگرامێ هەبێت (تۆ دشێی لینکێ فاکتورێ یێ ڕاستەقینە ل ڤێرە دابنێی)
+            let invoiceUrl = type === 'monthly' 
+                ? 'https://t.me/$xxxxxx' // لینکا هەیڤانە ل ڤێرە دابنە
+                : 'https://t.me/$xxxxxx'; // لینکا حەڤتیانە ل ڤێرە دابنە
 
+            if (tg && tg.openInvoice) {
                 tg.openInvoice(invoiceUrl, function(status) {
                     if (status === 'paid') {
                         isVip = true;
@@ -1374,8 +1374,10 @@
                     }
                 });
             } else {
-                // بۆ تاقیکرنێ ئەگەر ل دەرڤەی تەلەگرامێ بیت
-                alert('تکایە یاریێ ل ناڤ تەلەگرامێ ڤەکە داکو بشێی ب ستاران بکڕی.');
+                // ڕێکا دووەم یا ئاسان ئەگەر تەلەگرام وەک App ڤەنەکەی: راستەوخۆ دەنێرێتە ناڤ بۆتێ خۆ
+                let botUsername = "hezcoin_bot";
+                let directLink = `https://t.me/${botUsername}?start=vip_${type}`;
+                window.open(directLink, '_blank');
             }
         }
 
