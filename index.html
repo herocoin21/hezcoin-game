@@ -407,7 +407,7 @@
         .card {
             width: 100%;
             background: var(--card-bg);
-            padding: 14px;
+            padding: 12px 14px;
             border-radius: 14px;
             margin-bottom: 12px;
             text-align: left;
@@ -415,6 +415,23 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid rgba(255,255,255,0.1);
+            gap: 10px;
+        }
+
+        .shop-item-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .shop-item-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            background: #0f172a;
+            padding: 2px;
         }
 
         .rank-item {
@@ -548,44 +565,40 @@
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">🛒 فرۆشگەها فەرمی</h2>
         
+        <!-- eFootball -->
         <div class="card">
-            <div>
-                <strong>📦 کڕینا پەکێتا ئێنێرجی</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">+1 پەکێت (نرخ: 0.0005 HEZ)</p>
+            <div class="shop-item-left">
+                <img src="efootball.png" alt="eFootball" class="shop-item-img">
+                <div>
+                    <strong>100 eFootball Coins</strong>
+                    <p style="font-size: 11px; color: var(--accent-yellow);">نرخ: 0.01 HEZ</p>
+                </div>
             </div>
-            <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="buyEnergyPack()">بکڕە</button>
+            <button class="btn btn-shop" style="width: auto; padding: 7px 10px; font-size: 12px;" onclick="orderGameItem('100 eFootball Coins', 0.01)">داخواز بکە</button>
         </div>
 
+        <!-- UC -->
         <div class="card">
-            <div>
-                <strong>⚽ 100 eFootball Coins</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.01 HEZ</p>
+            <div class="shop-item-left">
+                <img src="uc.png" alt="PUBG UC" class="shop-item-img">
+                <div>
+                    <strong>60 UC (PUBG Mobile)</strong>
+                    <p style="font-size: 11px; color: var(--accent-yellow);">نرخ: 0.015 HEZ</p>
+                </div>
             </div>
-            <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('100 eFootball Coins', 0.01)">داخواز بکە</button>
+            <button class="btn btn-shop" style="width: auto; padding: 7px 10px; font-size: 12px;" onclick="orderGameItem('60 UC PUBG', 0.015)">داخواز بکە</button>
         </div>
 
+        <!-- Korek -->
         <div class="card">
-            <div>
-                <strong>💎 60 UC (PUBG Mobile)</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.015 HEZ</p>
+            <div class="shop-item-left">
+                <img src="korek.png" alt="Korek" class="shop-item-img">
+                <div>
+                    <strong>پشکا کۆڕەک / فایبەر ($5)</strong>
+                    <p style="font-size: 11px; color: var(--accent-yellow);">نرخ: 0.05 HEZ</p>
+                </div>
             </div>
-            <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('60 UC PUBG', 0.015)">داخواز بکە</button>
-        </div>
-
-        <div class="card">
-            <div>
-                <strong>🎵 100 TikTok Coins</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.02 HEZ</p>
-            </div>
-            <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('100 TikTok Coins', 0.02)">داخواز بکە</button>
-        </div>
-
-        <div class="card">
-            <div>
-                <strong>📶 پشکا کۆرەک / فایبەر (5$)</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">نرخ: 0.05 HEZ</p>
-            </div>
-            <button class="btn btn-shop" style="width: auto; padding: 8px 12px;" onclick="orderGameItem('Korek/Fib Balance 5$', 0.05)">داخواز بکە</button>
+            <button class="btn btn-shop" style="width: auto; padding: 7px 10px; font-size: 12px;" onclick="orderGameItem('Korek / Fiber Card 5$', 0.05)">داخواز بکە</button>
         </div>
     </div>
 
@@ -633,11 +646,14 @@
     <div id="adsTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">🎬 تەماشایا ڕێکلامان بکە</h2>
         <div class="card">
-            <div>
-                <strong>ڕێکلاما ناڤ تەلەگرامێ</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">+1 پەکێت + 0.0001 HEZ</p>
+            <div class="shop-item-left">
+                <img src="logo.png" alt="Ad" class="shop-item-img">
+                <div>
+                    <strong>ڕێکلاما ناڤ تەلەگرامێ</strong>
+                    <p style="font-size: 11px; color: var(--accent-yellow);">+1 پەکێت + 0.0001 HEZ</p>
+                </div>
             </div>
-            <button class="btn btn-ad" style="width: auto; padding: 8px 14px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
+            <button class="btn btn-ad" style="width: auto; padding: 7px 10px; font-size: 12px;" id="adBtn" onclick="watchAdForEnergy()">تەماشابکە</button>
         </div>
     </div>
 
@@ -935,15 +951,6 @@
             if (newPhoto?.trim()) { userPhoto = newPhoto.trim(); updateUI(); alert("وێنە هاتە نووکرن!"); }
         }
 
-        window.buyEnergyPack = function() {
-            if (balance < 0.0005) { alert('پارێ تە نەبسە!'); return; }
-            if (energyPacks >= maxPacks) { alert('پەکێت تێرن!'); return; }
-            balance -= 0.0005;
-            energyPacks += 1;
-            updateUI();
-            alert('پەکێت هاتە کڕین.');
-        }
-
         window.orderGameItem = async function(itemName, cost) {
             if (balance < cost) { alert('پارێ تە نەبسە!'); return; }
             const playerId = prompt(`بۆ کڕینا (${itemName})، ID یا خۆ بنڤیسە:`);
@@ -975,13 +982,10 @@
             }
         }
 
-        // سیستمێ نوو بۆ ئەرکێ کەناڵی ب شێوەیەکێ جوان
         window.openChannelLink = function() {
             if (channelJoined) return;
-            // ڤەکرنا کەناڵی ل تەلەگرامێ
             window.open('https://t.me/hezcoinchannel', '_blank');
             
-            // گوهۆڕینا دوگمەیان دا دکتە پشکنین (Check)
             if(channelJoinBtn) {
                 channelJoinBtn.innerText = 'چوو ناڤ کەناڵی ↗';
             }
@@ -993,7 +997,6 @@
         window.verifyChannelJoin = function() {
             if (channelJoined) return;
 
-            // پیامەک ددەتێ کو پشتڕاست بیت ک کەناڵی دیتوە، پاشان دیاریێ ددەتێ
             let checkConfirm = confirm("ئایا تە بەشداری د کەناڵێ (Hez Coin) دا کر؟ داکو دیارییا خۆ وەربگریت.");
             if (checkConfirm) {
                 channelJoined = true;
