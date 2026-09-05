@@ -62,16 +62,12 @@ function updateUI() {
   document.getElementById('energy-fill').style.width = (energy / maxEnergy * 100) + '%';
 }
 
-// دەمێ بکارئینەر کلیکێ ل دوگمەیا کڕینێ دکەت
 function buyPremiumWithStars() {
     const tg = window.Telegram ? window.Telegram.WebApp : null;
     
     if (tg) {
-        // ڤەکری مۆبایلا بکارئینەری و هانای بۆ فاکتورێ
-        // ل ڤێرە تەلەگرام ب خۆ پشکا Telegram Stars ڤەدکەت ئەگەر لینکەکی فەرمی هەبێت
-        // یان تو دشێی بڕێکا بۆتێ تەلەگرامێ فاکتورێ بۆ بنێری
-        alert('بۆ کڕینا پرێمیۆم ب Stars، تکایە بچە ناڤ بۆتێ تەلەگرامێ یێ فەرمی.');
-        tg.openTelegramLink('https://t.me/hezcoin_bot?start=buy'); // لێرە ناڤێ بۆتێ خۆ دانە
+        // ڤەکری مۆبایلا بکارئینەری بۆ بۆتی
+        tg.openTelegramLink('https://t.me/hezcoin_bot?start=buy');
     } else {
         alert('تکایە ڤی مینی ئەپی ل ناڤ تەلەگرامێ ڤەکە.');
     }
