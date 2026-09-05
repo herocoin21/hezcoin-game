@@ -1357,18 +1357,7 @@
 
         window.buyVip = function(type) {
             let planName = type === 'monthly' ? 'هەیڤانە (4$)' : 'حەڤتیانە (1$)';
-            
-            if (tg && tg.openInvoice) {
-                tg.openInvoice(`https://t.me/$INVOICE_LINK_HERE`, (result) => {
-                    if (result === 'paid') {
-                        alert('🎉 سوپاس بۆ کڕینا تە! پرێمیۆم بۆ تە چالاک بوو.');
-                    }
-                });
-            } else if (tg) {
-                tg.openTelegramLink(`https://t.me/${botUsername}?start=buy_${type}`);
-            } else {
-                alert(`تکایە ڤی مینی ئەپی ل ناڤ تەلەگرامێ ڤەکە بۆ کڕینا پرێمیوما ${planName}.`);
-            }
+            alert(`بۆ کڕینا پرێمیوما ${planName}، لینک و فاکتۆرا ستاران د زووترین دەمدا دێ هاتە گرێدان.`);
         }
 
         function checkAndShowPopupAd() {
