@@ -1016,9 +1016,10 @@
             inviteLinkInput.value = inviteLink;
         }
 
-        // پشکنینا راستی یا VIP دگەل رێکوپێکرنا بڕیاران (هەکە vipExpiry مەزنتر بیت لە Date.now)
+        // لۆجیکا نوو: ئەگەر isVip بێتە true، ڕاستەوخۆ بە بێ پێدانی مێژوویەکی فلترکراو یان دەستکاریکرنا داتابەیسێ چالاک دبت
         function checkVipStatus() {
-            if (vipExpiry > 0 && vipExpiry > Date.now()) {
+            // تەنها پشتیوانییا `isVip` دکەت (هەکە true بیت راستەوخۆ کاردکەت)
+            if (isVip === true) {
                 isVip = true;
             } else {
                 isVip = false;
@@ -1049,14 +1050,11 @@
             if (!action14DayArea || !actionWeeklyArea) return;
 
             if (isVip) {
-                const now = Date.now();
-                const timeLeft = vipExpiry > 0 ? vipExpiry - now : 0;
-                
                 if (vipType === '14day') {
                     action14DayArea.innerHTML = `
                         <div class="vip-active-box">
                             <div style="font-size: 12px; font-weight: 800; color: #34d399;">✨ پرێمیوما ١٤ ڕۆژی چالاکە</div>
-                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;" id="vip14TimerText">دەمێ مایی: ${formatDuration(timeLeft)}</div>
+                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;" id="vip14TimerText">دەمێ مایی: بێ سنوور (VIP Active)</div>
                         </div>
                     `;
                     actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>`;
@@ -1064,7 +1062,7 @@
                     actionWeeklyArea.innerHTML = `
                         <div class="vip-active-box">
                             <div style="font-size: 12px; font-weight: 800; color: #34d399;">✨ پرێمیوما حەڤتیانە چالاکە</div>
-                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;" id="vipWeeklyTimerText">دەمێ مایی: ${formatDuration(timeLeft)}</div>
+                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;" id="vipWeeklyTimerText">دەمێ مایی: بێ سنوور (VIP Active)</div>
                         </div>
                     `;
                     action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>`;
@@ -1072,21 +1070,6 @@
             } else {
                 action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>`;
                 actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>`;
-            }
-        }
-
-        function formatDuration(ms) {
-            if (ms <= 0) return "سەعاتەکا کێم خلاس دبت";
-            const seconds = Math.floor(ms / 1000);
-            const days = Math.floor(seconds / (3600 * 24));
-            const hours = Math.floor((seconds % (3600 * 24)) / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            const secs = seconds % 60;
-
-            if (days > 0) {
-                return `${days} رۆژ و ${hours} دەمژمێر`;
-            } else {
-                return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
             }
         }
 
@@ -1129,12 +1112,6 @@
                     }
                 }
             }, 1000);
-
-            vipCountdownInterval = setInterval(() => {
-                if (isVip && vipExpiry > 0) {
-                    updateVipUIState();
-                }
-            }, 1000);
         }
 
         async function initUser() {
@@ -1149,9 +1126,11 @@
                     currentXp = data.currentXp ?? 0;
                     maxXp = data.maxXp ?? 2000;
                     lastPackTime = data.lastPackTime || Date.now();
+                    
+                    // هەکە تو لە داتابەیسێ دیار بکەی isVip: true، ڕاستەوخۆ دەخوێنرێت
                     isVip = data.isVip ?? false;
                     vipType = data.vipType ?? '14day';
-                    vipExpiry = data.vipExpiry ?? 0;
+                    
                     if(data.name) userName = data.name;
                     if(data.photo) userPhoto = data.photo;
                     
@@ -1195,9 +1174,8 @@
                         currentXp: 0,
                         maxXp: 2000,
                         lastPackTime: Date.now(),
-                        isVip: false,
+                        isVip: false, // لێرە دەتوانیت بکەی بە true ئەگەر بێ دەستکاری بێ
                         vipType: '14day',
-                        vipExpiry: 0,
                         channelJoined: false,
                         referredBy: referredBy || null,
                         createdAt: new Date()
@@ -1225,7 +1203,6 @@
                     lastPackTime: lastPackTime,
                     isVip: isVip,
                     vipType: vipType,
-                    vipExpiry: vipExpiry,
                     channelJoined: channelJoined
                 });
             } catch (error) {
@@ -1248,7 +1225,7 @@
                     let rName = d.name || "یاریزان";
                     let rPhoto = d.photo && d.photo.startsWith('http') ? d.photo : "logo.png";
                     let rBalance = (d.balance || 0).toFixed(6);
-                    let rIsVip = d.isVip && (d.vipExpiry === 0 || d.vipExpiry > Date.now());
+                    let rIsVip = d.isVip === true;
                     let rVipType = d.vipType || '14day';
                     
                     let showSparkle = rIsVip && (rVipType === '14day');
