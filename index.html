@@ -587,7 +587,17 @@
 
     <!-- TASKS TAB -->
     <div id="tasksTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">📋 ئەرکێن ڕۆژانە</h2>
+        <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
+        
+        <div class="card" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+            <div>
+                <strong>👥 هەڤالێن خۆ بانگهێشت بکە (Invite Friends)</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow); margin-top: 4px;">بۆ هەر هەڤالەکێ ل سەر لینکێ تە داخل ببט: +0.001 HEZ + 100 XP</p>
+            </div>
+            <input type="text" id="inviteLinkInput" readonly style="width: 100%; padding: 8px; background: #0f172a; border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; color: #fff; font-size: 11px;" value="باردبت...">
+            <button class="btn btn-ad" style="width: 100%; padding: 8px;" onclick="copyInviteLink()">🔗 کۆپیکرنا لینکێ بانگهێشتێ</button>
+        </div>
+
         <div class="card">
             <div>
                 <strong>بەشداری کەناڵی ببە</strong>
@@ -657,7 +667,6 @@
 
         const maxClicksPerPack = 500;
         const maxPacks = 5;
-        const packIntervalSeconds = 17280; 
         let lastPackTime = Date.now();
 
         const balanceEl = document.getElementById('balance');
@@ -676,6 +685,12 @@
         const currentXpEl = document.getElementById('currentXp');
         const maxXpEl = document.getElementById('maxXp');
         const xpBarFill = document.getElementById('xpBarFill');
+        const inviteLinkInput = document.getElementById('inviteLinkInput');
+
+        // دروستکرنا لینکێ بانگهێشتێ بۆ بۆتێ تلەگرامێ
+        const botUsername = "HezCoinBot"; // ناڤێ بۆتێ خۆ لڤێرە بگۆڕە ب ناڤێ بۆتێ خۆ بێ @
+        const inviteLink = `https://t.me/${botUsername}?start=ref_${userId}`;
+        inviteLinkInput.value = inviteLink;
 
         async function initUser() {
             try {
@@ -692,6 +707,28 @@
                     if(data.name) userName = data.name;
                     if(data.photo) userPhoto = data.photo;
                 } else {
+                    // پشکنینا ئایا ب رێکا لینکێ ئێکێ هاتوو یە (Referral System)
+                    let startParam = tg?.initDataUnsafe?.start_param;
+                    let referredBy = null;
+                    if (startParam && startParam.startsWith("ref_")) {
+                        referredBy = startParam.replace("ref_", "");
+                    }
+
+                    // ئەگەر ب رێکا کەسەکی هاتبت و خۆسەر نە ئێکەم جار بيت
+                    if (referredBy && referredBy !== userId) {
+                        try {
+                            const refUserRef = doc(db, "users", referredBy);
+                            const refSnap = await getDoc(refUserRef);
+                            if (refSnap.exists()) {
+                                const refData = refSnap.data();
+                                await updateDoc(refUserRef, {
+                                    balance: (refData.balance || 0) + 0.001,
+                                    currentXp: (refData.currentXp || 0) + 100
+                                });
+                            }
+                        } catch(e) { console.log("Ref error", e); }
+                    }
+
                     await setDoc(userRef, {
                         name: userName,
                         photo: userPhoto,
@@ -702,6 +739,7 @@
                         currentXp: 0,
                         maxXp: 2000,
                         lastPackTime: Date.now(),
+                        referredBy: referredBy || null,
                         createdAt: new Date()
                     });
                 }
@@ -811,6 +849,13 @@
             }
         }
 
+        window.copyInviteLink = function() {
+            inviteLinkInput.select();
+            inviteLinkInput.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(inviteLinkInput.value);
+            alert('🔗 لینکێ بانگهێشتێ هاتە کۆپیکرن! بۆ هەڤالێن خۆ بنێرە.');
+        }
+
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
@@ -841,6 +886,32 @@
             currentClicks = maxClicksPerPack;
             updateUI();
             alert('500 ئێنێرجی بۆ تە هاتە دان.');
+        }
+
+        window.watchAdForEnergy = function() {
+            const adBtn = document.getElementById('adBtn');
+            adBtn.disabled = true;
+            adBtn.innerText = 'ڕێکلام بار دبت...';
+
+            if (typeof show_11724459 === 'function') {
+                show_11724459().then(() => {
+                    if(energyPacks < maxPacks) energyPacks += 1;
+                    balance += 0.0001;
+                    addXp(25);
+                    updateUI();
+                    alert('پیرۆزە! 1 پەکێت و پاداشت بۆ تە هاتە زێدەکرن.');
+                    adBtn.disabled = false;
+                    adBtn.innerText = 'تەماشابکە';
+                }).catch(() => {
+                    alert('ڕێکلام نەهاتە بارکرن.');
+                    adBtn.disabled = false;
+                    adBtn.innerText = 'تەماشابکە';
+                });
+            } else {
+                alert('کۆدێ SDK یێ ڕێکلامێ هێشتا بار نەبوویە یان ئینتەرنێت لاوازە.');
+                adBtn.disabled = false;
+                adBtn.innerText = 'تەماشابکە';
+            }
         }
 
         window.completeTask = (r, x) => { balance += r; addXp(x); updateUI(); alert('پاداشت هاتە وەرگرتن!'); };
