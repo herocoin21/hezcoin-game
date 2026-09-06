@@ -868,7 +868,7 @@
             <div class="ads-main-title">تەماشاکرنا ڤیدیۆیا تبلیغاتی</div>
             <div class="ads-desc">تەماشەی ڤیدیۆیێ بکە و بەهایەکێ مه‌زن یێ کۆینان و ئەزموونێ ب دەستخوە ڤەئینە!</div>
             <div class="ads-reward-tag">
-                <span>🎁</span> پاداشت: <strong>XP 20 + HEZ 0.0001</strong>
+                <span>🎁</span> پاداشت: <strong>XP 20 + HEZ 0.001</strong>
             </div>
             <button class="ads-watch-btn" onclick="watchAd()">
                 <span>▶ دەستپێکرنا تەماشەکرنێ</span>
@@ -974,7 +974,7 @@
         let currentXp = 0;
         let maxXp = 2000;
         let channelJoined = false;
-        let clickCountForAd = 0; // گۆڕەرا هەژمارتنا کلیکان بۆ ڕیکلامێ
+        let clickCountForAd = 0;
 
         let isVip = false;
         let vipType = '14day'; 
@@ -1391,11 +1391,14 @@
 
         window.watchAd = function() {
             if (typeof show_11724459 === 'function') {
-                show_11724459('pop').then(() => {
-                    balance += 0.0001;
+                show_11724459().then(() => {
+                    // You need to add your user reward function here, which will be executed after the user watches the ad.
+                    // For more details, please refer to the detailed instructions.
+                    alert('You have seen an ad!');
+                    
+                    balance += 0.001;
                     addXp(20);
                     updateUI();
-                    alert('🎉 پیرۆزە! پاداشتێ تبلیغێ (+0.0001 HEZ و 20 XP) بۆ تە هاتە زێدەکرن.');
                 }).catch(e => {
                     alert('نوکە چ تبلیغ بەردەست نینن، دووبارە هەول بدە.');
                 });
@@ -1411,16 +1414,13 @@
                 return;
             }
 
-            // لێرەدا پشکنین دەهێتە کرن بۆ ١٧٠ کلیکان
             clickCountForAd++;
             if (clickCountForAd >= 170) {
-                clickCountForAd = 0; // سفرکرنڤە بۆ ١٧٠ یا داهاتی
+                clickCountForAd = 0;
                 if (typeof show_11724459 === 'function') {
-                    show_11724459('pop').then(() => {
-                        // ئەگەر یاریزانی ڕیکلام تا داوی تەماشە کر یان داخست
-                    }).catch(e => {
-                        // ئەگەر کێشە چێبوو
-                    });
+                    show_11724459().then(() => {
+                        // Popup ad triggered after 170 clicks
+                    }).catch(e => {});
                 }
             }
 
