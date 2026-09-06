@@ -515,6 +515,105 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
+        /* Shop New Styling */
+        .shop-category-card {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 12px;
+            text-align: right;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform 0.1s, border-color 0.2s;
+        }
+
+        .shop-category-card:active {
+            transform: scale(0.98);
+        }
+
+        .shop-cat-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .shop-cat-icon {
+            font-size: 26px;
+            background: rgba(245, 158, 11, 0.15);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .shop-cat-info h4 {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 3px;
+        }
+
+        .shop-cat-info p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .shop-arrow {
+            font-size: 16px;
+            color: var(--accent-yellow);
+            font-weight: bold;
+        }
+
+        .sub-shop-container {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sub-shop-container.active {
+            display: flex;
+        }
+
+        .shop-item-row {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .shop-item-details h5 {
+            font-size: 13px;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 2px;
+            text-align: right;
+        }
+
+        .shop-item-details span {
+            font-size: 11px;
+            color: var(--accent-yellow);
+        }
+
+        .buy-item-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         .task-card {
             width: 100%;
             background: var(--card-bg);
@@ -837,13 +936,110 @@
         </div>
     </div>
 
-    <!-- 4. SHOP TAB -->
+    <!-- 4. SHOP TAB (UPDATED) -->
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🛒 مۆڵ و فرۆشگە (Shop)</h2>
-        <div class="card">
-            <h3 style="color: var(--accent-yellow); margin-bottom: 10px;">✨ ل نێزیك دێ هێتە ڤەکرن!</h3>
-            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">ئەم خەریکە کار لسەر ئامرازێن نوو و تایبەتمەندیێن سەرنجڕاکێش دکەین. چاڤەڕێ بن!</p>
+        
+        <!-- Main Categories Selection View -->
+        <div id="shopCategoriesMain" style="width: 100%; display: flex; flex-direction: column;">
+            
+            <!-- Category 1: Game Accounts -->
+            <div class="shop-category-card" onclick="openSubShop('gameAccountsSub')">
+                <div class="shop-cat-left">
+                    <div class="shop-cat-icon">🎮</div>
+                    <div class="shop-cat-info">
+                        <h4>ئەکاونتێن یارییان</h4>
+                        <p>ئەکاونتێن گرێدای ب یارییەکانڤە</p>
+                    </div>
+                </div>
+                <div class="shop-arrow">←</div>
+            </div>
+
+            <!-- Category 2: Social Media -->
+            <div class="shop-category-card" onclick="openSubShop('socialMediaSub')">
+                <div class="shop-cat-left">
+                    <div class="shop-cat-icon">📱</div>
+                    <div class="shop-cat-info">
+                        <h4>سۆشیال مێدیا</h4>
+                        <p>تیکتۆک، ئینستاگرام، تێلێگرام</p>
+                    </div>
+                </div>
+                <div class="shop-arrow">←</div>
+            </div>
+
+            <!-- Category 3: Game Currencies -->
+            <div class="shop-category-card" onclick="openSubShop('gameCurrencySub')">
+                <div class="shop-cat-left">
+                    <div class="shop-cat-icon">💎</div>
+                    <div class="shop-cat-info">
+                        <h4>پارێن یارییان</h4>
+                        <p>وەک UC و تشتێن دی</p>
+                    </div>
+                </div>
+                <div class="shop-arrow">←</div>
+            </div>
+
         </div>
+
+        <!-- Sub 1: Game Accounts Items -->
+        <div id="gameAccountsSub" class="sub-shop-container">
+            <div class="back-btn-container" style="margin-bottom: 5px;">
+                <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
+            </div>
+            <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">🎮 ئەکاونتێن یارییان</h3>
+            
+            <div class="shop-item-row">
+                <button class="buy-item-btn" onclick="alert('ب زوویی دێ بەردەست بێت!')">کڕین</button>
+                <div class="shop-item-details" style="text-align: right;">
+                    <h5>ئەکاونتێ پابجی (مۆبایل)</h5>
+                    <span>نرخ: 5.0 HEZ</span>
+                </div>
+            </div>
+            <!-- تو دشێی ل ڤێرە یاریێن دی لێ زێدە بکەی -->
+        </div>
+
+        <!-- Sub 2: Social Media Items -->
+        <div id="socialMediaSub" class="sub-shop-container">
+            <div class="back-btn-container" style="margin-bottom: 5px;">
+                <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
+            </div>
+            <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">📱 سۆشیال مێدیا</h3>
+            
+            <div class="shop-item-row">
+                <button class="buy-item-btn" onclick="alert('ب زوویی دێ بەردەست بێت!')">کڕین</button>
+                <div class="shop-item-details" style="text-align: right;">
+                    <h5>1000 فۆلۆوەرێن تیکتۆک</h5>
+                    <span>نرخ: 2.0 HEZ</span>
+                </div>
+            </div>
+
+            <div class="shop-item-row">
+                <button class="buy-item-btn" onclick="alert('ب زوویی دێ بەردەست بێت!')">کڕین</button>
+                <div class="shop-item-details" style="text-align: right;">
+                    <h5>ئەندامێن تێلێگرام (Channels)</h5>
+                    <span>نرخ: 1.5 HEZ</span>
+                </div>
+            </div>
+            <!-- تو دشێی تشتێن دی یێن سۆشیال مێدیا ل ڤێرە لێ زێدە بکەی -->
+        </div>
+
+        <!-- Sub 3: Game Currencies Items -->
+        <div id="gameCurrencySub" class="sub-shop-container">
+            <div class="back-btn-container" style="margin-bottom: 5px;">
+                <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
+            </div>
+            <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">💎 پارێن یارییان (UC و هتد)</h3>
+            
+            <div class="shop-item-row">
+                <button class="buy-item-btn" onclick="alert('ب زوویی دێ بەردەست بێت!')">کڕین</button>
+                <div class="shop-item-details" style="text-align: right;">
+                    <h5>60 UC پابجی</h5>
+                    <span>نرخ: 3.0 HEZ</span>
+                </div>
+            </div>
+            <!-- تو دشێی UC یان الماسێن دی ل ڤێرە لێ زێدە بکەی -->
+        </div>
+
     </div>
 
     <!-- 5. TAP TAB -->
@@ -1296,6 +1492,18 @@
         window.switchToProfile = () => switchTab('profileTab', null);
         window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
 
+        // Shop Category Nav Functions
+        window.openSubShop = function(subId) {
+            document.getElementById('shopCategoriesMain').style.display = 'none';
+            document.querySelectorAll('.sub-shop-container').forEach(el => el.classList.remove('active'));
+            document.getElementById(subId).classList.add('active');
+        }
+
+        window.backToShopMain = function() {
+            document.querySelectorAll('.sub-shop-container').forEach(el => el.classList.remove('active'));
+            document.getElementById('shopCategoriesMain').style.display = 'flex';
+        }
+
         window.openVipModal = function() {
             if(vipModalOverlay) vipModalOverlay.classList.add('active');
         }
@@ -1427,7 +1635,7 @@
 
         window.useEnergyPack = function() {
             if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
-            if (energyPacks <= 0) { alert('پاکێت نینن!'); return; }
+            if (energyPacks <= 0) { alert('پاکێت نەهاتینە!'); return; }
 
             if (window.Adsgram) {
                 const adController = window.Adsgram.init({ blockId: "int-46537" });
