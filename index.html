@@ -804,13 +804,24 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
-    <!-- SHOP TAB -->
+    <!-- ADS TAB (گوهۆڕی بۆ بەشێ ڕیکلامان ب Block ID: task-46544) -->
     <div id="shopTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">✨ د نێزیکدا دێ هێتە ڤەکرن</h2>
-        <div class="card">
-            <p style="font-size: 15px; font-weight: 700; color: var(--accent-yellow); line-height: 1.6;">
-                چاوەڕێی تشتێن نوو و نایاب بن، ئەڤ بەشە د نێزیکترین دەمدا دێ کەڤیتە خزمەتا هوە!
-            </p>
+        <h2 style="margin-bottom: 15px;">📺 تەماشاکرنا ڕیکلامان</h2>
+        
+        <div class="task-card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);">
+            <div class="task-header">
+                <div class="task-icon" style="background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4);">🎬</div>
+                <div class="task-info">
+                    <h4 style="color: #60a5fa;">رۆبۆتێ ڕیکلامێ (Ads)</h4>
+                    <span class="task-reward" style="color: #34d399;">+0.001 HEZ + 20 XP</span>
+                </div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە. (بۆ پاراستنێ ٣٠ چرکە دێ ناڤبەرا دو تەماشەکرناندا هەبن).</p>
+            <div class="task-actions">
+                <button class="task-btn btn-primary" id="watchAdBtnTab" onclick="watchAdTab()">
+                    <span id="watchAdBtnTabText">▶ دەستپێکرنا تەماشەکرنێ</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -822,7 +833,7 @@
         </div>
     </div>
 
-    <!-- PROFILE TAB -->
+    <!-- PROFILE TAB (ڤەگەڕاندنا پروفایلا کەڤن و ڕەسەن) -->
     <div id="profileTab" class="tab-content">
         <div class="back-btn-container">
             <button class="btn-back" onclick="switchToTap()">← پاشڤە (Back)</button>
@@ -858,7 +869,7 @@
         </div>
     </div>
 
-    <!-- TASKS TAB (وەکی خۆیا کەڤن + زێدەکرنا ڕیکلاما AdsGram) -->
+    <!-- TASKS TAB -->
     <div id="tasksTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
         
@@ -891,23 +902,6 @@
                 <button class="task-btn btn-success" style="display: none;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
             </div>
         </div>
-
-        <!-- Task 3: AdsGram Watch Ad (ئەو تشتەی تە داخوازی کر بۆ بەشێ task) -->
-        <div class="task-card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);">
-            <div class="task-header">
-                <div class="task-icon" style="background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4);">📺</div>
-                <div class="task-info">
-                    <h4 style="color: #60a5fa;">تەماشاکرنا ڕیکلامێ</h4>
-                    <span class="task-reward" style="color: #34d399;">+0.001 HEZ + 20 XP</span>
-                </div>
-            </div>
-            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە.</p>
-            <div class="task-actions">
-                <button class="task-btn btn-primary" id="watchAdBtn" onclick="watchAd()">
-                    <span id="watchAdBtnText">▶ دەستپێکرنا تەماشەکرنێ</span>
-                </button>
-            </div>
-        </div>
     </div>
 
     <!-- NAVIGATION BAR -->
@@ -925,8 +919,8 @@
             <span>Rank</span>
         </div>
         <div class="nav-item" id="navShop" onclick="switchTab('shopTab', this)">
-            <span class="nav-icon">🛒</span>
-            <span>Shop</span>
+            <span class="nav-icon">📺</span>
+            <span>Ads</span>
         </div>
         <div class="nav-item" id="navProfile" onclick="switchTab('profileTab', this)">
             <span class="nav-icon">👤</span>
@@ -1296,7 +1290,7 @@
             if(el) el.classList.add('active');
         }
 
-        window.switchToProfile = () => switchTab('profileTab', null);
+        window.switchToProfile = () => switchTab('profileTab', document.getElementById('navProfile'));
         window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
 
         window.openVipModal = function() {
@@ -1386,23 +1380,33 @@
             }
         }
 
-        // AdsGram Integration with Block ID: int-46537 (زێدەبووی بۆ بەشێ Tasks)
-        window.watchAd = function() {
-            const watchAdBtn = document.getElementById('watchAdBtn');
-            const watchAdBtnText = document.getElementById('watchAdBtnText');
+        // AdsGram Integration for Ads Tab with Block ID: task-46544 (با ب کار بینین و سیستەمێ ٣٠ چرکەیان)
+        let lastAdTimeTab = 0;
+        window.watchAdTab = function() {
+            const watchAdBtn = document.getElementById('watchAdBtnTab');
+            const watchAdBtnText = document.getElementById('watchAdBtnTabText');
             
             if (watchAdBtn.disabled) return;
+
+            const now = Date.now();
+            const cooldownTime = 30000; // ٣٠ چرکە
+            if (now - lastAdTimeTab < cooldownTime) {
+                const remainingSecs = Math.ceil((cooldownTime - (now - lastAdTimeTab)) / 1000);
+                alert(`⏳ هێشتا دەم نەهاتییە! تکایە ${remainingSecs} چرکەیێن دی چاوەڕێ بن.`);
+                return;
+            }
 
             if (window.Adsgram) {
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
 
-                const adController = window.Adsgram.init({ blockId: "int-46537" });
+                const adController = window.Adsgram.init({ blockId: "task-46544" });
                 
                 adController.show()
                     .then((result) => {
                         watchAdBtn.disabled = false;
                         watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
+                        lastAdTimeTab = Date.now();
                         
                         balance += 0.001;
                         addXp(20);
@@ -1416,6 +1420,34 @@
                     });
             } else {
                 alert('سیستەمێ تبلیغان هێشتا بار نەبوویە یان نەتەوەک کار نەکەت.');
+            }
+        }
+
+        // AdsGram Integration for Use Energy Pack with Block ID: int-46537
+        window.useEnergyPack = function() {
+            if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
+            if (energyPacks <= 0) { alert('پاکێت نینن!'); return; }
+
+            if (window.Adsgram) {
+                const adController = window.Adsgram.init({ blockId: "int-46537" });
+                adController.show()
+                    .then((result) => {
+                        energyPacks -= 1;
+                        currentClicks = maxClicksPerPack;
+                        lastPackTime = Date.now();
+                        updateUI();
+                        alert('⚡ ڕیکلام ب سەرکەفتیانە هاتە تەماشەکرن و 500 ئێنێرجی بۆ تە هاتە دان.');
+                    })
+                    .catch((result) => {
+                        alert('تەماشاکرنا ڕیکلامێ هاتە هەڵوەشاندن، پاکێت نەهاتە خەرجکرن.');
+                    });
+            } else {
+                // ئەگەر سەکۆیا ڕیکلامێ نەبیتە کارا، ڕاستەخۆ پاکێتەکە بکاربینە
+                energyPacks -= 1;
+                currentClicks = maxClicksPerPack;
+                lastPackTime = Date.now();
+                updateUI();
+                alert('500 ئێنێرجی بۆ تە هاتە دان.');
             }
         }
 
@@ -1458,16 +1490,6 @@
 
             setTimeout(() => floatBox.remove(), 800);
         });
-
-        window.useEnergyPack = function() {
-            if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
-            if (energyPacks <= 0) { alert('پاکێت نینن!'); return; }
-            energyPacks -= 1;
-            currentClicks = maxClicksPerPack;
-            lastPackTime = Date.now();
-            updateUI();
-            alert('500 ئێنێرجی بۆ تە هاتە دان.');
-        }
 
         initUser();
     </script>
