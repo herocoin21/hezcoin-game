@@ -841,8 +841,8 @@
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🛒 مۆڵ و فرۆشگە (Shop)</h2>
         <div class="card">
-            <h3 style="color: var(--accent-yellow); margin-bottom: 10px;">✨ بە زوویی دێ ڤەکەت!</h3>
-            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">ئەم خەریکە کار لسەر ئامرازێن نوو و تایبەتمەندیێن سەرنجڕاکێش دکەین. هیڤیدارین ب زوویی سەرەدانا ڤێرێ بکەن بۆ دیتنا خزمەتگوزاریێن نوو!</p>
+            <h3 style="color: var(--accent-yellow); margin-bottom: 10px;">✨ ل نێزیك دێ هێتە ڤەکرن!</h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">ئەم خەریکە کار لسەر ئامرازێن نوو و تایبەتمەندیێن سەرنجڕاکێش دکەین. چاڤەڕێ بن!</p>
         </div>
     </div>
 
@@ -907,7 +907,7 @@
         </div>
     </div>
 
-    <!-- NAVIGATION BAR (Task, Ads, Rank, Shop, Tap - Left to Right) -->
+    <!-- NAVIGATION BAR -->
     <div class="navbar">
         <div class="nav-item active" id="navTask" onclick="switchTab('tasksTab', this)">
             <span class="nav-icon">📋</span>
@@ -1402,8 +1402,8 @@
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
 
-                // لێرەدا Block ID هاتە ڕاستکرن بۆ int-46544
-                const adController = window.Adsgram.init({ blockId: "int-46544" });
+                // لێرەدا کۆدێ ڕیکلاما Task (task-46544) هاتە دانان
+                const adController = window.Adsgram.init({ blockId: "task-46544" });
                 
                 adController.show()
                     .then((result) => {
@@ -1431,6 +1431,7 @@
             if (energyPacks <= 0) { alert('پاکێت نینن!'); return; }
 
             if (window.Adsgram) {
+                // لێرەدا کۆدێ ڕیکلاما Interstitial (int-46537) هاتە دانان
                 const adController = window.Adsgram.init({ blockId: "int-46537" });
                 adController.show()
                     .then((result) => {
