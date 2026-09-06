@@ -504,17 +504,6 @@
             margin-top: 6px;
         }
 
-        .card {
-            width: 100%;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 12px;
-            text-align: center;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
         /* Shop New Styling */
         .shop-category-card {
             width: 100%;
@@ -543,10 +532,10 @@
         }
 
         .shop-cat-icon {
-            font-size: 26px;
-            background: rgba(245, 158, 11, 0.15);
-            padding: 10px;
-            border-radius: 12px;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            object-fit: cover;
             border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
@@ -586,6 +575,12 @@
             border-radius: 12px;
             padding: 12px;
             display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .shop-item-top {
+            display: flex;
             align-items: center;
             justify-content: space-between;
         }
@@ -607,11 +602,23 @@
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 8px;
             font-size: 11px;
             font-weight: 700;
             cursor: pointer;
+        }
+
+        .order-input {
+            width: 100%;
+            background: #0b0f19;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 6px 10px;
+            color: #fff;
+            font-size: 11px;
+            text-align: right;
+            outline: none;
         }
 
         .task-card {
@@ -936,44 +943,44 @@
         </div>
     </div>
 
-    <!-- 4. SHOP TAB (UPDATED) -->
+    <!-- 4. SHOP TAB (UPDATED SOCIAL MEDIA) -->
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🛒 مۆڵ و فرۆشگە (Shop)</h2>
         
         <!-- Main Categories Selection View -->
         <div id="shopCategoriesMain" style="width: 100%; display: flex; flex-direction: column;">
             
-            <!-- Category 1: Game Accounts -->
-            <div class="shop-category-card" onclick="openSubShop('gameAccountsSub')">
+            <!-- Category 1: TikTok -->
+            <div class="shop-category-card" onclick="openSubShop('tiktokSub')">
                 <div class="shop-cat-left">
-                    <div class="shop-cat-icon">🎮</div>
+                    <img src="tiktok.jpg" alt="TikTok" class="shop-cat-icon">
                     <div class="shop-cat-info">
-                        <h4>ئەکاونتێن یارییان</h4>
-                        <p>ئەکاونتێن گرێدای ب یارییەکانڤە</p>
+                        <h4>تیکتۆک (TikTok)</h4>
+                        <p>فۆڵۆو، ڤیو، لایک</p>
                     </div>
                 </div>
                 <div class="shop-arrow">←</div>
             </div>
 
-            <!-- Category 2: Social Media -->
-            <div class="shop-category-card" onclick="openSubShop('socialMediaSub')">
+            <!-- Category 2: Instagram -->
+            <div class="shop-category-card" onclick="openSubShop('instagramSub')">
                 <div class="shop-cat-left">
-                    <div class="shop-cat-icon">📱</div>
+                    <img src="instagram.jpg" alt="Instagram" class="shop-cat-icon">
                     <div class="shop-cat-info">
-                        <h4>سۆشیال مێدیا</h4>
-                        <p>تیکتۆک، ئینستاگرام، تێلێگرام</p>
+                        <h4>ئینستاگرام (Instagram)</h4>
+                        <p>لایک و خزمەتگوزاریێن دی</p>
                     </div>
                 </div>
                 <div class="shop-arrow">←</div>
             </div>
 
-            <!-- Category 3: Game Currencies -->
-            <div class="shop-category-card" onclick="openSubShop('gameCurrencySub')">
+            <!-- Category 3: Telegram -->
+            <div class="shop-category-card" onclick="openSubShop('telegramSub')">
                 <div class="shop-cat-left">
-                    <div class="shop-cat-icon">💎</div>
+                    <img src="telegram.jpg" alt="Telegram" class="shop-cat-icon">
                     <div class="shop-cat-info">
-                        <h4>پارێن یارییان</h4>
-                        <p>وەک UC و تشتێن دی</p>
+                        <h4>تێلێگرام (Telegram)</h4>
+                        <p>مێمبەر و ریەکشنێن جۆراوجۆر</p>
                     </div>
                 </div>
                 <div class="shop-arrow">←</div>
@@ -981,63 +988,105 @@
 
         </div>
 
-        <!-- Sub 1: Game Accounts Items -->
-        <div id="gameAccountsSub" class="sub-shop-container">
+        <!-- Sub 1: TikTok Items -->
+        <div id="tiktokSub" class="sub-shop-container">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
-            <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">🎮 ئەکاونتێن یارییان</h3>
+            <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">🎵 خزمەتگوزاریێن تیکتۆک</h3>
             
             <div class="shop-item-row">
-                <button class="buy-item-btn" onclick="alert('ب زوویی دێ بەردەست بێت!')">کڕین</button>
-                <div class="shop-item-details" style="text-align: right;">
-                    <h5>ئەکاونتێ پابجی (مۆبایل)</h5>
-                    <span>نرخ: 5.0 HEZ</span>
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - فۆڵۆ 1k', 6.0, 'tiktok_input_1')">کڕین</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>فۆڵۆو 1k</h5>
+                        <span>نرخ: 6.0 HEZ</span>
+                    </div>
                 </div>
+                <input type="text" id="tiktok_input_1" class="order-input" placeholder="یۆزەرنەیم یان لینکێ ئەکاونتی لڤێرە بدانە...">
             </div>
-            <!-- تو دشێی ل ڤێرە یاریێن دی لێ زێدە بکەی -->
+
+            <div class="shop-item-row">
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - ڤیو 1k', 0.3, 'tiktok_input_2')">کڕین</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>ڤیو 1k</h5>
+                        <span>نرخ: 0.3 HEZ</span>
+                    </div>
+                </div>
+                <input type="text" id="tiktok_input_2" class="order-input" placeholder="لینکا ڤیدیۆیێ لڤێرە بدانە...">
+            </div>
+
+            <div class="shop-item-row">
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - لایک 100', 0.4, 'tiktok_input_3')">کڕین</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>لایک 100</h5>
+                        <span>نرخ: 0.4 HEZ</span>
+                    </div>
+                </div>
+                <input type="text" id="tiktok_input_3" class="order-input" placeholder="لینکا ڤیدیۆیێ لڤێرە بدانە...">
+            </div>
         </div>
 
-        <!-- Sub 2: Social Media Items -->
-        <div id="socialMediaSub" class="sub-shop-container">
+        <!-- Sub 2: Instagram Items -->
+        <div id="instagramSub" class="sub-shop-container">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
-            <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">📱 سۆشیال مێدیا</h3>
+            <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">📸 خزمەتگوزاریێن ئینستاگرام</h3>
             
             <div class="shop-item-row">
-                <button class="buy-item-btn" onclick="alert('ب زوویی دێ بەردەست بێت!')">کڕین</button>
-                <div class="shop-item-details" style="text-align: right;">
-                    <h5>1000 فۆلۆوەرێن تیکتۆک</h5>
-                    <span>نرخ: 2.0 HEZ</span>
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" onclick="buySocialService('ئینستاگرام - لایک 100', 1.0, 'insta_input_1')">کڕین</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>100 لایک</h5>
+                        <span>نرخ: 1.0 HEZ</span>
+                    </div>
                 </div>
+                <input type="text" id="insta_input_1" class="order-input" placeholder="لینکا پۆستێ لڤێرە بدانە...">
             </div>
-
-            <div class="shop-item-row">
-                <button class="buy-item-btn" onclick="alert('ب زوویی دێ بەردەست بێت!')">کڕین</button>
-                <div class="shop-item-details" style="text-align: right;">
-                    <h5>ئەندامێن تێلێگرام (Channels)</h5>
-                    <span>نرخ: 1.5 HEZ</span>
-                </div>
-            </div>
-            <!-- تو دشێی تشتێن دی یێن سۆشیال مێدیا ل ڤێرە لێ زێدە بکەی -->
         </div>
 
-        <!-- Sub 3: Game Currencies Items -->
-        <div id="gameCurrencySub" class="sub-shop-container">
+        <!-- Sub 3: Telegram Items -->
+        <div id="telegramSub" class="sub-shop-container">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
-            <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">💎 پارێن یارییان (UC و هتد)</h3>
+            <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">✈️ خزمەتگوزاریێن تێلێگرام</h3>
             
             <div class="shop-item-row">
-                <button class="buy-item-btn" onclick="alert('ب زوویی دێ بەردەست بێت!')">کڕین</button>
-                <div class="shop-item-details" style="text-align: right;">
-                    <h5>60 UC پابجی</h5>
-                    <span>نرخ: 3.0 HEZ</span>
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 100 مێمبەر', 1.0, 'tg_input_1')">کڕین</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>100 مێمبەر</h5>
+                        <span>نرخ: 1 HEZ</span>
+                    </div>
                 </div>
+                <input type="text" id="tg_input_1" class="order-input" placeholder="لینکا کەناڵێ یان گرووپی لڤێرە بدانە...">
             </div>
-            <!-- تو دشێی UC یان الماسێن دی ل ڤێرە لێ زێدە بکەی -->
+
+            <div class="shop-item-row">
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 100 ریەکشن', 0.5, 'tg_input_2')">کڕین</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>100 ریەکشن (ئیموجی)</h5>
+                        <span>نرخ: 0.5 HEZ</span>
+                    </div>
+                </div>
+                <input type="text" id="tg_input_2" class="order-input" placeholder="لینکا پۆستێ تێلێگرامی لڤێرە بدانە...">
+            </div>
+
+            <div class="shop-item-row">
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 10 ئیموجی (♥️)', 1.0, 'tg_input_3')">کڕین</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>10 ئیموجی (♥️)</h5>
+                        <span>نرخ: 1 HEZ</span>
+                    </div>
+                </div>
+                <input type="text" id="tg_input_3" class="order-input" placeholder="لینکا پۆستێ تێلێگرامی لڤێرە بدانە...">
+            </div>
         </div>
 
     </div>
@@ -1129,7 +1178,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBLAm1amoybyoAdCGZLfTbZzUkspPIEmhk",
@@ -1395,6 +1444,48 @@
                 });
             } catch (error) {
                 console.error("Firebase sync error:", error);
+            }
+        }
+
+        window.buySocialService = async function(itemName, price, inputId) {
+            const inputField = document.getElementById(inputId);
+            const userLinkOrUser = inputField ? inputField.value.trim() : "";
+
+            if (!userLinkOrUser) {
+                alert("تکایە لینک یان یۆزەرنەیمێ خۆ ل جهێ پێتڤی بنڤیسە!");
+                if(inputField) inputField.focus();
+                return;
+            }
+
+            if (balance < price) {
+                alert("پارە یا تێر نینە! کۆینێن تە کێمن.");
+                return;
+            }
+
+            let confirmBuy = confirm(`ئایا دخوازی (${itemName}) بکڕی ب نرخێ ${price} HEZ؟`);
+            if (!confirmBuy) return;
+
+            try {
+                balance -= price;
+                updateUI();
+
+                // Save order to Firebase
+                await addDoc(collection(db, "orders"), {
+                    userId: userId,
+                    userName: userName,
+                    userUsername: userUsername,
+                    item: itemName,
+                    price: price,
+                    target: userLinkOrUser,
+                    status: "pending",
+                    createdAt: new Date()
+                });
+
+                inputField.value = "";
+                alert("🎉 داخوازا تە ب سەرکەفتیانە هاتە هنارتن بۆ سیستەمی!");
+            } catch (error) {
+                console.error("Order error:", error);
+                alert("کێشەک د هنارتنا داخوازیێ دا چێبوو.");
             }
         }
 
