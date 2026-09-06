@@ -1024,6 +1024,22 @@
             inviteLinkInput.value = inviteLink;
         }
 
+        // Automatic In-App Interstitial Ad Trigger
+        function initInAppInterstitialAds() {
+            if (typeof show_11724459 === 'function') {
+                show_11724459({
+                    type: 'inApp',
+                    inAppSettings: {
+                        frequency: 2,
+                        capping: 0.1,
+                        interval: 30,
+                        timeout: 5,
+                        everyPage: false
+                    }
+                });
+            }
+        }
+
         function checkVipStatus() {
             if (isVip === true) {
                 isVip = true;
@@ -1192,6 +1208,7 @@
             checkVipStatus();
             updateUI();
             startEnergyTimer();
+            initInAppInterstitialAds(); // Launching In-App Interstitial on load
         }
 
         async function syncToFirebase() {
@@ -1396,7 +1413,7 @@
             }
         }
 
-        // Updated Watch Ad function with 30s Timer and Monetag Rewarded Interstitial SDK integration
+        // Rewarded Interstitial Ad integration for Watch Ads section
         window.watchAd = function() {
             const watchAdBtn = document.getElementById('watchAdBtn');
             const watchAdBtnText = document.getElementById('watchAdBtnText');
@@ -1404,8 +1421,8 @@
             if (watchAdBtn.disabled) return;
 
             if (typeof show_11724459 === 'function') {
-                show_11724459('pop').then(() => {
-                    // Start 30 seconds timer
+                show_11724459().then(() => {
+                    // You need to add your user reward function here, which will be executed after the user watches the ad.
                     let timeLeft = 30;
                     watchAdBtn.disabled = true;
                     
@@ -1418,11 +1435,10 @@
                             watchAdBtn.disabled = false;
                             watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
                             
-                            // User reward execution after watching the ad completely
                             balance += 0.001;
                             addXp(20);
                             updateUI();
-                            alert('You have seen an ad! پاداشت بۆ حسابێ تە هاتە زێدەکرن.');
+                            alert('You have seen an ad!');
                         }
                     }, 1000);
 
