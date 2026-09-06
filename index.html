@@ -680,6 +680,13 @@
             transform: scale(0.97);
         }
 
+        .ads-watch-btn:disabled {
+            background: #334155;
+            color: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
         .navbar {
             position: fixed;
             bottom: 0;
@@ -870,19 +877,20 @@
             <div class="ads-reward-tag">
                 <span>🎁</span> پاداشت: <strong>XP 20 + HEZ 0.001</strong>
             </div>
-            <button class="ads-watch-btn" onclick="watchAd()">
-                <span>▶ دەستپێکرنا تەماشەکرنێ</span>
+            <button class="ads-watch-btn" id="watchAdBtn" onclick="watchAd()">
+                <span id="watchAdBtnText">▶ دەستپێکرنا تەماشەکرنێ</span>
             </button>
         </div>
 
         <div class="card" style="text-align: right; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08);">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                <span style="font-size: 16px;">💡</span>
-                <strong style="font-size: 13px; color: #38bdf8;">ڕێنمایێن بەردەوام:</strong>
+                <span style="font-size: 16px;">⚠️</span>
+                <strong style="font-size: 13px; color: #f87171;">ئاگەهداری و ڕێنمایێن گرنگ:</strong>
             </div>
             <ul style="font-size: 11px; color: var(--text-muted); padding-right: 15px; line-height: 1.6;">
+                <li>یێ ڕیکلامێ ڕاوەستینیت یان سەر ببەت، دێ هێتە باند کرن!</li>
+                <li>چاڤەرێ بمینە تا دومانیک بهێت و ڕیکلام ب تەمامی تەماشە بکە.</li>
                 <li>ڕۆژانە بەردەوام ڤیدیۆیان ببینە دا ڕێزبەندیا خۆ (Ranking) بلند بکەی.</li>
-                <li>هەموو تبلیغەک دەرفەتەکە بۆ زێدەکرنا پشکێن تە ب بێ بەرانبەر.</li>
             </ul>
         </div>
     </div>
@@ -1388,20 +1396,45 @@
             }
         }
 
+        // Updated Watch Ad function with 30s Timer and Monetag Rewarded Interstitial SDK integration
         window.watchAd = function() {
+            const watchAdBtn = document.getElementById('watchAdBtn');
+            const watchAdBtnText = document.getElementById('watchAdBtnText');
+            
+            if (watchAdBtn.disabled) return;
+
             if (typeof show_11724459 === 'function') {
                 show_11724459('pop').then(() => {
-                    balance += 0.001;
-                    addXp(20);
-                    updateUI();
+                    // Start 30 seconds timer
+                    let timeLeft = 30;
+                    watchAdBtn.disabled = true;
+                    
+                    const timerInterval = setInterval(() => {
+                        timeLeft--;
+                        watchAdBtnText.innerText = `⏳ چاڤەڕێ بن (${timeLeft}s)`;
+                        
+                        if (timeLeft <= 0) {
+                            clearInterval(timerInterval);
+                            watchAdBtn.disabled = false;
+                            watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
+                            
+                            // User reward execution after watching the ad completely
+                            balance += 0.001;
+                            addXp(20);
+                            updateUI();
+                            alert('You have seen an ad! پاداشت بۆ حسابێ تە هاتە زێدەکرن.');
+                        }
+                    }, 1000);
+
                 }).catch(e => {
+                    alert('هەڵەیەک چێبوو لە بارکردنی ڕیکلامدا. تکایە دووبارە هەوڵ بدەرەوە.');
                 });
             } else {
                 alert('سیستەمێ تبلیغان هێشتا بار نەبوویە.');
             }
         }
 
-        /* Coin Clicker Logic - Safe from Invalid Traffic Bans */
+        /* Coin Clicker Logic */
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
