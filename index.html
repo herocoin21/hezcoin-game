@@ -682,97 +682,6 @@
             color: #34d399;
         }
 
-        /* ADS SECTION STYLES */
-        .ads-hero-box {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            border-radius: 20px;
-            padding: 18px;
-            text-align: right;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .ads-hero-box::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; width: 4px; height: 100%;
-            background: linear-gradient(to bottom, #3b82f6, #10b981);
-        }
-
-        .ads-badge-top {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-            font-size: 11px;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-weight: 800;
-            margin-bottom: 10px;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        .ads-main-title {
-            font-size: 16px;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .ads-desc {
-            font-size: 12px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .ads-reward-tag {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(245, 158, 11, 0.12);
-            border: 1px dashed rgba(245, 158, 11, 0.4);
-            padding: 8px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            color: var(--accent-yellow);
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
-        .ads-watch-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: #fff;
-            border: none;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: transform 0.1s;
-        }
-
-        .ads-watch-btn:active {
-            transform: scale(0.97);
-        }
-
-        .ads-watch-btn:disabled {
-            background: #334155;
-            color: #94a3b8;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
         .navbar {
             position: fixed;
             bottom: 0;
@@ -949,39 +858,7 @@
         </div>
     </div>
 
-    <!-- ADS TAB -->
-    <div id="adsTab" class="tab-content">
-        <h2 style="margin-bottom: 8px;">📺 ناوەندا ڕیکلامان</h2>
-        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px; text-align: center;">ڤیدیۆیان تەماشە بکە و کۆینێن زێدە وەک دیاری وەرگرە!</p>
-
-        <div class="ads-hero-box">
-            <div class="ads-badge-top">
-                <span>⭐</span> Featured Reward
-            </div>
-            <div class="ads-main-title">تەماشاکرنا ڤیدیۆیا تبلیغاتی</div>
-            <div class="ads-desc">تەماشەی ڤیدیۆیێ بکە و بەهایەکێ مه‌زن یێ کۆینان و ئەزموونێ ب دەستخوە ڤەئینە!</div>
-            <div class="ads-reward-tag">
-                <span>🎁</span> پاداشت: <strong>XP 20 + HEZ 0.001</strong>
-            </div>
-            <button class="ads-watch-btn" id="watchAdBtn" onclick="watchAd()">
-                <span id="watchAdBtnText">▶ دەستپێکرنا تەماشەکرنێ</span>
-            </button>
-        </div>
-
-        <div class="card" style="text-align: right; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08);">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                <span style="font-size: 16px;">⚠️</span>
-                <strong style="font-size: 13px; color: #f87171;">ئاگەهداری و ڕێنمایێن گرنگ:</strong>
-            </div>
-            <ul style="font-size: 11px; color: var(--text-muted); padding-right: 15px; line-height: 1.6;">
-                <li>یێ ڕیکلامێ ڕاوەستینیت یان سەر ببەت، دێ هێتە باند کرن!</li>
-                <li>چاڤەرێ بمینە تا دومانیک بهێت و ڕیکلام ب تەمامی تەماشە بکە.</li>
-                <li>ڕۆژانە بەردەوام ڤیدیۆیان ببینە دا ڕێزبەندیا خۆ (Ranking) بلند بکەی.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- TASKS TAB (رێکخستن و جوانکرنا بەشێ ئەرکان) -->
+    <!-- TASKS TAB (وەکی خۆیا کەڤن + زێدەکرنا ڕیکلاما AdsGram) -->
     <div id="tasksTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
         
@@ -1014,6 +891,23 @@
                 <button class="task-btn btn-success" style="display: none;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
             </div>
         </div>
+
+        <!-- Task 3: AdsGram Watch Ad (ئەو تشتەی تە داخوازی کر بۆ بەشێ task) -->
+        <div class="task-card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);">
+            <div class="task-header">
+                <div class="task-icon" style="background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4);">📺</div>
+                <div class="task-info">
+                    <h4 style="color: #60a5fa;">تەماشاکرنا ڕیکلامێ</h4>
+                    <span class="task-reward" style="color: #34d399;">+0.001 HEZ + 20 XP</span>
+                </div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە.</p>
+            <div class="task-actions">
+                <button class="task-btn btn-primary" id="watchAdBtn" onclick="watchAd()">
+                    <span id="watchAdBtnText">▶ دەستپێکرنا تەماشەکرنێ</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- NAVIGATION BAR -->
@@ -1022,9 +916,9 @@
             <span class="nav-icon">📋</span>
             <span>Tasks</span>
         </div>
-        <div class="nav-item active" id="navAds" onclick="switchTab('adsTab', this)">
-            <span class="nav-icon">📺</span>
-            <span>Ads</span>
+        <div class="nav-item active" id="navTap" onclick="switchTab('tapTab', this)">
+            <span class="nav-icon">👆</span>
+            <span>Tap</span>
         </div>
         <div class="nav-item" id="navRank" onclick="switchTab('rankTab', this); loadLeaderboard();">
             <span class="nav-icon">🏆</span>
@@ -1034,9 +928,9 @@
             <span class="nav-icon">🛒</span>
             <span>Shop</span>
         </div>
-        <div class="nav-item" id="navTap" onclick="switchTab('tapTab', this)">
-            <span class="nav-icon">👆</span>
-            <span>Tap</span>
+        <div class="nav-item" id="navProfile" onclick="switchTab('profileTab', this)">
+            <span class="nav-icon">👤</span>
+            <span>Profile</span>
         </div>
     </div>
 
@@ -1156,7 +1050,7 @@
                     action14DayArea.innerHTML = `
                         <div class="vip-active-box">
                             <div style="font-size: 12px; font-weight: 800; color: #34d399;">✨ پرێمیوما ١٤ ڕۆژی چالاکە</div>
-                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;" id="vip14TimerText">دەمێ مایی: بێ سنوور (VIP Active)</div>
+                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;">دەمێ مایی: بێ سنوور (VIP Active)</div>
                         </div>
                     `;
                     actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>`;
@@ -1164,7 +1058,7 @@
                     actionWeeklyArea.innerHTML = `
                         <div class="vip-active-box">
                             <div style="font-size: 12px; font-weight: 800; color: #34d399;">✨ پرێمیوما حەڤتیانە چالاکە</div>
-                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;" id="vipWeeklyTimerText">دەمێ مایی: بێ سنوور (VIP Active)</div>
+                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;">دەمێ مایی: بێ سنوور (VIP Active)</div>
                         </div>
                     `;
                     action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>`;
@@ -1492,7 +1386,7 @@
             }
         }
 
-        // AdsGram Integration with Block ID: int-46537
+        // AdsGram Integration with Block ID: int-46537 (زێدەبووی بۆ بەشێ Tasks)
         window.watchAd = function() {
             const watchAdBtn = document.getElementById('watchAdBtn');
             const watchAdBtnText = document.getElementById('watchAdBtnText');
