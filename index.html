@@ -974,7 +974,6 @@
         let currentXp = 0;
         let maxXp = 2000;
         let channelJoined = false;
-        let clickCountForAd = 0;
 
         let isVip = false;
         let vipType = '14day'; 
@@ -1392,37 +1391,21 @@
         window.watchAd = function() {
             if (typeof show_11724459 === 'function') {
                 show_11724459('pop').then(() => {
-                    // user watch ad till the end or close it in interstitial format
-                    // your code to reward user for rewarded format
                     balance += 0.001;
                     addXp(20);
                     updateUI();
                 }).catch(e => {
-                    // user get error during playing ad
-                    // do nothing or whatever you want
                 });
             } else {
                 alert('سیستەمێ تبلیغان هێشتا بار نەبوویە.');
             }
         }
 
-        /* Coin Clicker Logic */
+        /* Coin Clicker Logic - Safe from Invalid Traffic Bans */
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
                 return;
-            }
-
-            clickCountForAd++;
-            if (clickCountForAd >= 160) {
-                clickCountForAd = 0;
-                if (typeof show_11724459 === 'function') {
-                    show_11724459('pop').then(() => {
-                        // user watch ad till the end or close it in interstitial format
-                    }).catch(e => {
-                        // user get error during playing ad
-                    });
-                }
             }
 
             let coinIncrement = 0.000001;
