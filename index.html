@@ -1402,8 +1402,8 @@
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
 
-                // لێرەدا کۆدێ ڕیکلاما Task (task-46544) هاتە دانان
-                const adController = window.Adsgram.init({ blockId: "task-46544" });
+                // لێرەدا blockId هاتە گۆڕین بۆ int-46544 دا کێشا AdsgramError نەما
+                const adController = window.Adsgram.init({ blockId: "int-46544" });
                 
                 adController.show()
                     .then((result) => {
@@ -1431,7 +1431,6 @@
             if (energyPacks <= 0) { alert('پاکێت نینن!'); return; }
 
             if (window.Adsgram) {
-                // لێرەدا کۆدێ ڕیکلاما Interstitial (int-46537) هاتە دانان
                 const adController = window.Adsgram.init({ blockId: "int-46537" });
                 adController.show()
                     .then((result) => {
