@@ -1402,7 +1402,8 @@
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
 
-                const adController = window.Adsgram.init({ blockId: "task-46544" });
+                // لێرەدا Block ID هاتە ڕاستکرن بۆ int-46544
+                const adController = window.Adsgram.init({ blockId: "int-46544" });
                 
                 adController.show()
                     .then((result) => {
