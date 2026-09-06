@@ -908,14 +908,27 @@
             <button class="btn" style="width: 100%; padding: 8px; background: #3b82f6; color: #fff; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;" onclick="copyInviteLink()">🔗 کۆپیکرنا لینکێ بانگهێشتێ</button>
         </div>
 
-        <div class="card" style="text-align: right; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-                <strong>بەشداری کەناڵی ببە</strong>
-                <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ + 50 XP</p>
+        <div class="card" style="text-align: right; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <strong>بەشداری کەناڵی ببە</strong>
+                    <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ + 50 XP</p>
+                </div>
+                <div style="display: flex; gap: 6px;">
+                    <button class="btn" style="width: auto; padding: 8px 12px; background: #3b82f6; color: #fff; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی</button>
+                    <button class="btn" style="width: auto; padding: 8px 12px; display: none; background: #f59e0b; color:#fff; border:none; border-radius:10px; font-weight:700; cursor: pointer;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
+                </div>
             </div>
-            <div style="display: flex; gap: 6px;">
-                <button class="btn" style="width: auto; padding: 8px 12px; background: #3b82f6; color: #fff; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی</button>
-                <button class="btn" style="width: auto; padding: 8px 12px; display: none; background: #f59e0b; color:#fff; border:none; border-radius:10px; font-weight:700; cursor: pointer;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
+
+            <!-- ڕێنما و ئاگەهدارییا توند بۆ جۆین نەکردن و فێڵکرنێ -->
+            <div style="background: rgba(239, 68, 68, 0.1); border: 1px dashed rgba(239, 68, 68, 0.5); border-radius: 10px; padding: 10px; text-align: right; margin-top: 4px;">
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                    <span style="font-size: 14px;">🚨</span>
+                    <strong style="font-size: 12px; color: #f87171;">رێنمایێن گرنگ و سزادان:</strong>
+                </div>
+                <p style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
+                    مەرجە تو بەشدارییا کەناڵی بکەی و پاشان پشکنینێ بکەی. هەر کەسەکێ <strong>جۆین نەکەت</strong> یاخود <strong>فێڵێ (Fake Ref / Bot)</strong> بکەت، سیستەم ڕاستەوخۆ دێ حسابا وی ناس کەت و ب بێ ئاگەهداری <strong>دێ هێتە باند کرن (Ban)</strong> و کۆینێن وی دێ ژناڤ چن!
+                </p>
             </div>
         </div>
     </div>
@@ -927,7 +940,7 @@
             <span>Tasks</span>
         </div>
         <div class="nav-item active" id="navAds" onclick="switchTab('adsTab', this)">
-            <span class="nav-icon">📺</span>
+            <span class="nav-icon">🎬</span>
             <span>Ads</span>
         </div>
         <div class="nav-item" id="navRank" onclick="switchTab('rankTab', this); loadLeaderboard();">
@@ -1396,7 +1409,6 @@
             }
         }
 
-        // Rewarded Interstitial Ad integration for Watch Ads section
         window.watchAd = function() {
             const watchAdBtn = document.getElementById('watchAdBtn');
             const watchAdBtnText = document.getElementById('watchAdBtnText');
@@ -1432,7 +1444,6 @@
             }
         }
 
-        /* Coin Clicker Logic */
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
@@ -1472,12 +1483,10 @@
             setTimeout(() => floatBox.remove(), 800);
         });
 
-        // In-App Interstitial triggered directly when clicking Use Pack button
         window.useEnergyPack = function() {
             if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
             if (energyPacks <= 0) { alert('پاکێت نینن!'); return; }
 
-            // Triggering In-App Interstitial Ad
             if (typeof show_11724459 === 'function') {
                 show_11724459({ type: 'inApp' }).catch(err => console.log('Ad error:', err));
             }
