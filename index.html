@@ -865,7 +865,7 @@
 
     <!-- ADS TAB -->
     <div id="adsTab" class="tab-content">
-        <h2 style="margin-bottom: 8px;">📺 ناوەندا ڕیکلامان</h2>
+        <h2 style="margin-bottom: 8px;">🎬 ناوەندا ڕیکلامان</h2>
         <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px; text-align: center;">ڤیدیۆیان تەماشە بکە و کۆینێن زێدە وەک دیاری وەرگرە!</p>
 
         <div class="ads-hero-box">
@@ -1022,22 +1022,6 @@
         const inviteLink = `https://t.me/${botUsername}/PlayHez?startapp=ref_${userId}`;
         if(inviteLinkInput) {
             inviteLinkInput.value = inviteLink;
-        }
-
-        // Automatic In-App Interstitial Ad Trigger
-        function initInAppInterstitialAds() {
-            if (typeof show_11724459 === 'function') {
-                show_11724459({
-                    type: 'inApp',
-                    inAppSettings: {
-                        frequency: 2,
-                        capping: 0.1,
-                        interval: 30,
-                        timeout: 5,
-                        everyPage: false
-                    }
-                });
-            }
         }
 
         function checkVipStatus() {
@@ -1208,7 +1192,6 @@
             checkVipStatus();
             updateUI();
             startEnergyTimer();
-            initInAppInterstitialAds(); // Launching In-App Interstitial on load
         }
 
         async function syncToFirebase() {
@@ -1422,7 +1405,6 @@
 
             if (typeof show_11724459 === 'function') {
                 show_11724459().then(() => {
-                    // You need to add your user reward function here, which will be executed after the user watches the ad.
                     let timeLeft = 30;
                     watchAdBtn.disabled = true;
                     
@@ -1490,9 +1472,16 @@
             setTimeout(() => floatBox.remove(), 800);
         });
 
+        // In-App Interstitial triggered directly when clicking Use Pack button
         window.useEnergyPack = function() {
             if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
             if (energyPacks <= 0) { alert('پاکێت نینن!'); return; }
+
+            // Triggering In-App Interstitial Ad
+            if (typeof show_11724459 === 'function') {
+                show_11724459({ type: 'inApp' }).catch(err => console.log('Ad error:', err));
+            }
+
             energyPacks -= 1;
             currentClicks = maxClicksPerPack;
             lastPackTime = Date.now();
