@@ -865,7 +865,7 @@
 
     <!-- ADS TAB -->
     <div id="adsTab" class="tab-content">
-        <h2 style="margin-bottom: 8px;">🎬 ناوەندا ڕیکلامان</h2>
+        <h2 style="margin-bottom: 8px;">📺 ناوەندا ڕیکلامان</h2>
         <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px; text-align: center;">ڤیدیۆیان تەماشە بکە و کۆینێن زێدە وەک دیاری وەرگرە!</p>
 
         <div class="ads-hero-box">
@@ -908,27 +908,14 @@
             <button class="btn" style="width: 100%; padding: 8px; background: #3b82f6; color: #fff; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;" onclick="copyInviteLink()">🔗 کۆپیکرنا لینکێ بانگهێشتێ</button>
         </div>
 
-        <div class="card" style="text-align: right; display: flex; flex-direction: column; gap: 10px;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <strong>بەشداری کەناڵی ببە</strong>
-                    <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ + 50 XP</p>
-                </div>
-                <div style="display: flex; gap: 6px;">
-                    <button class="btn" style="width: auto; padding: 8px 12px; background: #3b82f6; color: #fff; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی</button>
-                    <button class="btn" style="width: auto; padding: 8px 12px; display: none; background: #f59e0b; color:#fff; border:none; border-radius:10px; font-weight:700; cursor: pointer;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
-                </div>
+        <div class="card" style="text-align: right; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <strong>بەشداری کەناڵی ببە</strong>
+                <p style="font-size: 12px; color: var(--accent-yellow);">+0.001 HEZ + 50 XP</p>
             </div>
-
-            <!-- ڕێنما و ئاگەهدارییا توند بۆ جۆین نەکردن و فێڵکرنێ -->
-            <div style="background: rgba(239, 68, 68, 0.1); border: 1px dashed rgba(239, 68, 68, 0.5); border-radius: 10px; padding: 10px; text-align: right; margin-top: 4px;">
-                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-                    <span style="font-size: 14px;">🚨</span>
-                    <strong style="font-size: 12px; color: #f87171;">رێنمایێن گرنگ و سزادان:</strong>
-                </div>
-                <p style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
-                    مەرجە تو بەشدارییا کەناڵی بکەی و پاشان پشکنینێ بکەی. هەر کەسەکێ <strong>جۆین نەکەت</strong> یاخود <strong>فێڵێ (Fake Ref / Bot)</strong> بکەت، سیستەم ڕاستەوخۆ دێ حسابا وی ناس کەت و ب بێ ئاگەهداری <strong>دێ هێتە باند کرن (Ban)</strong> و کۆینێن وی دێ ژناڤ چن!
-                </p>
+            <div style="display: flex; gap: 6px;">
+                <button class="btn" style="width: auto; padding: 8px 12px; background: #3b82f6; color: #fff; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی</button>
+                <button class="btn" style="width: auto; padding: 8px 12px; display: none; background: #f59e0b; color:#fff; border:none; border-radius:10px; font-weight:700; cursor: pointer;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
             </div>
         </div>
     </div>
@@ -940,7 +927,7 @@
             <span>Tasks</span>
         </div>
         <div class="nav-item active" id="navAds" onclick="switchTab('adsTab', this)">
-            <span class="nav-icon">🎬</span>
+            <span class="nav-icon">📺</span>
             <span>Ads</span>
         </div>
         <div class="nav-item" id="navRank" onclick="switchTab('rankTab', this); loadLeaderboard();">
@@ -1138,12 +1125,12 @@
                 const docSnap = await getDoc(userRef);
                 if (docSnap.exists()) {
                     const data = docSnap.data();
-                    balance = data.balance ?? 0;
-                    energyPacks = data.energyPacks ?? 4;
-                    currentClicks = data.currentClicks ?? 500;
-                    currentLevel = data.currentLevel ?? 1;
-                    currentXp = data.currentXp ?? 0;
-                    maxXp = data.maxXp ?? 2000;
+                    balance = typeof data.balance === 'number' ? data.balance : 0;
+                    energyPacks = typeof data.energyPacks === 'number' ? data.energyPacks : 4;
+                    currentClicks = typeof data.currentClicks === 'number' ? data.currentClicks : 500;
+                    currentLevel = typeof data.currentLevel === 'number' ? data.currentLevel : 1;
+                    currentXp = typeof data.currentXp === 'number' ? data.currentXp : 0;
+                    maxXp = typeof data.maxXp === 'number' ? data.maxXp : 2000;
                     lastPackTime = data.lastPackTime || Date.now();
                     
                     isVip = data.isVip ?? false;
@@ -1197,7 +1184,7 @@
                         channelJoined: false,
                         referredBy: referredBy || null,
                         createdAt: new Date()
-                    });
+                    }, { merge: true });
                 }
             } catch (error) {
                 console.error("Firebase load error:", error);
@@ -1409,6 +1396,7 @@
             }
         }
 
+        // Updated Watch Ad function with 30s Timer and Monetag SDK integration
         window.watchAd = function() {
             const watchAdBtn = document.getElementById('watchAdBtn');
             const watchAdBtnText = document.getElementById('watchAdBtnText');
@@ -1416,7 +1404,7 @@
             if (watchAdBtn.disabled) return;
 
             if (typeof show_11724459 === 'function') {
-                show_11724459().then(() => {
+                show_11724459('pop').then(() => {
                     let timeLeft = 30;
                     watchAdBtn.disabled = true;
                     
@@ -1432,7 +1420,7 @@
                             balance += 0.001;
                             addXp(20);
                             updateUI();
-                            alert('You have seen an ad!');
+                            alert('You have seen an ad! پاداشت بۆ حسابێ تە هاتە زێدەکرن.');
                         }
                     }, 1000);
 
@@ -1444,6 +1432,7 @@
             }
         }
 
+        /* Coin Clicker Logic */
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
@@ -1486,11 +1475,6 @@
         window.useEnergyPack = function() {
             if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
             if (energyPacks <= 0) { alert('پاکێت نینن!'); return; }
-
-            if (typeof show_11724459 === 'function') {
-                show_11724459({ type: 'inApp' }).catch(err => console.log('Ad error:', err));
-            }
-
             energyPacks -= 1;
             currentClicks = maxClicksPerPack;
             lastPackTime = Date.now();
