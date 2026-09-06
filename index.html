@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Hez Coin - Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- AdsGram SDK زێدەکرنا -->
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 
     <style>
@@ -516,7 +515,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* Task Specific Cards Styling */
         .task-card {
             width: 100%;
             background: var(--card-bg);
@@ -746,7 +744,6 @@
                 <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">یارییا خۆ پێشخە و دیارییا وەرگرە!</p>
             </div>
 
-            <!-- پرێمیوما ١٤ رۆژی ($4) -->
             <div class="vip-plan" id="plan14DayContainer">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #f3e8ff; font-size: 14px;">⭐ پرێمیوما 14 رۆژی</strong>
@@ -762,7 +759,6 @@
                 </div>
             </div>
 
-            <!-- پرێمیوما حەڤتیانە ($2) -->
             <div class="vip-plan weekly" id="planWeeklyContainer">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #e2e8f0; font-size: 14px;">⭐ پرێمیوما حەڤتیانە (7 رۆژ)</strong>
@@ -779,7 +775,7 @@
         </div>
     </div>
 
-    <!-- TAP TAB -->
+    <!-- 1. TAP TAB -->
     <div id="tapTab" class="tab-content active">
         <button class="tap-vip-btn" onclick="openVipModal()">💎 پرێمیۆم (VIP)</button>
 
@@ -804,8 +800,25 @@
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
-    <!-- ADS TAB (گوهۆڕی بۆ بەشێ ڕیکلامان ب Block ID: task-46544) -->
+    <!-- 2. SHOP TAB -->
     <div id="shopTab" class="tab-content">
+        <h2 style="margin-bottom: 15px;">🛒 مۆڵ و فرۆشگە (Shop)</h2>
+        <div class="card">
+            <h3 style="color: var(--accent-yellow); margin-bottom: 8px;">بەتایبەت بۆ تە</h3>
+            <p style="font-size: 13px; color: var(--text-muted);">ب زوویی خزمەتگوزاری و ئامرازێن نوو دێ ل ڤێرێ دەستکەفتبن.</p>
+        </div>
+    </div>
+
+    <!-- 3. RANK TAB -->
+    <div id="rankTab" class="tab-content">
+        <h2 style="margin-bottom: 15px;">🏆 رێزبەندیا یاریزانان</h2>
+        <div style="width: 100%;" id="leaderboardList">
+            <p style="color: var(--text-muted); font-size: 13px;">باردبت...</p>
+        </div>
+    </div>
+
+    <!-- 4. ADS TAB -->
+    <div id="shopTabAlt" class="tab-content">
         <h2 style="margin-bottom: 15px;">📺 تەماشاکرنا ڕیکلامان</h2>
         
         <div class="task-card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);">
@@ -825,15 +838,40 @@
         </div>
     </div>
 
-    <!-- RANKING TAB -->
-    <div id="rankTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🏆 رێزبەندیا یاریزانان</h2>
-        <div style="width: 100%;" id="leaderboardList">
-            <p style="color: var(--text-muted); font-size: 13px;">باردبت...</p>
+    <!-- 5. TASKS TAB -->
+    <div id="tasksTab" class="tab-content">
+        <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
+        
+        <div class="task-card">
+            <div class="task-header">
+                <div class="task-icon">👥</div>
+                <div class="task-info">
+                    <h4>هەڤالێن خۆ بانگهێشت بکە</h4>
+                    <span class="task-reward">+0.001 HEZ + 100 XP بۆ هەر هەڤالەکێ</span>
+                </div>
+            </div>
+            <input type="text" id="inviteLinkInput" readonly style="width: 100%; padding: 8px; background: #0b0f19; border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; color: #fff; font-size: 11px; text-align: left;" value="باردبت...">
+            <div class="task-actions">
+                <button class="task-btn btn-primary" onclick="copyInviteLink()">🔗 کۆپیکرنا لینکێ بانگهێشتێ</button>
+            </div>
+        </div>
+
+        <div class="task-card">
+            <div class="task-header">
+                <div class="task-icon">📢</div>
+                <div class="task-info">
+                    <h4>بەشداری کەناڵی فەرمی ببە</h4>
+                    <span class="task-reward">+0.001 HEZ + 50 XP</span>
+                </div>
+            </div>
+            <div class="task-actions">
+                <button class="task-btn btn-primary" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی ↗</button>
+                <button class="task-btn btn-success" style="display: none;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
+            </div>
         </div>
     </div>
 
-    <!-- PROFILE TAB (ڤەگەڕاندنا پروفایلا کەڤن و ڕەسەن) -->
+    <!-- PROFILE TAB (هاتە ڤەگوهاستن بۆ دەمێ ل سەر وێنەیێ ژۆری هاتیە کلیککرن) -->
     <div id="profileTab" class="tab-content">
         <div class="back-btn-container">
             <button class="btn-back" onclick="switchToTap()">← پاشڤە (Back)</button>
@@ -869,62 +907,27 @@
         </div>
     </div>
 
-    <!-- TASKS TAB -->
-    <div id="tasksTab" class="tab-content">
-        <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
-        
-        <!-- Task 1: Invite Friends -->
-        <div class="task-card">
-            <div class="task-header">
-                <div class="task-icon">👥</div>
-                <div class="task-info">
-                    <h4>هەڤالێن خۆ بانگهێشت بکە</h4>
-                    <span class="task-reward">+0.001 HEZ + 100 XP بۆ هەر هەڤالەکێ</span>
-                </div>
-            </div>
-            <input type="text" id="inviteLinkInput" readonly style="width: 100%; padding: 8px; background: #0b0f19; border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; color: #fff; font-size: 11px; text-align: left;" value="باردبت...">
-            <div class="task-actions">
-                <button class="task-btn btn-primary" onclick="copyInviteLink()">🔗 کۆپیکرنا لینکێ بانگهێشتێ</button>
-            </div>
-        </div>
-
-        <!-- Task 2: Join Channel -->
-        <div class="task-card">
-            <div class="task-header">
-                <div class="task-icon">📢</div>
-                <div class="task-info">
-                    <h4>بەشداری کەناڵی فەرمی ببە</h4>
-                    <span class="task-reward">+0.001 HEZ + 50 XP</span>
-                </div>
-            </div>
-            <div class="task-actions">
-                <button class="task-btn btn-primary" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی ↗</button>
-                <button class="task-btn btn-success" style="display: none;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- NAVIGATION BAR -->
+    <!-- NAVIGATION BAR (Tap, Shop, Rank, Ads, Task) -->
     <div class="navbar">
-        <div class="nav-item" id="navTasks" onclick="switchTab('tasksTab', this)">
-            <span class="nav-icon">📋</span>
-            <span>Tasks</span>
-        </div>
         <div class="nav-item active" id="navTap" onclick="switchTab('tapTab', this)">
             <span class="nav-icon">👆</span>
             <span>Tap</span>
+        </div>
+        <div class="nav-item" id="navShop" onclick="switchTab('shopTab', this)">
+            <span class="nav-icon">🛒</span>
+            <span>Shop</span>
         </div>
         <div class="nav-item" id="navRank" onclick="switchTab('rankTab', this); loadLeaderboard();">
             <span class="nav-icon">🏆</span>
             <span>Rank</span>
         </div>
-        <div class="nav-item" id="navShop" onclick="switchTab('shopTab', this)">
+        <div class="nav-item" id="navAds" onclick="switchTab('shopTabAlt', this)">
             <span class="nav-icon">📺</span>
             <span>Ads</span>
         </div>
-        <div class="nav-item" id="navProfile" onclick="switchTab('profileTab', this)">
-            <span class="nav-icon">👤</span>
-            <span>Profile</span>
+        <div class="nav-item" id="navTask" onclick="switchTab('tasksTab', this)">
+            <span class="nav-icon">📋</span>
+            <span>Task</span>
         </div>
     </div>
 
@@ -1290,7 +1293,7 @@
             if(el) el.classList.add('active');
         }
 
-        window.switchToProfile = () => switchTab('profileTab', document.getElementById('navProfile'));
+        window.switchToProfile = () => switchTab('profileTab', null);
         window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
 
         window.openVipModal = function() {
@@ -1380,7 +1383,6 @@
             }
         }
 
-        // AdsGram Integration for Ads Tab with Block ID: task-46544 (با ب کار بینین و سیستەمێ ٣٠ چرکەیان)
         let lastAdTimeTab = 0;
         window.watchAdTab = function() {
             const watchAdBtn = document.getElementById('watchAdBtnTab');
@@ -1389,7 +1391,7 @@
             if (watchAdBtn.disabled) return;
 
             const now = Date.now();
-            const cooldownTime = 30000; // ٣٠ چرکە
+            const cooldownTime = 30000;
             if (now - lastAdTimeTab < cooldownTime) {
                 const remainingSecs = Math.ceil((cooldownTime - (now - lastAdTimeTab)) / 1000);
                 alert(`⏳ هێشتا دەم نەهاتییە! تکایە ${remainingSecs} چرکەیێن دی چاوەڕێ بن.`);
@@ -1423,7 +1425,6 @@
             }
         }
 
-        // AdsGram Integration for Use Energy Pack with Block ID: int-46537
         window.useEnergyPack = function() {
             if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
             if (energyPacks <= 0) { alert('پاکێت نینن!'); return; }
@@ -1442,7 +1443,6 @@
                         alert('تەماشاکرنا ڕیکلامێ هاتە هەڵوەشاندن، پاکێت نەهاتە خەرجکرن.');
                     });
             } else {
-                // ئەگەر سەکۆیا ڕیکلامێ نەبیتە کارا، ڕاستەخۆ پاکێتەکە بکاربینە
                 energyPacks -= 1;
                 currentClicks = maxClicksPerPack;
                 lastPackTime = Date.now();
@@ -1451,7 +1451,6 @@
             }
         }
 
-        /* Coin Clicker Logic */
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
                 alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
