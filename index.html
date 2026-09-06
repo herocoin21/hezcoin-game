@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Hez Coin - Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src='https://libtl.com/sdk.js' data-zone='11724459' data-sdk='show_11724459'></script>
+    <!-- AdsGram SDK زێدەکرنا -->
+    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 
     <style>
         :root {
@@ -1396,39 +1397,38 @@
             }
         }
 
-        // Updated Watch Ad function with 30s Timer and Monetag SDK integration
+        // AdsGram Integration with Block ID: int-46537
         window.watchAd = function() {
             const watchAdBtn = document.getElementById('watchAdBtn');
             const watchAdBtnText = document.getElementById('watchAdBtnText');
             
             if (watchAdBtn.disabled) return;
 
-            if (typeof show_11724459 === 'function') {
-                show_11724459('pop').then(() => {
-                    let timeLeft = 30;
-                    watchAdBtn.disabled = true;
-                    
-                    const timerInterval = setInterval(() => {
-                        timeLeft--;
-                        watchAdBtnText.innerText = `⏳ چاڤەڕێ بن (${timeLeft}s)`;
-                        
-                        if (timeLeft <= 0) {
-                            clearInterval(timerInterval);
-                            watchAdBtn.disabled = false;
-                            watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
-                            
-                            balance += 0.001;
-                            addXp(20);
-                            updateUI();
-                            alert('You have seen an ad! پاداشت بۆ حسابێ تە هاتە زێدەکرن.');
-                        }
-                    }, 1000);
+            if (window.Adsgram) {
+                watchAdBtn.disabled = true;
+                watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
 
-                }).catch(e => {
-                    alert('هەڵەیەک چێبوو لە بارکردنی ڕیکلامدا. تکایە دووبارە هەوڵ بدەرەوە.');
-                });
+                const adController = window.Adsgram.init({ blockId: "int-46537" });
+                
+                adController.show()
+                    .then((result) => {
+                        // رێکلام ب سەرکەفتن تەواو بوو
+                        watchAdBtn.disabled = false;
+                        watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
+                        
+                        balance += 0.001;
+                        addXp(20);
+                        updateUI();
+                        alert('🎉 پیرۆزە! پاداشت بۆ حسابێ تە هاتە زێدەکرن.');
+                    })
+                    .catch((result) => {
+                        // رێکلام هاتە داخستن یا شاشی چێبوو
+                        watchAdBtn.disabled = false;
+                        watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
+                        console.log("Ad skipped or failed", result);
+                    });
             } else {
-                alert('سیستەمێ تبلیغان هێشتا بار نەبوویە.');
+                alert('سیستەمێ تبلیغان هێشتا بار نەبوویە یان نەتەوەک کار نەکەت.');
             }
         }
 
