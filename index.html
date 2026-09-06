@@ -1391,16 +1391,15 @@
 
         window.watchAd = function() {
             if (typeof show_11724459 === 'function') {
-                show_11724459().then(() => {
-                    // You need to add your user reward function here, which will be executed after the user watches the ad.
-                    // For more details, please refer to the detailed instructions.
-                    alert('You have seen an ad!');
-                    
+                show_11724459('pop').then(() => {
+                    // user watch ad till the end or close it in interstitial format
+                    // your code to reward user for rewarded format
                     balance += 0.001;
                     addXp(20);
                     updateUI();
                 }).catch(e => {
-                    alert('نوکە چ تبلیغ بەردەست نینن، دووبارە هەول بدە.');
+                    // user get error during playing ad
+                    // do nothing or whatever you want
                 });
             } else {
                 alert('سیستەمێ تبلیغان هێشتا بار نەبوویە.');
@@ -1415,12 +1414,14 @@
             }
 
             clickCountForAd++;
-            if (clickCountForAd >= 170) {
+            if (clickCountForAd >= 160) {
                 clickCountForAd = 0;
                 if (typeof show_11724459 === 'function') {
-                    show_11724459().then(() => {
-                        // Popup ad triggered after 170 clicks
-                    }).catch(e => {});
+                    show_11724459('pop').then(() => {
+                        // user watch ad till the end or close it in interstitial format
+                    }).catch(e => {
+                        // user get error during playing ad
+                    });
                 }
             }
 
