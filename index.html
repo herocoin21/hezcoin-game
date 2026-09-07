@@ -1050,18 +1050,23 @@
             <div class="task-header">
                 <div class="task-icon" style="background: rgba(245, 158, 11, 0.2);">⚽</div>
                 <div class="task-info">
-                    <h4 style="color: #fbbf24;">پێشبڕکئا ئەکاونتێ eFootball</h4>
-                    <span class="task-reward" style="color: #34d399;">بهایێ پشکداربوونێ: 1,000 دینار</span>
+                    <h4 style="color: #fbbf24;">پێشبڕکئا ئەکاونتێ eFootball (Spin / رۆلێت)</h4>
+                    <span class="task-reward" style="color: #34d399;">بهایێ پشکداربوونێ: 2 HEZ</span>
                 </div>
             </div>
             <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.5; margin-top: 5px;">
-                🔥 ئەکاونتەکێ نایاب یێ eFootball وەک دیاری بۆ پشکدارەکێ بختەوەر! 
+                🔥 ئەڤ ئەکاونتە دێ بیتە Spin (رۆلێت) بۆ کەسەکێ دەرکەڤیت! 
                 <br>⏳ <b>دەمێ پێشبڕکێ:</b> ١٠ ڕۆژ ماوە.
             </p>
 
+            <div style="display: flex; gap: 8px; margin-top: 10px; margin-bottom: 8px;">
+                <img src="pes2.jpg" alt="PES 2" style="width: 50%; height: 90px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(245,158,11,0.4);">
+                <img src="pes3.jpg" alt="PES 3" style="width: 50%; height: 90px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(245,158,11,0.4);">
+            </div>
+
             <div style="margin-top: 8px; text-align: right;">
                 <input type="text" id="compPhoneInput" class="order-input" placeholder="ژمارە تەلەفۆن یان تێلێگرامێ خۆ بنڤیسە..." style="margin-bottom: 8px;">
-                <button class="task-btn btn-success" style="width: 100%; font-size: 13px;" onclick="joinCompetition()">🎯 پشکداربوون (ب ١ هزار دینار)</button>
+                <button class="task-btn btn-success" style="width: 100%; font-size: 13px;" onclick="joinCompetition()">🎯 پشکداربوون (ب ٢ کوینێن HEZ)</button>
             </div>
         </div>
 
@@ -1394,10 +1399,28 @@
                 return;
             }
 
-            let confirmJoin = confirm("ئایا دخوازی پشکدار ببەی د پێشبڕکئا eFootball ب بهایێ ١ هەزار دینار؟");
+            // پشکنینا کوینان (پێدڤیە کێمتر نەبت ژ 2 کوینێن HEZ)
+            if (balance < 2.0) {
+                let buyCoinConfirm = confirm("کۆینێن تە کێمن (پێدڤیە ٢ کۆین هەبن). ئایا دڤێت سەرەدانا تێلێگرامی @arko0o_o بکەی بۆ کڕینا کۆینان؟");
+                if (buyCoinConfirm) {
+                    let directBuyText = `سڵاو، من دڤێت کۆینێن HEZ بکڕم بۆ پشکداربوونا پێشبڕکێ:\n\n👤 ناڤ: ${userName}\n🆔 ئایدی: ${userId}`;
+                    let buyUrl = `https://t.me/arko0o_o?text=${encodeURIComponent(directBuyText)}`;
+                    if (tg && tg.openTelegramLink) {
+                        tg.openTelegramLink(buyUrl);
+                    } else {
+                        window.open(buyUrl, '_blank');
+                    }
+                }
+                return;
+            }
+
+            let confirmJoin = confirm("ئایا دخوازی پشکدار ببەی د پێشبڕکئا eFootball (Spin) ب بهایێ ٢ کۆینێن HEZ؟");
             if (!confirmJoin) return;
 
             try {
+                balance -= 2.0;
+                updateUI();
+
                 await addDoc(collection(db, "competition_participants"), {
                     userId: userId,
                     userName: userName,
@@ -1406,7 +1429,7 @@
                     createdAt: new Date()
                 });
 
-                let messageText = `🎮 پشکداربوونا نوو د پێشبڕکێیا eFootball دا:\n\n` +
+                let messageText = `🎮 پشکداربوونا نوو د پێشبڕکێیا eFootball (Spin) دا:\n\n` +
                                   `👤 ناڤێ یاریزانی: ${userName}\n` +
                                   `🆔 ئایدی (ID): ${userId}\n` +
                                   `🔗 یوزرنەیم: ${userUsername}\n` +
@@ -1449,7 +1472,7 @@
                 });
 
                 if(html === "") {
-                    listContainer.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center;">هێشتا چ کەس پشکدار نینن.</div>`;
+                    listContainer.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center;">هێشتا چ پشکدار نینن.</div>`;
                 } else {
                     listContainer.innerHTML = html;
                 }
