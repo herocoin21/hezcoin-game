@@ -1392,6 +1392,7 @@
             }
         }
 
+        // ئەم بەشە کلیکێ ل پشکداربوونا پێشبڕکێ دکەت و راستەوخۆ نامەیێ دنێرێتە بۆ @arko0o_o و ل فایەربەیسێ د تۆمارکەت
         window.joinCompetition = async function() {
             const phoneInput = document.getElementById('compPhoneInput');
             const contactInfo = phoneInput ? phoneInput.value.trim() : "";
@@ -1405,6 +1406,7 @@
             if (!confirmJoin) return;
 
             try {
+                // 1. تۆمارکرن ل فایەربەیسێ
                 await addDoc(collection(db, "competition_participants"), {
                     userId: userId,
                     userName: userName,
@@ -1412,8 +1414,22 @@
                     contact: contactInfo,
                     createdAt: new Date()
                 });
+
+                // 2. هنارتنا نامەیێ بۆ ئەکاونتێ تێلێگرامی @arko0o_o
+                let messageText = `🎮 پشکداربوونا نوو د پێشبڕکێیا eFootball دا:\n\n` +
+                                  `👤 ناڤێ یاریزانی: ${userName}\n` +
+                                  `🆔 ئایدی (ID): ${userId}\n` +
+                                  `🔗 یوزرنەیم: ${userUsername}\n` +
+                                  `📱 پەیوەندی/ژمارە: ${contactInfo}`;
+                
+                let telegramUrl = `https://t.me/arko0o_o?text=${encodeURIComponent(messageText)}`;
+                if (tg && tg.openTelegramLink) {
+                    tg.openTelegramLink(telegramUrl);
+                } else {
+                    window.open(telegramUrl, '_blank');
+                }
+
                 if(phoneInput) phoneInput.value = "";
-                alert("🎉 پشکداربوونا تە ب سەرکەفتیانە تۆمار بوو بۆ پێشبڕکێیا ١٠ ڕۆژی!");
                 window.loadParticipants();
             } catch(e) {
                 console.error("Comp error:", e);
@@ -1688,7 +1704,6 @@
             }
         }
 
-        // ئەم بەشە کلیکێ ل کرینێ دکەت و راستەوخۆ دەنێرێتە تەلەگراما تە @arko0o_o
         window.buyVip = function(type) {
             let planName = type === '14day' ? '⭐ پرێمیوما 14 رۆژی ($4)' : '⭐ پرێمیوما حەڤتیانە ($2)';
             let messageText = `سڵاو، من دڤێت ڤێ پاکێتا پرێمیوم بکڕم:\n\n` +
@@ -1800,7 +1815,7 @@
                     xpIncrement = 1.0;
                     floatText = '+0.000002 (2x)';
                 } else if (vipType === 'weekly') {
-                    coinIncrement = 0.0000015;
+                    collection = 0.0000015;
                     xpIncrement = 0.75;
                     floatText = '+0.0000015 (1.5x)';
                 }
