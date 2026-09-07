@@ -885,13 +885,28 @@
             <div class="task-header">
                 <div class="task-icon">📢</div>
                 <div class="task-info">
-                    <h4>بەشداری کەناڵی فەرمی ببە</h4>
+                    <h4>بەشداری کەناڵی فەرمی یەکەم ببە</h4>
                     <span class="task-reward">+0.001 HEZ + 50 XP</span>
                 </div>
             </div>
             <div class="task-actions">
                 <button class="task-btn btn-primary" id="channelJoinBtn" onclick="openChannelLink()">چوونە ناو کەناڵی ↗</button>
                 <button class="task-btn btn-success" style="display: none;" id="channelCheckBtn" onclick="verifyChannelJoin()">پشکنین ✅</button>
+            </div>
+        </div>
+
+        <!-- کەنالا دوێ یا نوو (Sanna Tech) -->
+        <div class="task-card">
+            <div class="task-header">
+                <div class="task-icon">📢</div>
+                <div class="task-info">
+                    <h4>بەشداری کەناڵی Sanna Tech ببە</h4>
+                    <span class="task-reward">+0.001 HEZ + 50 XP</span>
+                </div>
+            </div>
+            <div class="task-actions">
+                <button class="task-btn btn-primary" id="sannaJoinBtn" onclick="openSannaChannelLink()">چوونە ناو کەناڵی ↗</button>
+                <button class="task-btn btn-success" style="display: none;" id="sannaCheckBtn" onclick="verifySannaChannelJoin()">پشکنین ✅</button>
             </div>
         </div>
     </div>
@@ -1214,6 +1229,7 @@
         let currentXp = 0;
         let maxXp = 2000;
         let channelJoined = false;
+        let sannaChannelJoined = false; // متغیر بۆ کەنالا دوێ
         let isVip = false;
         let vipType = '14day';
 
@@ -1244,8 +1260,12 @@
         const maxXpEl = document.getElementById('maxXp');
         const xpBarFill = document.getElementById('xpBarFill');
         const inviteLinkInput = document.getElementById('inviteLinkInput');
+        
         const channelJoinBtn = document.getElementById('channelJoinBtn');
         const channelCheckBtn = document.getElementById('channelCheckBtn');
+        const sannaJoinBtn = document.getElementById('sannaJoinBtn');
+        const sannaCheckBtn = document.getElementById('sannaCheckBtn');
+
         const vipModalOverlay = document.getElementById('vipModalOverlay');
         const appLoadingScreen = document.getElementById('appLoadingScreen');
 
@@ -1365,6 +1385,16 @@
                             if(channelCheckBtn) channelCheckBtn.style.display = 'none';
                         }
                     }
+
+                    if (data.sannaChannelJoined) {
+                        sannaChannelJoined = true;
+                        if(sannaJoinBtn) {
+                            sannaJoinBtn.innerText = 'وەرگرتییە ✅';
+                            sannaJoinBtn.disabled = true;
+                            sannaJoinBtn.className = 'task-btn btn-disabled';
+                            if(sannaCheckBtn) sannaCheckBtn.style.display = 'none';
+                        }
+                    }
                 } else {
                     let startParam = tg?.initDataUnsafe?.start_param;
                     let referredBy = null;
@@ -1401,6 +1431,7 @@
                         isVip: false,
                         vipType: '14day',
                         channelJoined: false,
+                        sannaChannelJoined: false,
                         referredBy: referredBy || null,
                         createdAt: new Date()
                     }, { merge: true });
@@ -1414,7 +1445,6 @@
             updateUI();
             startEnergyTimer();
 
-            // لارربردنا شاشەیا لۆدینگێ ب شێوەیەکێ جوان
             if (appLoadingScreen) {
                 appLoadingScreen.style.opacity = '0';
                 setTimeout(() => {
@@ -1437,7 +1467,8 @@
                     lastPackTime: lastPackTime,
                     isVip: isVip,
                     vipType: vipType,
-                    channelJoined: channelJoined
+                    channelJoined: channelJoined,
+                    sannaChannelJoined: sannaChannelJoined
                 });
             } catch (error) {
                 console.error("Firebase sync error:", error);
@@ -1630,6 +1661,7 @@
             }
         }
 
+        /* کەنالا ئێكێ */
         window.openChannelLink = function() {
             if (channelJoined) return;
             window.open('https://t.me/hezcoinchannel', '_blank');
@@ -1655,6 +1687,38 @@
                 }
                 if(channelCheckBtn) {
                     channelCheckBtn.style.display = 'none';
+                }
+                syncToFirebase();
+                alert('🎉 پیرۆزە! پاداشت ب سەرکەفتیانە بۆ حسابێ تە هاتە زێدەکرن.');
+            }
+        }
+
+        /* کەنالا دوێ یا نوو (Sanna Tech) */
+        window.openSannaChannelLink = function() {
+            if (sannaChannelJoined) return;
+            window.open('https://t.me/sanna_tech', '_blank');
+            if(sannaJoinBtn) {
+                sannaJoinBtn.innerText = 'چوو ناڤ کەناڵی ↗';
+            }
+            if(sannaCheckBtn) {
+                sannaCheckBtn.style.display = 'inline-block';
+            }
+        }
+
+        window.verifySannaChannelJoin = function() {
+            if (sannaChannelJoined) return;
+            let checkConfirm = confirm("ئایا تە بەشداری د کەناڵێ (Sanna Tech) دا کر؟ داکو دیارییا خۆ وەربگریت.");
+            if (checkConfirm) {
+                sannaChannelJoined = true;
+                balance += 0.001;
+                addXp(50);
+                if(sannaJoinBtn) {
+                    sannaJoinBtn.innerText = 'وەرگرتییە ✅';
+                    sannaJoinBtn.disabled = true;
+                    sannaJoinBtn.className = 'task-btn btn-disabled';
+                }
+                if(sannaCheckBtn) {
+                    sannaCheckBtn.style.display = 'none';
                 }
                 syncToFirebase();
                 alert('🎉 پیرۆزە! پاداشت ب سەرکەفتیانە بۆ حسابێ تە هاتە زێدەکرن.');
