@@ -360,7 +360,8 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             border: 2px solid rgba(255, 215, 0, 0.6);
             animation: pulseVip 2s infinite;
-            margin-bottom: 8px;
+            width: 100%;
+            margin-top: 12px;
         }
         @keyframes pulseVip {
             0% { transform: scale(1); }
@@ -809,7 +810,7 @@
                     <li>چوارگوشەکا زێڕین و بریسقەدار ل Ranking و Profile</li>
                 </ul>
                 <div id="action14DayArea">
-                    <button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>
+                    <button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars ($4)</button>
                 </div>
             </div>
 
@@ -823,7 +824,7 @@
                     <li>٧ پاکێتێن ئێنێرجیێ ل هەر ٢٤ دەمژمێراندا</li>
                 </ul>
                 <div id="actionWeeklyArea">
-                    <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>
+                    <button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars ($2)</button>
                 </div>
             </div>
         </div>
@@ -1058,8 +1059,6 @@
 
     <!-- 5. TAP TAB -->
     <div id="tapTab" class="tab-content active">
-        <button class="tap-vip-btn" onclick="openVipModal()">💎 پرێمیۆم (VIP)</button>
-        
         <!-- Coin Wrapper containing the Arrow Hint and Coin Button -->
         <div class="coin-wrapper">
             <div id="tapHintBox" class="tap-hint-box">👇 کلیک لڤێرە بکە (Tap)</div>
@@ -1101,8 +1100,8 @@
             </div>
             <div class="profile-level-badge" id="userLevelBadge">Level 1</div>
 
-            <div id="vipStatusBadgeBox" style="margin-bottom: 12px; display: none;">
-                <span style="background: linear-gradient(135deg, #ffd700, #ff8c00); color: #111; padding: 5px 14px; border-radius: 8px; font-size: 12px; font-weight: 900; border: 2px solid #fff; box-shadow: 0 0 12px #ffd700; display: inline-block;">⭐ VIP PREMIUM ⭐</span>
+            <div id="vipStatusBadgeBox" style="margin-bottom: 12px; display: none; width: 100%;">
+                <span style="background: linear-gradient(135deg, #ffd700, #ff8c00); color: #111; padding: 5px 14px; border-radius: 8px; font-size: 12px; font-weight: 900; border: 2px solid #fff; box-shadow: 0 0 12px #ffd700; display: inline-block; width: 100%; text-align: center;">⭐ VIP PREMIUM ⭐</span>
             </div>
 
             <div class="xp-progress-box">
@@ -1114,6 +1113,9 @@
                     <div class="xp-bar-fill" id="xpBarFill"></div>
                 </div>
             </div>
+
+            <!-- دوگمەیا پرێمیۆم (VIP) لێرە هاتە جهگیرکرن -->
+            <button class="tap-vip-btn" onclick="openVipModal()">💎 پرێمیۆم (VIP)</button>
         </div>
     </div>
 
@@ -1251,7 +1253,7 @@
                             <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;">دەمێ مایی: بێ سنوور (VIP Active)</div>
                         </div>
                     `;
-                    actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>`;
+                    actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars ($2)</button>`;
                 } else if (vipType === 'weekly') {
                     actionWeeklyArea.innerHTML = `
                         <div class="vip-active-box">
@@ -1259,11 +1261,11 @@
                             <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;">دەمێ مایی: بێ سنوور (VIP Active)</div>
                         </div>
                     `;
-                    action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>`;
+                    action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars ($4)</button>`;
                 }
             } else {
-                action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars</button>`;
-                actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars</button>`;
+                action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars ($4)</button>`;
+                actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars ($2)</button>`;
             }
         }
 
@@ -1707,7 +1709,6 @@
                 return;
             }
 
-            // ل دەمێ ئێکەم کلیکێ، سەهمە و نڤیسینا ڕێنماییکرنێ ژناڤ دبە ب تامەزرۆیی
             if (tapHintBox && tapHintBox.style.display !== 'none') {
                 tapHintBox.style.display = 'none';
             }
