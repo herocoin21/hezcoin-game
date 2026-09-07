@@ -6,7 +6,6 @@
     <title>Hez Coin - Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -17,7 +16,6 @@
             --text-color: #f8fafc;
             --text-muted: #cbd5e1;
         }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -27,7 +25,6 @@
             -webkit-tap-highlight-color: transparent;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-
         body {
             background-color: var(--bg-color);
             background-image: linear-gradient(rgba(11, 15, 25, 0.65), rgba(11, 15, 25, 0.80)), url('bg.jpg');
@@ -46,7 +43,6 @@
             overflow: hidden;
             position: relative;
         }
-
         /* Profile Top Left */
         .corner-profile {
             position: absolute;
@@ -63,7 +59,6 @@
             cursor: pointer;
             z-index: 40;
         }
-
         .corner-avatar {
             width: 34px;
             height: 34px;
@@ -71,13 +66,11 @@
             border: 2px solid var(--accent-yellow);
             object-fit: cover;
         }
-
         .corner-info {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
-
         .corner-name {
             font-size: 12px;
             font-weight: 800;
@@ -87,7 +80,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         .corner-level {
             font-size: 10px;
             font-weight: 700;
@@ -97,7 +89,6 @@
             border-radius: 4px;
             margin-top: 2px;
         }
-
         /* Wallet Top Right */
         .wallet-badge {
             position: absolute;
@@ -116,7 +107,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             z-index: 40;
         }
-
         .wallet-icon-box {
             background: rgba(245, 158, 11, 0.2);
             border-radius: 6px;
@@ -126,14 +116,12 @@
             justify-content: center;
             border: 1px solid rgba(245, 158, 11, 0.4);
         }
-
         .mini-coin-icon {
             width: 18px;
             height: 18px;
             border-radius: 50%;
             object-fit: cover;
         }
-
         .currency-tag {
             font-size: 11px;
             color: #34d399;
@@ -142,7 +130,6 @@
             border-radius: 4px;
             border: 1px solid rgba(52, 211, 153, 0.3);
         }
-
         .tab-content {
             display: none;
             width: 100%;
@@ -155,18 +142,15 @@
             overflow-y: auto;
             max-height: calc(100vh - 70px);
         }
-
         .tab-content.active {
             display: flex;
         }
-
         .back-btn-container {
             width: 100%;
             display: flex;
             justify-content: flex-start;
             margin-bottom: 10px;
         }
-
         .btn-back {
             background: rgba(20, 24, 33, 0.85);
             border: 1px solid rgba(245, 158, 11, 0.4);
@@ -180,7 +164,6 @@
             align-items: center;
             gap: 6px;
         }
-
         .profile-card {
             width: 100%;
             background: var(--card-bg);
@@ -194,7 +177,6 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.5);
             margin-bottom: 15px;
         }
-
         .profile-avatar-container {
             position: relative;
             width: 90px;
@@ -205,13 +187,11 @@
             margin-bottom: 12px;
             cursor: pointer;
         }
-
         .profile-avatar-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
         .avatar-edit-overlay {
             position: absolute;
             bottom: 0;
@@ -223,7 +203,6 @@
             padding: 2px 0;
             font-weight: 700;
         }
-
         .profile-name-row {
             display: flex;
             align-items: center;
@@ -231,13 +210,11 @@
             margin-bottom: 4px;
             cursor: pointer;
         }
-
         .profile-name {
             font-size: 18px;
             font-weight: 800;
             color: var(--text-color);
         }
-
         .edit-icon-text {
             font-size: 12px;
             color: var(--accent-yellow);
@@ -246,7 +223,6 @@
             border-radius: 6px;
             border: 1px solid rgba(245, 158, 11, 0.3);
         }
-
         .profile-level-badge {
             background: rgba(245, 158, 11, 0.2);
             border: 1px solid var(--accent-yellow);
@@ -257,7 +233,6 @@
             font-weight: 700;
             margin-bottom: 15px;
         }
-
         .xp-progress-box {
             width: 100%;
             background: rgba(11, 15, 25, 0.6);
@@ -265,7 +240,6 @@
             padding: 10px;
             border: 1px solid rgba(255,255,255,0.1);
         }
-
         .xp-info-row {
             display: flex;
             justify-content: space-between;
@@ -274,7 +248,6 @@
             margin-bottom: 6px;
             color: var(--text-muted);
         }
-
         .xp-bar-container {
             width: 100%;
             height: 8px;
@@ -282,13 +255,11 @@
             border-radius: 4px;
             overflow: hidden;
         }
-
         .xp-bar-fill {
             height: 100%;
             background: linear-gradient(90deg, #f59e0b, #10b981);
             width: 0%;
         }
-
         /* Coin Button */
         .coin-button {
             width: 165px;
@@ -306,12 +277,10 @@
             outline: none;
             transition: transform 0.08s ease-in-out, box-shadow 0.08s ease-in-out;
         }
-
         .coin-button:active {
             transform: scale(0.90) translateY(4px);
             box-shadow: 0 0 10px rgba(245, 158, 11, 0.4), inset 0 0 25px rgba(0,0,0,0.8);
         }
-
         .coin-button img {
             width: 100%;
             height: 100%;
@@ -319,7 +288,6 @@
             border-radius: 50%;
             pointer-events: none;
         }
-
         .float-box {
             position: absolute;
             background: rgba(11, 15, 25, 0.9);
@@ -333,13 +301,11 @@
             animation: floatUpSquare 0.8s ease-out forwards;
             z-index: 10;
         }
-
         @keyframes floatUpSquare {
             0% { opacity: 1; transform: translateY(0) scale(0.8); }
             50% { transform: translateY(-25px) scale(1.1); }
             100% { opacity: 0; transform: translateY(-50px) scale(1); }
         }
-
         .tap-vip-btn {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
@@ -354,13 +320,11 @@
             animation: pulseVip 2s infinite;
             margin-bottom: 8px;
         }
-
         @keyframes pulseVip {
             0% { transform: scale(1); }
             50% { transform: scale(1.04); }
             100% { transform: scale(1); }
         }
-
         /* VIP Modal Popup Styles */
         .vip-modal-overlay {
             position: fixed;
@@ -373,11 +337,9 @@
             z-index: 100;
             padding: 16px;
         }
-
         .vip-modal-overlay.active {
             display: flex;
         }
-
         .vip-store-container {
             width: 100%;
             max-width: 360px;
@@ -391,7 +353,6 @@
             max-height: 90vh;
             overflow-y: auto;
         }
-
         .vip-modal-close {
             position: absolute;
             top: 12px;
@@ -399,13 +360,11 @@
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: #fff;
-            width: 28px;
-            height: 28px;
+            width: 28px; height: 28px;
             border-radius: 50%;
             font-weight: bold;
             cursor: pointer;
         }
-
         .vip-plan {
             background: rgba(139, 92, 246, 0.15);
             border: 1px solid #a855f7;
@@ -413,12 +372,10 @@
             padding: 12px;
             margin-bottom: 12px;
         }
-
         .vip-plan.weekly {
             background: rgba(30, 41, 59, 0.7);
             border: 1px solid #475569;
         }
-
         .vip-btn-monthly {
             width: 100%;
             background: linear-gradient(90deg, #9333ea, #c084fc);
@@ -432,7 +389,6 @@
             font-size: 13px;
             box-shadow: 0 4px 12px rgba(147, 51, 234, 0.4);
         }
-
         .vip-btn-weekly {
             width: 100%;
             background: #334155;
@@ -445,7 +401,6 @@
             margin-top: 10px;
             font-size: 13px;
         }
-
         .vip-active-box {
             background: rgba(16, 185, 129, 0.15);
             border: 1px solid #10b981;
@@ -454,7 +409,6 @@
             text-align: center;
             margin-top: 8px;
         }
-
         .game-hud-panel {
             width: 100%;
             max-width: 280px;
@@ -468,7 +422,6 @@
             flex-direction: column;
             gap: 6px;
         }
-
         .hud-row {
             display: flex;
             justify-content: space-between;
@@ -476,20 +429,17 @@
             font-size: 13px;
             font-weight: 700;
         }
-
         .hud-timer-sub {
             font-size: 11px;
             color: var(--accent-yellow);
             text-align: right;
             margin-top: -2px;
         }
-
         .hud-divider {
             width: 100%;
             height: 1px;
             background: rgba(255, 255, 255, 0.1);
         }
-
         .use-pack-btn {
             width: 100%;
             max-width: 280px;
@@ -503,7 +453,6 @@
             cursor: pointer;
             margin-top: 6px;
         }
-
         /* Shop New Styling */
         .shop-category-card {
             width: 100%;
@@ -520,17 +469,14 @@
             cursor: pointer;
             transition: transform 0.1s, border-color 0.2s;
         }
-
         .shop-category-card:active {
             transform: scale(0.98);
         }
-
         .shop-cat-left {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         .shop-cat-icon {
             width: 42px;
             height: 42px;
@@ -538,36 +484,30 @@
             object-fit: cover;
             border: 1px solid rgba(245, 158, 11, 0.3);
         }
-
         .shop-cat-info h4 {
             font-size: 15px;
             font-weight: 800;
             color: var(--text-color);
             margin-bottom: 3px;
         }
-
         .shop-cat-info p {
             font-size: 11px;
             color: var(--text-muted);
         }
-
         .shop-arrow {
             font-size: 16px;
             color: var(--accent-yellow);
             font-weight: bold;
         }
-
         .sub-shop-container {
             display: none;
             width: 100%;
             flex-direction: column;
             gap: 10px;
         }
-
         .sub-shop-container.active {
             display: flex;
         }
-
         .shop-item-row {
             width: 100%;
             background: rgba(15, 23, 42, 0.9);
@@ -578,13 +518,11 @@
             flex-direction: column;
             gap: 8px;
         }
-
         .shop-item-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-
         .shop-item-details h5 {
             font-size: 13px;
             color: #fff;
@@ -592,12 +530,10 @@
             margin-bottom: 2px;
             text-align: right;
         }
-
         .shop-item-details span {
             font-size: 11px;
             color: var(--accent-yellow);
         }
-
         .buy-item-btn {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
@@ -608,7 +544,6 @@
             font-weight: 700;
             cursor: pointer;
         }
-
         .order-input {
             width: 100%;
             background: #0b0f19;
@@ -620,7 +555,6 @@
             text-align: right;
             outline: none;
         }
-
         .task-card {
             width: 100%;
             background: var(--card-bg);
@@ -634,13 +568,11 @@
             flex-direction: column;
             gap: 10px;
         }
-
         .task-header {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .task-icon {
             font-size: 24px;
             background: rgba(245, 158, 11, 0.15);
@@ -648,26 +580,22 @@
             border-radius: 12px;
             border: 1px solid rgba(245, 158, 11, 0.3);
         }
-
         .task-info h4 {
             font-size: 14px;
             font-weight: 800;
             color: var(--text-color);
             margin-bottom: 3px;
         }
-
         .task-reward {
             font-size: 12px;
             font-weight: 700;
             color: var(--accent-yellow);
         }
-
         .task-actions {
             display: flex;
             gap: 6px;
             width: 100%;
         }
-
         .task-btn {
             flex: 1;
             padding: 9px;
@@ -682,29 +610,22 @@
             gap: 5px;
             transition: transform 0.1s;
         }
-
-        .task-btn:active {
-            transform: scale(0.97);
-        }
-
+        .task-btn:active { transform: scale(0.97); }
         .btn-primary {
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             color: white;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
-
         .btn-success {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
-
         .btn-disabled {
             background: #334155;
             color: #94a3b8;
             cursor: not-allowed;
         }
-
         .rank-item {
             width: 100%;
             background: var(--card-bg);
@@ -716,26 +637,22 @@
             justify-content: space-between;
             border: 1px solid rgba(255,255,255,0.1);
         }
-
         .rank-item.is-me {
             background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(20, 24, 33, 0.95) 100%);
             border: 2px solid var(--accent-yellow);
             box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
         }
-
         .rank-item.is-vip {
             border: 2px solid #ffd700;
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.22) 0%, rgba(20, 24, 33, 0.95) 100%);
             box-shadow: 0 0 18px rgba(255, 215, 0, 0.45);
             position: relative;
         }
-
         .rank-left {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .rank-number {
             font-size: 14px;
             font-weight: 800;
@@ -743,15 +660,12 @@
             width: 24px;
             text-align: center;
         }
-
         .rank-avatar {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border-radius: 50%;
             object-fit: cover;
             border: 1px solid var(--accent-yellow);
         }
-
         .rank-name {
             font-size: 13px;
             font-weight: 700;
@@ -765,7 +679,6 @@
             align-items: center;
             gap: 6px;
         }
-
         .vip-gold-badge {
             display: inline-block;
             background: linear-gradient(135deg, #ffd700, #ff8c00);
@@ -779,18 +692,14 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
         .rank-score {
             font-size: 13px;
             font-weight: 800;
             color: #34d399;
         }
-
         .navbar {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: rgba(20, 24, 33, 0.95);
             display: flex;
             justify-content: space-around;
@@ -800,7 +709,6 @@
             margin: 0 auto;
             z-index: 50;
         }
-
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -811,11 +719,9 @@
             cursor: pointer;
             gap: 3px;
         }
-
         .nav-item.active {
             color: var(--accent-yellow);
         }
-
         .nav-icon {
             font-size: 18px;
         }
@@ -849,7 +755,7 @@
                 <h3 style="color: #c084fc; margin: 0; font-size: 17px;">⭐ ئەندامێتییا پرێمیۆم</h3>
                 <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">یارییا خۆ پێشخە و دیارییا وەرگرە!</p>
             </div>
-
+            
             <div class="vip-plan" id="plan14DayContainer">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #f3e8ff; font-size: 14px;">⭐ پرێمیوما 14 رۆژی</strong>
@@ -945,11 +851,10 @@
 
     <!-- 4. SHOP TAB (UPDATED SOCIAL MEDIA & PES ACCOUNT) -->
     <div id="shopTab" class="tab-content">
-        <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🛒 مۆڵ و فرۆشگە (Shop)</h2>
+        <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🛒 فرۆشگەهـ</h2>
         
         <!-- Main Categories Selection View -->
-        <div id="shopCategoriesMain" style="width: 100%; display: flex; flex-direction: column;">
-            
+        <div id="shopCategoriesMain" style="width: 100%; display: flex; flex-direction: column;" onclick="triggerShopAdIfNeeded()">
             <!-- Category PES Account -->
             <div class="shop-category-card" onclick="openSubShop('pesSub')">
                 <div class="shop-cat-left">
@@ -997,11 +902,10 @@
                 </div>
                 <div class="shop-arrow">←</div>
             </div>
-
         </div>
 
         <!-- Sub PES Account View -->
-        <div id="pesSub" class="sub-shop-container">
+        <div id="pesSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
@@ -1012,14 +916,13 @@
                 <div style="width: 100%; border-radius: 12px; overflow: hidden; border: 2px solid var(--accent-yellow); margin-bottom: 10px; background: #000;">
                     <img src="pes1.jpg" alt="PES Account" style="width: 100%; display: block; object-fit: contain;">
                 </div>
-
                 <!-- Info and Stats -->
                 <div style="text-align: right; font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; background: rgba(11,15,25,0.7); padding: 10px; border-radius: 8px;">
                     <div style="color: #34d399; font-weight: 800; font-size: 14px; margin-bottom: 4px;">🔥 هێزا کۆم (Collective Strength): 3132</div>
                     <div>⚡ <b>یاریزان و هێز:</b> تیپەکا پڕ قوەت دگەل باشترین پلەیەران (GK 106, CF 101, RWE 105, AMF 101 و ...)</div>
                     <div style="margin-top: 4px; color: var(--accent-yellow);">💡 ئەکاونتەکێ ب هێز و تێرە بۆ ڕکابەرییا آنلاین و گێمێن هێزا بلند.</div>
                 </div>
-
+                
                 <div class="shop-item-top">
                     <button class="buy-item-btn" style="font-size: 13px; padding: 8px 16px;" onclick="buySocialService('ئەکاونتێ PES (هێز 3132)', 10.0, 'pes_input_1')">کڕینا ئەکاونتی (10 HEZ)</button>
                     <div class="shop-item-details" style="text-align: right;">
@@ -1032,7 +935,7 @@
         </div>
 
         <!-- Sub 1: TikTok Items -->
-        <div id="tiktokSub" class="sub-shop-container">
+        <div id="tiktokSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
@@ -1048,7 +951,7 @@
                 </div>
                 <input type="text" id="tiktok_input_1" class="order-input" placeholder="یۆزەرنەیم یان لینکێ ئەکاونتی لڤێرە بدانە...">
             </div>
-
+            
             <div class="shop-item-row">
                 <div class="shop-item-top">
                     <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - ڤیو 1k', 0.3, 'tiktok_input_2')">کڕین</button>
@@ -1073,7 +976,7 @@
         </div>
 
         <!-- Sub 2: Instagram Items -->
-        <div id="instagramSub" class="sub-shop-container">
+        <div id="instagramSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
@@ -1092,7 +995,7 @@
         </div>
 
         <!-- Sub 3: Telegram Items -->
-        <div id="telegramSub" class="sub-shop-container">
+        <div id="telegramSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
@@ -1131,13 +1034,12 @@
                 <input type="text" id="tg_input_3" class="order-input" placeholder="لینکا پۆستێ تێلێگرامی لڤێرە بدانە...">
             </div>
         </div>
-
     </div>
 
     <!-- 5. TAP TAB -->
     <div id="tapTab" class="tab-content">
         <button class="tap-vip-btn" onclick="openVipModal()">💎 پرێمیۆم (VIP)</button>
-
+        
         <button class="coin-button" id="coinBtn">
             <img src="logo.png" alt="Hero Coin Logo">
         </button>
@@ -1148,14 +1050,12 @@
                 <span style="color: var(--accent-yellow);"><span id="energyPacks">4</span>/<span id="maxPacksDisplay">5</span></span>
             </div>
             <div class="hud-timer-sub" id="packTimerText">پاکێتا داهاتی: 00:00:00</div>
-            
             <div class="hud-divider"></div>
             <div class="hud-row">
                 <span>⚡ ئێنێرجی:</span>
                 <span><span id="currentClicks">500</span> / 500</span>
             </div>
         </div>
-
         <button class="use-pack-btn" onclick="useEnergyPack()">⚡ بکاربینە (Use)</button>
     </div>
 
@@ -1171,14 +1071,12 @@
                 <img id="userAvatar" src="logo.png" alt="Avatar">
                 <div class="avatar-edit-overlay">گۆڕین</div>
             </div>
-
             <div class="profile-name-row" onclick="changeUserName()">
                 <div class="profile-name" id="userNameDisplay">ناڤێ یاریزانی</div>
                 <span class="edit-icon-text">✏️ Edit</span>
             </div>
-
             <div class="profile-level-badge" id="userLevelBadge">Level 1</div>
-            
+
             <div id="vipStatusBadgeBox" style="margin-bottom: 12px; display: none;">
                 <span style="background: linear-gradient(135deg, #ffd700, #ff8c00); color: #111; padding: 5px 14px; border-radius: 8px; font-size: 12px; font-weight: 900; border: 2px solid #fff; box-shadow: 0 0 12px #ffd700; display: inline-block;">⭐ VIP PREMIUM ⭐</span>
             </div>
@@ -1243,11 +1141,10 @@
 
         const tgUser = tg?.initDataUnsafe?.user;
         const userId = tgUser?.id ? String(tgUser.id) : "user_" + Math.floor(Math.random() * 1000000);
-        
         let userName = tgUser?.first_name || "یاریزان";
         let userPhoto = tgUser?.photo_url || "logo.png";
         let userUsername = tgUser?.username ? "@" + tgUser.username : "نەدیار";
-        
+
         const userRef = doc(db, "users", userId);
 
         let balance = 0;
@@ -1257,15 +1154,15 @@
         let currentXp = 0;
         let maxXp = 2000;
         let channelJoined = false;
-
         let isVip = false;
-        let vipType = '14day'; 
+        let vipType = '14day';
         let vipExpiry = 0;
 
         let maxClicksPerPack = 500;
         let maxPacks = 5;
-        let packIntervalMs = 4 * 3600 * 1000; 
+        let packIntervalMs = 4 * 3600 * 1000;
         let lastPackTime = Date.now();
+
         let packTimerInterval = null;
         let vipCountdownInterval = null;
 
@@ -1275,7 +1172,6 @@
         const currentClicksEl = document.getElementById('currentClicks');
         const coinBtn = document.getElementById('coinBtn');
         const packTimerText = document.getElementById('packTimerText');
-        
         const userNameDisplay = document.getElementById('userNameDisplay');
         const userLevelBadge = document.getElementById('userLevelBadge');
         const vipStatusBadgeBox = document.getElementById('vipStatusBadgeBox');
@@ -1283,12 +1179,10 @@
         const cornerName = document.getElementById('cornerName');
         const cornerAvatar = document.getElementById('cornerAvatar');
         const cornerLevelBadge = document.getElementById('cornerLevelBadge');
-        
         const currentXpEl = document.getElementById('currentXp');
         const maxXpEl = document.getElementById('maxXp');
         const xpBarFill = document.getElementById('xpBarFill');
         const inviteLinkInput = document.getElementById('inviteLinkInput');
-        
         const channelJoinBtn = document.getElementById('channelJoinBtn');
         const channelCheckBtn = document.getElementById('channelCheckBtn');
         const vipModalOverlay = document.getElementById('vipModalOverlay');
@@ -1305,7 +1199,7 @@
             } else {
                 isVip = false;
             }
-            
+
             if (isVip) {
                 if (vipType === '14day') {
                     maxPacks = 10;
@@ -1320,6 +1214,7 @@
                 packIntervalMs = (24 * 3600 * 1000) / 6;
                 if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'none';
             }
+
             if(maxPacksDisplayEl) maxPacksDisplayEl.innerText = maxPacks;
             updateVipUIState();
         }
@@ -1327,7 +1222,6 @@
         function updateVipUIState() {
             const action14DayArea = document.getElementById('action14DayArea');
             const actionWeeklyArea = document.getElementById('actionWeeklyArea');
-
             if (!action14DayArea || !actionWeeklyArea) return;
 
             if (isVip) {
@@ -1373,16 +1267,11 @@
 
                     const remainingTime = packIntervalMs - (elapsed % packIntervalMs);
                     const totalSeconds = Math.floor(remainingTime / 1000);
-                    
                     const hours = Math.floor(totalSeconds / 3600);
                     const minutes = Math.floor((totalSeconds % 3600) / 60);
                     const seconds = totalSeconds % 60;
 
-                    const formattedTime = 
-                        String(hours).padStart(2, '0') + ":" + 
-                        String(minutes).padStart(2, '0') + ":" + 
-                        String(seconds).padStart(2, '0');
-
+                    const formattedTime = String(hours).padStart(2, '0') + ":" + String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
                     if (packTimerText) {
                         packTimerText.innerText = "پاکێتا داهاتی: " + formattedTime;
                     }
@@ -1407,13 +1296,11 @@
                     currentXp = typeof data.currentXp === 'number' ? data.currentXp : 0;
                     maxXp = typeof data.maxXp === 'number' ? data.maxXp : 2000;
                     lastPackTime = data.lastPackTime || Date.now();
-                    
                     isVip = data.isVip ?? false;
                     vipType = data.vipType ?? '14day';
-                    
                     if(data.name) userName = data.name;
                     if(data.photo) userPhoto = data.photo;
-                    
+
                     if (data.channelJoined) {
                         channelJoined = true;
                         if(channelJoinBtn) {
@@ -1441,7 +1328,9 @@
                                     currentXp: Number((refData.currentXp || 0) + 100)
                                 });
                             }
-                        } catch(e) { console.log("Ref error", e); }
+                        } catch(e) {
+                            console.log("Ref error", e);
+                        }
                     }
 
                     await setDoc(userRef, {
@@ -1464,6 +1353,7 @@
             } catch (error) {
                 console.error("Firebase load error:", error);
             }
+
             checkVipStatus();
             updateUI();
             startEnergyTimer();
@@ -1493,26 +1383,21 @@
         window.buySocialService = async function(itemName, price, inputId) {
             const inputField = document.getElementById(inputId);
             const userLinkOrUser = inputField ? inputField.value.trim() : "";
-
             if (!userLinkOrUser) {
                 alert("تکایە پێزانینێن خۆ یان یۆزەرنەیمێ خۆ ل جهێ پێتڤی بنڤیسە!");
                 if(inputField) inputField.focus();
                 return;
             }
-
             if (balance < price) {
                 alert("پارە یا تێر نینە! کۆینێن تە کێمن.");
                 return;
             }
-
             let confirmBuy = confirm(`ئایا دخوازی (${itemName}) بکڕی ب نرخێ ${price} HEZ؟`);
             if (!confirmBuy) return;
 
             try {
                 balance -= price;
                 updateUI();
-
-                // Save order to Firebase
                 await addDoc(collection(db, "orders"), {
                     userId: userId,
                     userName: userName,
@@ -1523,7 +1408,6 @@
                     status: "pending",
                     createdAt: new Date()
                 });
-
                 inputField.value = "";
                 alert("🎉 داخوازا تە ب سەرکەفتیانە هاتە هنارتن بۆ سیستەمی!");
             } catch (error) {
@@ -1540,7 +1424,6 @@
                 const querySnapshot = await getDocs(q);
                 let html = "";
                 let rank = 1;
-                
                 querySnapshot.forEach((docSnap) => {
                     let docId = docSnap.id;
                     let d = docSnap.data();
@@ -1549,9 +1432,7 @@
                     let rBalance = (d.balance || 0).toFixed(6);
                     let rIsVip = d.isVip === true;
                     let rVipType = d.vipType || '14day';
-                    
                     let showSparkle = rIsVip && (rVipType === '14day');
-
                     let isMeClass = (docId === userId) ? " is-me" : "";
                     let isVipClass = showSparkle ? " is-vip" : "";
                     let vipBadgeHtml = showSparkle ? ` <span class="vip-gold-badge">⭐ VIP</span>` : "";
@@ -1606,12 +1487,11 @@
             cornerLevelBadge.innerText = `Lvl ${currentLevel}`;
             currentXpEl.innerText = currentXp;
             maxXpEl.innerText = maxXp;
-            
+
             if(userPhoto) {
                 userAvatar.src = userPhoto;
                 cornerAvatar.src = userPhoto;
             }
-            
             xpBarFill.style.width = Math.min(100, (currentXp / maxXp) * 100) + '%';
             syncToFirebase();
         }
@@ -1626,8 +1506,9 @@
         window.switchToProfile = () => switchTab('profileTab', null);
         window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
 
-        // Shop Category Nav Functions
+        // Shop Category Nav Functions & Adsgram Integration on Click
         window.openSubShop = function(subId) {
+            triggerShopAdIfNeeded();
             document.getElementById('shopCategoriesMain').style.display = 'none';
             document.querySelectorAll('.sub-shop-container').forEach(el => el.classList.remove('active'));
             document.getElementById(subId).classList.add('active');
@@ -1638,28 +1519,43 @@
             document.getElementById('shopCategoriesMain').style.display = 'flex';
         }
 
+        window.triggerShopAdIfNeeded = function() {
+            if (window.Adsgram) {
+                const adController = window.Adsgram.init({ blockId: "int-46537" });
+                adController.show().catch((res) => {
+                    console.log("Shop ad skipped or failed", res);
+                });
+            }
+        }
+
         window.openVipModal = function() {
             if(vipModalOverlay) vipModalOverlay.classList.add('active');
         }
-
         window.closeVipModal = function(e) {
             if(e.target === vipModalOverlay) {
                 vipModalOverlay.classList.remove('active');
             }
         }
-
         window.closeVipModalDirect = function() {
             if(vipModalOverlay) vipModalOverlay.classList.remove('active');
         }
 
         window.changeUserName = function() {
             const newName = prompt("ناڤێ خۆ یێ نوو بنڤیسە:", userName);
-            if (newName?.trim()) { userName = newName.trim(); updateUI(); alert("هاتە گۆڕین!"); }
+            if (newName?.trim()) {
+                userName = newName.trim();
+                updateUI();
+                alert("هاتە گۆڕین!");
+            }
         }
 
         window.changeUserAvatar = function() {
             const newPhoto = prompt("لینکا وێنەیێ نوو دابنێ:", userPhoto);
-            if (newPhoto?.trim()) { userPhoto = newPhoto.trim(); updateUI(); alert("وێنە هاتە نووکرن!"); }
+            if (newPhoto?.trim()) {
+                userPhoto = newPhoto.trim();
+                updateUI();
+                alert("وێنە هاتە نووکرن!");
+            }
         }
 
         window.copyInviteLink = function() {
@@ -1674,7 +1570,6 @@
         window.openChannelLink = function() {
             if (channelJoined) return;
             window.open('https://t.me/hezcoinchannel', '_blank');
-            
             if(channelJoinBtn) {
                 channelJoinBtn.innerText = 'چوو ناڤ کەناڵی ↗';
             }
@@ -1685,13 +1580,11 @@
 
         window.verifyChannelJoin = function() {
             if (channelJoined) return;
-
             let checkConfirm = confirm("ئایا تە بەشداری د کەناڵێ (Hez Coin) دا کر؟ داکو دیارییا خۆ وەربگریت.");
             if (checkConfirm) {
                 channelJoined = true;
                 balance += 0.001;
                 addXp(50);
-                
                 if(channelJoinBtn) {
                     channelJoinBtn.innerText = 'وەرگرتییە ✅';
                     channelJoinBtn.disabled = true;
@@ -1700,7 +1593,6 @@
                 if(channelCheckBtn) {
                     channelCheckBtn.style.display = 'none';
                 }
-
                 syncToFirebase();
                 alert('🎉 پیرۆزە! پاداشت ب سەرکەفتیانە بۆ حسابێ تە هاتە زێدەکرن.');
             }
@@ -1708,16 +1600,13 @@
 
         window.buyVip = function(type) {
             let planName = type === '14day' ? '⭐ پرێمیوما 14 رۆژی ($4)' : '⭐ پرێمیوما حەڤتیانە ($2)';
-            
             let messageText = `سڵاو، من دڤێت ڤێ پاکێتا پرێمیوم بکڕم:\n\n` +
                               `📦 جۆرێ پاکێتێ: ${planName}\n` +
                               `👤 ناڤێ یاریزانی: ${userName}\n` +
                               `🆔 ئایدی (ID): ${userId}\n` +
                               `🔗 یوزرنەیم: ${userUsername}\n` +
                               `💰 کۆینێن من: ${balance.toFixed(6)} HEZ`;
-
             let telegramUrl = `https://t.me/arko0o_o?text=${encodeURIComponent(messageText)}`;
-
             if (tg && tg.openTelegramLink) {
                 tg.openTelegramLink(telegramUrl);
             } else {
@@ -1729,7 +1618,6 @@
         window.watchAdTab = function() {
             const watchAdBtn = document.getElementById('watchAdBtnTab');
             const watchAdBtnText = document.getElementById('watchAdBtnTabText');
-            
             if (watchAdBtn.disabled) return;
 
             const now = Date.now();
@@ -1743,15 +1631,12 @@
             if (window.Adsgram) {
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
-
                 const adController = window.Adsgram.init({ blockId: "int-46537" });
-                
                 adController.show()
                     .then((result) => {
                         watchAdBtn.disabled = false;
                         watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
                         lastAdTimeTab = Date.now();
-                        
                         balance += 0.001;
                         addXp(20);
                         updateUI();
@@ -1768,8 +1653,14 @@
         }
 
         window.useEnergyPack = function() {
-            if (currentClicks > 0) { alert('ئێنێرجی هێشتا ماوە!'); return; }
-            if (energyPacks <= 0) { alert('پاکێت نەهاتینە!'); return; }
+            if (currentClicks > 0) {
+                alert('ئێنێرجی هێشتا ماوە!');
+                return;
+            }
+            if (energyPacks <= 0) {
+                alert('پاکێت نەهاتینە!');
+                return;
+            }
 
             if (window.Adsgram) {
                 const adController = window.Adsgram.init({ blockId: "int-46537" });
