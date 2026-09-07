@@ -820,15 +820,15 @@
         </div>
     </div>
 
-    <!-- 2. ADS TAB -->
+    <!-- 2. ADS TAB (NOW REWARDED AD) -->
     <div id="shopTabAlt" class="tab-content">
-        <h2 style="margin-bottom: 15px;">🎬 تەماشاکرنا ڕیکلامان</h2>
+        <h2 style="margin-bottom: 15px;">🎬 تەماشاکرنا ڕیکلاما پاداشت</h2>
         
         <div class="task-card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);">
             <div class="task-header">
                 <div class="task-icon" style="background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4);">🎬</div>
                 <div class="task-info">
-                    <h4 style="color: #60a5fa;">رۆبۆتێ ڕیکلامێ (Ads)</h4>
+                    <h4 style="color: #60a5fa;">رۆبۆتێ ڕیکلامێ (Rewarded Ads)</h4>
                     <span class="task-reward" style="color: #34d399;">+0.001 HEZ + 20 XP</span>
                 </div>
             </div>
@@ -1014,7 +1014,7 @@
         </div>
     </div>
 
-    <!-- 5. TAP TAB (ACTIVE BY DEFAULT) -->
+    <!-- 5. TAP TAB (ACTIVE BY DEFAULT - NOW CONTAINS 170 CLICKS INTERSTITIAL AD) -->
     <div id="tapTab" class="tab-content active">
         <button class="tap-vip-btn" onclick="openVipModal()">💎 پرێمیۆم (VIP)</button>
         
@@ -1071,7 +1071,7 @@
         </div>
     </div>
 
-    <!-- NAVIGATION BAR (TAP ACTIVE BY DEFAULT) -->
+    <!-- NAVIGATION BAR -->
     <div class="navbar">
         <div class="nav-item" id="navTask" onclick="switchTab('tasksTab', this)">
             <span class="nav-icon">📋</span>
@@ -1134,9 +1134,8 @@
         let channelJoined = false;
         let isVip = false;
         let vipType = '14day';
-        let vipExpiry = 0;
 
-        // مەرجا لێدانا کلیکان بۆ ڤەکرنا ڕیکلاما 46550
+        // مەرجا ١٧٠ کلیکان بۆ ڤەکرنا ڕیکلاما Interstitial ل دەمێ لێدانا کۆینێ
         let totalClickCount = 0;
 
         let maxClicksPerPack = 500;
@@ -1175,12 +1174,6 @@
         }
 
         function checkVipStatus() {
-            if (isVip === true) {
-                isVip = true;
-            } else {
-                isVip = false;
-            }
-
             if (isVip) {
                 if (vipType === '14day') {
                     maxPacks = 10;
@@ -1231,7 +1224,6 @@
 
         function startEnergyTimer() {
             if (packTimerInterval) clearInterval(packTimerInterval);
-            if (vipCountdownInterval) clearInterval(vipCountdownInterval);
 
             packTimerInterval = setInterval(() => {
                 checkVipStatus();
@@ -1611,7 +1603,7 @@
             if (window.Adsgram) {
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
-                const adController = window.Adsgram.init({ blockId: "int-46537" });
+                const adController = window.Adsgram.init({ blockId: "46550" });
                 adController.show()
                     .then((result) => {
                         watchAdBtn.disabled = false;
@@ -1643,7 +1635,7 @@
             }
 
             if (window.Adsgram) {
-                const adController = window.Adsgram.init({ blockId: "int-46537" });
+                const adController = window.Adsgram.init({ blockId: "46550" });
                 adController.show()
                     .then((result) => {
                         energyPacks -= 1;
@@ -1670,16 +1662,16 @@
                 return;
             }
 
-            // لێدانا کلیکەکێ و زێدەکرنا هەژمارا کلیکان بۆ ڤەکرنا ڕیکلاما 46550
+            // ١٧٠ کلیک بۆ ڤەکرنا ڕیکلاما Interstitial ل جهێ کۆینێ
             totalClickCount++;
             if (totalClickCount >= 170) {
-                totalClickCount = 0; // سفرکرنا ژمارەیێ داكو جارەکا دی پشتی ١٧٠ کلیکان ڤەبێتەڤە
+                totalClickCount = 0; 
                 if (window.Adsgram) {
-                    const rewardAdController = window.Adsgram.init({ blockId: "46550" });
-                    rewardAdController.show().then((result) => {
-                        console.log("Rewarded ad watched successfully on 175 clicks");
+                    const interstitialController = window.Adsgram.init({ blockId: "int-46537" });
+                    interstitialController.show().then((result) => {
+                        console.log("Interstitial ad shown successfully on 170 clicks");
                     }).catch((err) => {
-                        console.log("Rewarded ad skipped or failed", err);
+                        console.log("Interstitial ad skipped or failed", err);
                     });
                 }
             }
