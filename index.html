@@ -788,7 +788,7 @@
     </div>
 
     <!-- 1. TASK TAB -->
-    <div id="tasksTab" class="tab-content active">
+    <div id="tasksTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
         
         <div class="task-card">
@@ -849,13 +849,11 @@
         </div>
     </div>
 
-    <!-- 4. SHOP TAB (UPDATED SOCIAL MEDIA & PES ACCOUNT) -->
+    <!-- 4. SHOP TAB -->
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🛒 فرۆشگەهـ</h2>
         
-        <!-- Main Categories Selection View -->
         <div id="shopCategoriesMain" style="width: 100%; display: flex; flex-direction: column;" onclick="triggerShopAdIfNeeded()">
-            <!-- Category PES Account -->
             <div class="shop-category-card" onclick="openSubShop('pesSub')">
                 <div class="shop-cat-left">
                     <img src="pes1.jpg" alt="PES" class="shop-cat-icon">
@@ -867,7 +865,6 @@
                 <div class="shop-arrow">←</div>
             </div>
 
-            <!-- Category 1: TikTok -->
             <div class="shop-category-card" onclick="openSubShop('tiktokSub')">
                 <div class="shop-cat-left">
                     <img src="tiktok.jpg" alt="TikTok" class="shop-cat-icon">
@@ -879,7 +876,6 @@
                 <div class="shop-arrow">←</div>
             </div>
 
-            <!-- Category 2: Instagram -->
             <div class="shop-category-card" onclick="openSubShop('instagramSub')">
                 <div class="shop-cat-left">
                     <img src="instagram.jpg" alt="Instagram" class="shop-cat-icon">
@@ -891,7 +887,6 @@
                 <div class="shop-arrow">←</div>
             </div>
 
-            <!-- Category 3: Telegram -->
             <div class="shop-category-card" onclick="openSubShop('telegramSub')">
                 <div class="shop-cat-left">
                     <img src="telegram.jpg" alt="Telegram" class="shop-cat-icon">
@@ -904,7 +899,6 @@
             </div>
         </div>
 
-        <!-- Sub PES Account View -->
         <div id="pesSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
@@ -912,15 +906,13 @@
             <h3 style="font-size: 15px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">⚽ ئەکاونتێ پرۆفیشناڵ یێ PES</h3>
             
             <div class="shop-item-row" style="padding: 10px;">
-                <!-- Large Clear Image -->
                 <div style="width: 100%; border-radius: 12px; overflow: hidden; border: 2px solid var(--accent-yellow); margin-bottom: 10px; background: #000;">
                     <img src="pes1.jpg" alt="PES Account" style="width: 100%; display: block; object-fit: contain;">
                 </div>
-                <!-- Info and Stats -->
                 <div style="text-align: right; font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; background: rgba(11,15,25,0.7); padding: 10px; border-radius: 8px;">
                     <div style="color: #34d399; font-weight: 800; font-size: 14px; margin-bottom: 4px;">🔥 هێزا کۆم (Collective Strength): 3132</div>
-                    <div>⚡ <b>یاریزان و هێز:</b> تیپەکا پڕ قوەت دگەل باشترین پلەیەران (GK 106, CF 101, RWE 105, AMF 101 و ...)</div>
-                    <div style="margin-top: 4px; color: var(--accent-yellow);">💡 ئەکاونتەکێ ب هێز و تێرە بۆ ڕکابەرییا آنلاین و گێمێن هێزا بلند.</div>
+                    <div>⚡ <b>یاریزان و هێز:</b> تیپەکا پڕ قوەت دگەل باشترین پلەیەران</div>
+                    <div style="margin-top: 4px; color: var(--accent-yellow);">💡 ئەکاونتەکێ ب هێز و تێرە بۆ ڕکابەرییا آنلاین.</div>
                 </div>
                 
                 <div class="shop-item-top">
@@ -930,11 +922,10 @@
                         <span style="font-size: 13px; font-weight: 800;">10.0 HEZ</span>
                     </div>
                 </div>
-                <input type="text" id="pes_input_1" class="order-input" style="margin-top: 8px;" placeholder="نامەیەک یان تلگرام یۆزەرنەیمێ خۆ لڤێرە بنڤیسە بۆ وەرگرتنا ئەکاونتی...">
+                <input type="text" id="pes_input_1" class="order-input" style="margin-top: 8px;" placeholder="نامەیەک یان تلگرام یۆزەرنەیمێ خۆ لڤێرە بنڤیسە...">
             </div>
         </div>
 
-        <!-- Sub 1: TikTok Items -->
         <div id="tiktokSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
@@ -949,7 +940,7 @@
                         <span>نرخ: 6.0 HEZ</span>
                     </div>
                 </div>
-                <input type="text" id="tiktok_input_1" class="order-input" placeholder="یۆزەرنەیم یان لینکێ ئەکاونتی لڤێرە بدانە...">
+                <input type="text" id="tiktok_input_1" class="order-input" placeholder="یۆزەرنەیم یان لینکێ ئەکاونتی...">
             </div>
             
             <div class="shop-item-row">
@@ -960,7 +951,7 @@
                         <span>نرخ: 0.3 HEZ</span>
                     </div>
                 </div>
-                <input type="text" id="tiktok_input_2" class="order-input" placeholder="لینکا ڤیدیۆیێ لڤێرە بدانە...">
+                <input type="text" id="tiktok_input_2" class="order-input" placeholder="لینکا ڤیدیۆیێ...">
             </div>
 
             <div class="shop-item-row">
@@ -971,11 +962,10 @@
                         <span>نرخ: 0.4 HEZ</span>
                     </div>
                 </div>
-                <input type="text" id="tiktok_input_3" class="order-input" placeholder="لینکا ڤیدیۆیێ لڤێرە بدانە...">
+                <input type="text" id="tiktok_input_3" class="order-input" placeholder="لینکا ڤیدیۆیێ...">
             </div>
         </div>
 
-        <!-- Sub 2: Instagram Items -->
         <div id="instagramSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
@@ -990,11 +980,10 @@
                         <span>نرخ: 1.0 HEZ</span>
                     </div>
                 </div>
-                <input type="text" id="insta_input_1" class="order-input" placeholder="لینکا پۆستێ لڤێرە بدانە...">
+                <input type="text" id="insta_input_1" class="order-input" placeholder="لینکا پۆستێ...">
             </div>
         </div>
 
-        <!-- Sub 3: Telegram Items -->
         <div id="telegramSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
@@ -1009,35 +998,24 @@
                         <span>نرخ: 1 HEZ</span>
                     </div>
                 </div>
-                <input type="text" id="tg_input_1" class="order-input" placeholder="لینکا کەناڵێ یان گرووپی لڤێرە بدانە...">
+                <input type="text" id="tg_input_1" class="order-input" placeholder="لینکا کەناڵێ یان گرووپی...">
             </div>
 
             <div class="shop-item-row">
                 <div class="shop-item-top">
                     <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 100 ریەکشن', 0.5, 'tg_input_2')">کڕین</button>
                     <div class="shop-item-details" style="text-align: right;">
-                        <h5>100 ریەکشن (ئیموجی)</h5>
+                        <h5>100 ریەکشن</h5>
                         <span>نرخ: 0.5 HEZ</span>
                     </div>
                 </div>
-                <input type="text" id="tg_input_2" class="order-input" placeholder="لینکا پۆستێ تێلێگرامی لڤێرە بدانە...">
-            </div>
-
-            <div class="shop-item-row">
-                <div class="shop-item-top">
-                    <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 10 ئیموجی (♥️)', 1.0, 'tg_input_3')">کڕین</button>
-                    <div class="shop-item-details" style="text-align: right;">
-                        <h5>10 ئیموجی (♥️)</h5>
-                        <span>نرخ: 1 HEZ</span>
-                    </div>
-                </div>
-                <input type="text" id="tg_input_3" class="order-input" placeholder="لینکا پۆستێ تێلێگرامی لڤێرە بدانە...">
+                <input type="text" id="tg_input_2" class="order-input" placeholder="لینکا پۆستێ...">
             </div>
         </div>
     </div>
 
-    <!-- 5. TAP TAB -->
-    <div id="tapTab" class="tab-content">
+    <!-- 5. TAP TAB (ACTIVE BY DEFAULT) -->
+    <div id="tapTab" class="tab-content active">
         <button class="tap-vip-btn" onclick="openVipModal()">💎 پرێمیۆم (VIP)</button>
         
         <button class="coin-button" id="coinBtn">
@@ -1093,9 +1071,9 @@
         </div>
     </div>
 
-    <!-- NAVIGATION BAR -->
+    <!-- NAVIGATION BAR (TAP ACTIVE BY DEFAULT) -->
     <div class="navbar">
-        <div class="nav-item active" id="navTask" onclick="switchTab('tasksTab', this)">
+        <div class="nav-item" id="navTask" onclick="switchTab('tasksTab', this)">
             <span class="nav-icon">📋</span>
             <span>Task</span>
         </div>
@@ -1111,7 +1089,7 @@
             <span class="nav-icon">🛒</span>
             <span>Shop</span>
         </div>
-        <div class="nav-item" id="navTap" onclick="switchTab('tapTab', this)">
+        <div class="nav-item active" id="navTap" onclick="switchTab('tapTab', this)">
             <span class="nav-icon">👆</span>
             <span>Tap</span>
         </div>
@@ -1506,7 +1484,6 @@
         window.switchToProfile = () => switchTab('profileTab', null);
         window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
 
-        // Shop Category Nav Functions & Adsgram Integration on Click
         window.openSubShop = function(subId) {
             triggerShopAdIfNeeded();
             document.getElementById('shopCategoriesMain').style.display = 'none';
