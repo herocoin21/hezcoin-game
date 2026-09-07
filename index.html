@@ -287,7 +287,6 @@
             width: 0%;
         }
 
-        /* Container for Coin and Guide Arrow */
         .coin-wrapper {
             position: relative;
             display: flex;
@@ -296,7 +295,6 @@
             margin: 10px 0;
         }
 
-        /* Hint Arrow and Box styling */
         .tap-hint-box {
             position: absolute;
             top: -65px;
@@ -329,7 +327,6 @@
             100% { transform: translateY(-8px); }
         }
 
-        /* Coin Button */
         .coin-button {
             width: 165px;
             height: 165px;
@@ -394,7 +391,6 @@
             50% { transform: scale(1.04); }
             100% { transform: scale(1); }
         }
-        /* VIP Modal Popup Styles */
         .vip-modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -470,14 +466,6 @@
             margin-top: 10px;
             font-size: 13px;
         }
-        .vip-active-box {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid #10b981;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            margin-top: 8px;
-        }
         .game-hud-panel {
             width: 100%;
             max-width: 280px;
@@ -522,7 +510,6 @@
             cursor: pointer;
             margin-top: 6px;
         }
-        /* Shop New Styling */
         .shop-category-card {
             width: 100%;
             background: var(--card-bg);
@@ -867,7 +854,6 @@
     <div id="tasksTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
         
-        <!-- رۆبۆتێ ڕیکلامێ (Ads) -->
         <div class="task-card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);">
             <div class="task-header">
                 <div class="task-icon" style="background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4);">🎬</div>
@@ -1063,7 +1049,7 @@
         </div>
     </div>
 
-    <!-- 4. COMPETITION TAB (نوی - پێشبڕکێ) -->
+    <!-- 4. COMPETITION TAB (پێشبڕکێ) -->
     <div id="competitionTab" class="tab-content">
         <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🎁 پێشبڕکێ و ڤەبەرئینان</h2>
         
@@ -1081,12 +1067,11 @@
             </p>
 
             <div style="margin-top: 8px; text-align: right;">
-                <input type="text" id="compPhoneInput" class="order-input" placeholder="ژمارە تەلەفۆن یان پشکداربوونا خۆ بنڤیسە..." style="margin-bottom: 8px;">
+                <input type="text" id="compPhoneInput" class="order-input" placeholder="ژمارە تەلەفۆن یان تێلێگرامێ خۆ بنڤیسە..." style="margin-bottom: 8px;">
                 <button class="task-btn btn-success" style="width: 100%; font-size: 13px;" onclick="joinCompetition()">🎯 پشکداربوون (ب ١ هزار دینار)</button>
             </div>
         </div>
 
-        <!-- بازنە و ناڤێن کەسێن پشکدار -->
         <div class="task-card">
             <div class="task-header">
                 <div class="task-icon">👥</div>
@@ -1096,7 +1081,6 @@
                 </div>
             </div>
             
-            <!-- بازنەکا جوان بۆ نیشادانا ناڤان -->
             <div style="width: 100%; max-height: 180px; overflow-y: auto; background: #0b0f19; border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 10px; margin-top: 8px; text-align: right;" id="participantsListBox">
                 <div style="font-size: 12px; color: var(--text-muted); text-align: center;">هێشتا چ پشکدار نینن یان داتادابەر دبن...</div>
             </div>
@@ -1105,7 +1089,6 @@
 
     <!-- 5. TAP TAB -->
     <div id="tapTab" class="tab-content active">
-        <!-- Coin Wrapper containing the Arrow Hint and Coin Button -->
         <div class="coin-wrapper">
             <div id="tapHintBox" class="tap-hint-box">👇 کلیک لڤێرە بکە (Tap)</div>
             <button class="coin-button" id="coinBtn">
@@ -1164,7 +1147,7 @@
         </div>
     </div>
 
-    <!-- NAVIGATION BAR (نووکرى داکو بەشێ پێشبڕکێیێ تێدا بیت) -->
+    <!-- NAVIGATION BAR -->
     <div class="navbar">
         <div class="nav-item active" id="navTask" onclick="switchTab('tasksTab', this)">
             <span class="nav-icon">📋</span>
@@ -1409,7 +1392,6 @@
             }
         }
 
-        // Functions for Competition
         window.joinCompetition = async function() {
             const phoneInput = document.getElementById('compPhoneInput');
             const contactInfo = phoneInput ? phoneInput.value.trim() : "";
@@ -1706,6 +1688,7 @@
             }
         }
 
+        // ئەم بەشە کلیکێ ل کرینێ دکەت و راستەوخۆ دەنێرێتە تەلەگراما تە @arko0o_o
         window.buyVip = function(type) {
             let planName = type === '14day' ? '⭐ پرێمیوما 14 رۆژی ($4)' : '⭐ پرێمیوما حەڤتیانە ($2)';
             let messageText = `سڵاو، من دڤێت ڤێ پاکێتا پرێمیوم بکڕم:\n\n` +
