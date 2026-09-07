@@ -867,7 +867,7 @@
     <div id="tasksTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
         
-        <!-- رۆبۆتێ ڕیکلامێ (Ads) کە گواستراوەتە لێرە -->
+        <!-- رۆبۆتێ ڕیکلامێ (Ads) -->
         <div class="task-card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);">
             <div class="task-header">
                 <div class="task-icon" style="background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4);">🎬</div>
@@ -877,7 +877,6 @@
                 </div>
             </div>
             <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە. (بۆ پاراستنێ ٣٠ چرکە دێ ناڤبەرا دو تەماشەکرناندا هەبن).</p>
-            <p style="font-size: 11px; color: #ef4444; text-align: right; line-height: 1.4; margin-top: 6px; font-weight: bold;">⚠️ هوشداری: ئەگەر رێکلامێ سەر ببەت یان فێڵەکر بکەت دێ هێتە باند کرن</p>
             <div class="task-actions">
                 <button class="task-btn btn-primary" id="watchAdBtnTab" onclick="watchAdTab()">
                     <span id="watchAdBtnTabText">▶ دەستپێکرنا تەماشەکرنێ</span>
@@ -913,7 +912,6 @@
             </div>
         </div>
 
-        <!-- کەنالا دوێ یا نوو (Sanna Tech) -->
         <div class="task-card">
             <div class="task-header">
                 <div class="task-icon">📢</div>
@@ -1000,7 +998,6 @@
                 <div style="text-align: right; font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; background: rgba(11,15,25,0.7); padding: 10px; border-radius: 8px;">
                     <div style="color: #34d399; font-weight: 800; font-size: 14px; margin-bottom: 4px;">🔥 هێزا کۆم (Collective Strength): 3132</div>
                     <div>⚡ <b>یاریزان و هێز:</b> تیپەکا پڕ قوەت دگەل باشترین پلەیەران</div>
-                    <div style="margin-top: 4px; color: var(--accent-yellow);">💡 ئەکاونتەکێ ب هێز و تێرە بۆ ڕکابەرییا آنلاین.</div>
                 </div>
                 
                 <div class="shop-item-top">
@@ -1019,7 +1016,6 @@
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
             <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">🎵 خزمەتگوزاریێن تیکتۆک</h3>
-            
             <div class="shop-item-row">
                 <div class="shop-item-top">
                     <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - فۆڵۆ 1k', 6.0, 'tiktok_input_1')">کڕین</button>
@@ -1030,28 +1026,6 @@
                 </div>
                 <input type="text" id="tiktok_input_1" class="order-input" placeholder="یۆزەرنەیم یان لینکێ ئەکاونتی...">
             </div>
-            
-            <div class="shop-item-row">
-                <div class="shop-item-top">
-                    <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - ڤیو 1k', 0.3, 'tiktok_input_2')">کڕین</button>
-                    <div class="shop-item-details" style="text-align: right;">
-                        <h5>ڤیو 1k</h5>
-                        <span>نرخ: 0.3 HEZ</span>
-                    </div>
-                </div>
-                <input type="text" id="tiktok_input_2" class="order-input" placeholder="لینکا ڤیدیۆیێ...">
-            </div>
-
-            <div class="shop-item-row">
-                <div class="shop-item-top">
-                    <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - لایک 100', 0.4, 'tiktok_input_3')">کڕین</button>
-                    <div class="shop-item-details" style="text-align: right;">
-                        <h5>لایک 100</h5>
-                        <span>نرخ: 0.4 HEZ</span>
-                    </div>
-                </div>
-                <input type="text" id="tiktok_input_3" class="order-input" placeholder="لینکا ڤیدیۆیێ...">
-            </div>
         </div>
 
         <div id="instagramSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
@@ -1059,7 +1033,6 @@
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
             <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">📸 خزمەتگوزاریێن ئینستاگرام</h3>
-            
             <div class="shop-item-row">
                 <div class="shop-item-top">
                     <button class="buy-item-btn" onclick="buySocialService('ئینستاگرام - لایک 100', 1.0, 'insta_input_1')">کڕین</button>
@@ -1077,7 +1050,6 @@
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
             <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">✈️ خزمەتگوزاریێن تێلێگرام</h3>
-            
             <div class="shop-item-row">
                 <div class="shop-item-top">
                     <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 100 مێمبەر', 1.0, 'tg_input_1')">کڕین</button>
@@ -1088,21 +1060,50 @@
                 </div>
                 <input type="text" id="tg_input_1" class="order-input" placeholder="لینکا کەناڵێ یان گرووپی...">
             </div>
+        </div>
+    </div>
 
-            <div class="shop-item-row">
-                <div class="shop-item-top">
-                    <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 100 ریەکشن', 0.5, 'tg_input_2')">کڕین</button>
-                    <div class="shop-item-details" style="text-align: right;">
-                        <h5>100 ریەکشن</h5>
-                        <span>نرخ: 0.5 HEZ</span>
-                    </div>
+    <!-- 4. COMPETITION TAB (نوی - پێشبڕکێ) -->
+    <div id="competitionTab" class="tab-content">
+        <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🎁 پێشبڕکێ و ڤەبەرئینان</h2>
+        
+        <div class="task-card" style="border: 2px solid #f59e0b; background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);">
+            <div class="task-header">
+                <div class="task-icon" style="background: rgba(245, 158, 11, 0.2);">⚽</div>
+                <div class="task-info">
+                    <h4 style="color: #fbbf24;">پێشبڕکئا ئەکاونتێ eFootball</h4>
+                    <span class="task-reward" style="color: #34d399;">بهایێ پشکداربوونێ: 1,000 دینار</span>
                 </div>
-                <input type="text" id="tg_input_2" class="order-input" placeholder="لینکا پۆستێ...">
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.5; margin-top: 5px;">
+                🔥 ئەکاونتەکێ نایاب یێ eFootball وەک دیاری بۆ پشکدارەکێ بختەوەر! 
+                <br>⏳ <b>دەمێ پێشبڕکێ:</b> ١٠ ڕۆژ ماوە.
+            </p>
+
+            <div style="margin-top: 8px; text-align: right;">
+                <input type="text" id="compPhoneInput" class="order-input" placeholder="ژمارە تەلەفۆن یان پشکداربوونا خۆ بنڤیسە..." style="margin-bottom: 8px;">
+                <button class="task-btn btn-success" style="width: 100%; font-size: 13px;" onclick="joinCompetition()">🎯 پشکداربوون (ب ١ هزار دینار)</button>
+            </div>
+        </div>
+
+        <!-- بازنە و ناڤێن کەسێن پشکدار -->
+        <div class="task-card">
+            <div class="task-header">
+                <div class="task-icon">👥</div>
+                <div class="task-info">
+                    <h4>ناڤێن کەسێن پشکدار</h4>
+                    <span class="task-reward" id="compParticipantsCount">٠ پشکدار</span>
+                </div>
+            </div>
+            
+            <!-- بازنەکا جوان بۆ نیشادانا ناڤان -->
+            <div style="width: 100%; max-height: 180px; overflow-y: auto; background: #0b0f19; border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 10px; margin-top: 8px; text-align: right;" id="participantsListBox">
+                <div style="font-size: 12px; color: var(--text-muted); text-align: center;">هێشتا چ پشکدار نینن یان داتادابەر دبن...</div>
             </div>
         </div>
     </div>
 
-    <!-- 4. TAP TAB -->
+    <!-- 5. TAP TAB -->
     <div id="tapTab" class="tab-content active">
         <!-- Coin Wrapper containing the Arrow Hint and Coin Button -->
         <div class="coin-wrapper">
@@ -1159,12 +1160,11 @@
                 </div>
             </div>
 
-            <!-- دوگمەیا پرێمیۆم (VIP) لێرە هاتە جهگیرکرن -->
             <button class="tap-vip-btn" onclick="openVipModal()">💎 پرێمیۆم (VIP)</button>
         </div>
     </div>
 
-    <!-- NAVIGATION BAR -->
+    <!-- NAVIGATION BAR (نووکرى داکو بەشێ پێشبڕکێیێ تێدا بیت) -->
     <div class="navbar">
         <div class="nav-item active" id="navTask" onclick="switchTab('tasksTab', this)">
             <span class="nav-icon">📋</span>
@@ -1177,6 +1177,10 @@
         <div class="nav-item" id="navShop" onclick="switchTab('shopTab', this)">
             <span class="nav-icon">🛒</span>
             <span>Shop</span>
+        </div>
+        <div class="nav-item" id="navComp" onclick="switchTab('competitionTab', this); loadParticipants();">
+            <span class="nav-icon">🎁</span>
+            <span>پێشبڕکێ</span>
         </div>
         <div class="nav-item" id="navTap" onclick="switchTab('tapTab', this)">
             <span class="nav-icon">👆</span>
@@ -1224,14 +1228,12 @@
         let sannaChannelJoined = false;
         let isVip = false;
         let vipType = '14day';
-
         let totalClickCount = 0;
 
         let maxClicksPerPack = 500;
         let maxPacks = 5;
         let packIntervalMs = 4 * 3600 * 1000;
         let lastPackTime = Date.now();
-
         let packTimerInterval = null;
 
         const balanceEl = document.getElementById('balance');
@@ -1257,7 +1259,6 @@
         const channelCheckBtn = document.getElementById('channelCheckBtn');
         const sannaJoinBtn = document.getElementById('sannaJoinBtn');
         const sannaCheckBtn = document.getElementById('sannaCheckBtn');
-
         const vipModalOverlay = document.getElementById('vipModalOverlay');
         const appLoadingScreen = document.getElementById('appLoadingScreen');
 
@@ -1282,43 +1283,11 @@
                 packIntervalMs = (24 * 3600 * 1000) / 6;
                 if(vipStatusBadgeBox) vipStatusBadgeBox.style.display = 'none';
             }
-
             if(maxPacksDisplayEl) maxPacksDisplayEl.innerText = maxPacks;
-            updateVipUIState();
-        }
-
-        function updateVipUIState() {
-            const action14DayArea = document.getElementById('action14DayArea');
-            const actionWeeklyArea = document.getElementById('actionWeeklyArea');
-            if (!action14DayArea || !actionWeeklyArea) return;
-
-            if (isVip) {
-                if (vipType === '14day') {
-                    action14DayArea.innerHTML = `
-                        <div class="vip-active-box">
-                            <div style="font-size: 12px; font-weight: 800; color: #34d399;">✨ پرێمیوما ١٤ ڕۆژی چالاکە</div>
-                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;">دەمێ مایی: بێ سنوور (VIP Active)</div>
-                        </div>
-                    `;
-                    actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars ($2)</button>`;
-                } else if (vipType === 'weekly') {
-                    actionWeeklyArea.innerHTML = `
-                        <div class="vip-active-box">
-                            <div style="font-size: 12px; font-weight: 800; color: #34d399;">✨ پرێمیوما حەڤتیانە چالاکە</div>
-                            <div style="font-size: 11px; color: #fbbf24; margin-top: 3px;">دەمێ مایی: بێ سنوور (VIP Active)</div>
-                        </div>
-                    `;
-                    action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars ($4)</button>`;
-                }
-            } else {
-                action14DayArea.innerHTML = `<button class="vip-btn-monthly" onclick="buyVip('14day')">کڕینا 14 رۆژی ب Stars ($4)</button>`;
-                actionWeeklyArea.innerHTML = `<button class="vip-btn-weekly" onclick="buyVip('weekly')">کڕینا حەڤتیانە ب Stars ($2)</button>`;
-            }
         }
 
         function startEnergyTimer() {
             if (packTimerInterval) clearInterval(packTimerInterval);
-
             packTimerInterval = setInterval(() => {
                 checkVipStatus();
                 const now = Date.now();
@@ -1331,13 +1300,11 @@
                         lastPackTime += packsEarned * packIntervalMs;
                         updateUI();
                     }
-
                     const remainingTime = packIntervalMs - (elapsed % packIntervalMs);
                     const totalSeconds = Math.floor(remainingTime / 1000);
                     const hours = Math.floor(totalSeconds / 3600);
                     const minutes = Math.floor((totalSeconds % 3600) / 60);
                     const seconds = totalSeconds % 60;
-
                     const formattedTime = String(hours).padStart(2, '0') + ":" + String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
                     if (packTimerText) {
                         packTimerText.innerText = "پاکێتا داهاتی: " + formattedTime;
@@ -1377,7 +1344,6 @@
                             if(channelCheckBtn) channelCheckBtn.style.display = 'none';
                         }
                     }
-
                     if (data.sannaChannelJoined) {
                         sannaChannelJoined = true;
                         if(sannaJoinBtn) {
@@ -1388,28 +1354,6 @@
                         }
                     }
                 } else {
-                    let startParam = tg?.initDataUnsafe?.start_param;
-                    let referredBy = null;
-                    if (startParam && startParam.startsWith("ref_")) {
-                        referredBy = startParam.replace("ref_", "");
-                    }
-
-                    if (referredBy && referredBy !== userId) {
-                        try {
-                            const refUserRef = doc(db, "users", referredBy);
-                            const refSnap = await getDoc(refUserRef);
-                            if (refSnap.exists()) {
-                                const refData = refSnap.data();
-                                await updateDoc(refUserRef, {
-                                    balance: Number((refData.balance || 0) + 0.001),
-                                    currentXp: Number((refData.currentXp || 0) + 100)
-                                });
-                            }
-                        } catch(e) {
-                            console.log("Ref error", e);
-                        }
-                    }
-
                     await setDoc(userRef, {
                         name: userName,
                         photo: userPhoto,
@@ -1424,13 +1368,11 @@
                         vipType: '14day',
                         channelJoined: false,
                         sannaChannelJoined: false,
-                        referredBy: referredBy || null,
                         createdAt: new Date()
                     }, { merge: true });
                 }
             } catch (error) {
                 console.error("Firebase load error:", error);
-                alert("کێشەک د خاندنا داتایان دا چێبوو. تکایە پەیجێ نوو بکە (Refresh).");
             }
 
             checkVipStatus();
@@ -1464,6 +1406,67 @@
                 });
             } catch (error) {
                 console.error("Firebase sync error:", error);
+            }
+        }
+
+        // Functions for Competition
+        window.joinCompetition = async function() {
+            const phoneInput = document.getElementById('compPhoneInput');
+            const contactInfo = phoneInput ? phoneInput.value.trim() : "";
+            if (!contactInfo) {
+                alert("تکایە ژمارە تەلەفۆن یان تێلێگرامێ خۆ لڤێرە بنڤیسە داکو پەیوەندیا ب تە تەڤگەڕین!");
+                if(phoneInput) phoneInput.focus();
+                return;
+            }
+
+            let confirmJoin = confirm("ئایا دخوازی پشکدار ببەی د پێشبڕکئا eFootball ب بهایێ ١ هەزار دینار؟");
+            if (!confirmJoin) return;
+
+            try {
+                await addDoc(collection(db, "competition_participants"), {
+                    userId: userId,
+                    userName: userName,
+                    userUsername: userUsername,
+                    contact: contactInfo,
+                    createdAt: new Date()
+                });
+                if(phoneInput) phoneInput.value = "";
+                alert("🎉 پشکداربوونا تە ب سەرکەفتیانە تۆمار بوو بۆ پێشبڕکێیا ١٠ ڕۆژی!");
+                window.loadParticipants();
+            } catch(e) {
+                console.error("Comp error:", e);
+                alert("کێشەک د تۆمارکرنێ دا چێبوو.");
+            }
+        }
+
+        window.loadParticipants = async function() {
+            const listContainer = document.getElementById('participantsListBox');
+            const countEl = document.getElementById('compParticipantsCount');
+            listContainer.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center;">ئەپدەیت دبت...</div>`;
+            try {
+                const q = query(collection(db, "competition_participants"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                let html = "";
+                let count = 0;
+                querySnapshot.forEach((docSnap) => {
+                    let data = docSnap.data();
+                    let pName = data.userName || "یاریزان";
+                    html += `<div style="font-size: 12px; color: #fbbf24; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between;">
+                        <span>👤 ${pName}</span>
+                        <span style="color: #34d399; font-size: 10px;">پشکداربوو ✅</span>
+                    </div>`;
+                    count++;
+                });
+
+                if(html === "") {
+                    listContainer.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center;">هێشتا چ کەس پشکدار نینن.</div>`;
+                } else {
+                    listContainer.innerHTML = html;
+                }
+                if(countEl) countEl.innerText = `${count} پشکدار`;
+            } catch(e) {
+                console.error("Load participants error", e);
+                listContainer.innerHTML = `<div style="font-size: 11px; color: #ef4444; text-align: center;">کێشە د ڤەکریبا لێستێ دا چێبوو.</div>`;
             }
         }
 
@@ -1653,21 +1656,16 @@
             }
         }
 
-        /* کەنالا ئێكێ */
         window.openChannelLink = function() {
             if (channelJoined) return;
             window.open('https://t.me/hezcoinchannel', '_blank');
-            if(channelJoinBtn) {
-                channelJoinBtn.innerText = 'چوو ناڤ کەناڵی ↗';
-            }
-            if(channelCheckBtn) {
-                channelCheckBtn.style.display = 'inline-block';
-            }
+            if(channelJoinBtn) channelJoinBtn.innerText = 'چوو ناڤ کەناڵی ↗';
+            if(channelCheckBtn) channelCheckBtn.style.display = 'inline-block';
         }
 
         window.verifyChannelJoin = function() {
             if (channelJoined) return;
-            let checkConfirm = confirm("ئایا تە بەشداری د کەناڵێ (Hez Coin) دا کر؟ داکو دیارییا خۆ وەربگریت.");
+            let checkConfirm = confirm("ئایا تە بەشداری د کەناڵێ دا کر؟ داکو دیارییا خۆ وەربگریت.");
             if (checkConfirm) {
                 channelJoined = true;
                 balance += 0.001;
@@ -1677,29 +1675,22 @@
                     channelJoinBtn.disabled = true;
                     channelJoinBtn.className = 'task-btn btn-disabled';
                 }
-                if(channelCheckBtn) {
-                    channelCheckBtn.style.display = 'none';
-                }
+                if(channelCheckBtn) channelCheckBtn.style.display = 'none';
                 syncToFirebase();
                 alert('🎉 پیرۆزە! پاداشت ب سەرکەفتیانە بۆ حسابێ تە هاتە زێدەکرن.');
             }
         }
 
-        /* کەنالا دوێ یا نوو (Sanna Tech) */
         window.openSannaChannelLink = function() {
             if (sannaChannelJoined) return;
             window.open('https://t.me/sanna_tech', '_blank');
-            if(sannaJoinBtn) {
-                sannaJoinBtn.innerText = 'چوو ناڤ کەناڵی ↗';
-            }
-            if(sannaCheckBtn) {
-                sannaCheckBtn.style.display = 'inline-block';
-            }
+            if(sannaJoinBtn) sannaJoinBtn.innerText = 'چوو ناڤ کەناڵی ↗';
+            if(sannaCheckBtn) sannaCheckBtn.style.display = 'inline-block';
         }
 
         window.verifySannaChannelJoin = function() {
             if (sannaChannelJoined) return;
-            let checkConfirm = confirm("ئایا تە بەشداری د کەناڵێ (Sanna Tech) دا کر؟ داکو دیارییا خۆ وەربگریت.");
+            let checkConfirm = confirm("ئایا تە بەشداری د کەناڵێ دا کر؟ داکو دیارییا خۆ وەربگریت.");
             if (checkConfirm) {
                 sannaChannelJoined = true;
                 balance += 0.001;
@@ -1709,9 +1700,7 @@
                     sannaJoinBtn.disabled = true;
                     sannaJoinBtn.className = 'task-btn btn-disabled';
                 }
-                if(sannaCheckBtn) {
-                    sannaCheckBtn.style.display = 'none';
-                }
+                if(sannaCheckBtn) sannaCheckBtn.style.display = 'none';
                 syncToFirebase();
                 alert('🎉 پیرۆزە! پاداشت ب سەرکەفتیانە بۆ حسابێ تە هاتە زێدەکرن.');
             }
@@ -1723,8 +1712,7 @@
                               `📦 جۆرێ پاکێتێ: ${planName}\n` +
                               `👤 ناڤێ یاریزانی: ${userName}\n` +
                               `🆔 ئایدی (ID): ${userId}\n` +
-                              `🔗 یوزرنەیم: ${userUsername}\n` +
-                              `💰 کۆینێن من: ${balance.toFixed(6)} HEZ`;
+                              `🔗 یوزرنەیم: ${userUsername}`;
             let telegramUrl = `https://t.me/arko0o_o?text=${encodeURIComponent(messageText)}`;
             if (tg && tg.openTelegramLink) {
                 tg.openTelegramLink(telegramUrl);
@@ -1740,10 +1728,8 @@
             if (watchAdBtn.disabled) return;
 
             const now = Date.now();
-            const cooldownTime = 30000;
-            if (now - lastAdTimeTab < cooldownTime) {
-                const remainingSecs = Math.ceil((cooldownTime - (now - lastAdTimeTab)) / 1000);
-                alert(`⏳ هێشتا دەم نەهاتییە! تکایە ${remainingSecs} چرکەیێن دی چاوەڕێ بن.`);
+            if (now - lastAdTimeTab < 30000) {
+                alert(`⏳ هێشتا دەم نەهاتییە!`);
                 return;
             }
 
@@ -1764,10 +1750,9 @@
                     .catch((result) => {
                         watchAdBtn.disabled = false;
                         watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
-                        console.log("Ad skipped or failed", result);
                     });
             } else {
-                alert('سیستەمێ تبلیغان هێشتا بار نەبوویە یان نەتەوەک کار نەکەت.');
+                alert('سیستەمێ تبلیغان هێشتا بار نەبوویە.');
             }
         }
 
@@ -1789,10 +1774,10 @@
                         currentClicks = maxClicksPerPack;
                         lastPackTime = Date.now();
                         updateUI();
-                        alert('⚡ ڕیکلام ب سەرکەفتیانە هاتە تەماشەکرن و 500 ئێنێرجی بۆ تە هاتە دان.');
+                        alert('⚡ ڕیکلام هاتە تەماشەکرن و 500 ئێنێرجی بۆ تە هاتە دان.');
                     })
                     .catch((result) => {
-                        alert('تەماشاکرنا ڕیکلامێ هاتە هەڵوەشاندن، پاکێت نەهاتە خەرجکرن.');
+                        alert('تەماشاکرنا ڕیکلامێ هاتە هەڵوەشاندن.');
                     });
             } else {
                 energyPacks -= 1;
@@ -1805,7 +1790,7 @@
 
         coinBtn.addEventListener('click', (e) => {
             if (currentClicks <= 0) {
-                alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
+                alert('ئێنێرجیا تە خلاس بوویە!');
                 return;
             }
 
@@ -1818,11 +1803,7 @@
                 totalClickCount = 0; 
                 if (window.Adsgram) {
                     const interstitialController = window.Adsgram.init({ blockId: "int-46537" });
-                    interstitialController.show().then((result) => {
-                        console.log("Interstitial ad shown successfully on 170 clicks");
-                    }).catch((err) => {
-                        console.log("Interstitial ad skipped or failed", err);
-                    });
+                    interstitialController.show().catch((err) => {});
                 }
             }
 
