@@ -43,7 +43,6 @@
             overflow: hidden;
             position: relative;
         }
-        /* Loading Overlay Screen */
         #appLoadingScreen {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -69,7 +68,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Profile Top Left */
         .corner-profile {
             position: absolute;
             top: 12px;
@@ -115,7 +113,6 @@
             border-radius: 4px;
             margin-top: 2px;
         }
-        /* Wallet Top Right */
         .wallet-badge {
             position: absolute;
             top: 12px;
@@ -785,14 +782,12 @@
 </head>
 <body>
 
-    <!-- Loading Screen Overlay -->
     <div id="appLoadingScreen">
         <div class="loader-spinner"></div>
         <div style="font-size: 15px; font-weight: 800; color: var(--accent-yellow);">Hez Coin Game</div>
         <div style="font-size: 12px; color: var(--text-muted);">داتا ژ فایەربەیسێ دآهنە خوارن، چاوەڕێ بن...</div>
     </div>
 
-    <!-- Profile Top Left -->
     <div class="corner-profile" onclick="switchToProfile()">
         <img id="cornerAvatar" src="logo.png" alt="Avatar" class="corner-avatar">
         <div class="corner-info">
@@ -801,7 +796,6 @@
         </div>
     </div>
 
-    <!-- Wallet Top Right -->
     <div class="wallet-badge">
         <div class="wallet-icon-box">
             <img src="logo.png" alt="Coin" class="mini-coin-icon">
@@ -810,7 +804,6 @@
         <span class="currency-tag">HEZ</span>
     </div>
 
-    <!-- VIP Modal Popup -->
     <div class="vip-modal-overlay" id="vipModalOverlay" onclick="closeVipModal(event)">
         <div class="vip-store-container" onclick="event.stopPropagation()">
             <button class="vip-modal-close" onclick="closeVipModalDirect()">×</button>
@@ -1049,7 +1042,7 @@
         </div>
     </div>
 
-    <!-- 4. COMPETITION TAB (پێشبڕکێ) -->
+    <!-- 4. COMPETITION TAB -->
     <div id="competitionTab" class="tab-content">
         <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🎁 پێشبڕکێ و ڤەبەرئینان</h2>
         
@@ -1392,7 +1385,6 @@
             }
         }
 
-        // ئەم بەشە کلیکێ ل پشکداربوونا پێشبڕکێ دکەت و راستەوخۆ نامەیێ دنێرێتە بۆ @arko0o_o و ل فایەربەیسێ د تۆمارکەت
         window.joinCompetition = async function() {
             const phoneInput = document.getElementById('compPhoneInput');
             const contactInfo = phoneInput ? phoneInput.value.trim() : "";
@@ -1406,7 +1398,6 @@
             if (!confirmJoin) return;
 
             try {
-                // 1. تۆمارکرن ل فایەربەیسێ
                 await addDoc(collection(db, "competition_participants"), {
                     userId: userId,
                     userName: userName,
@@ -1415,7 +1406,6 @@
                     createdAt: new Date()
                 });
 
-                // 2. هنارتنا نامەیێ بۆ ئەکاونتێ تێلێگرامی @arko0o_o
                 let messageText = `🎮 پشکداربوونا نوو د پێشبڕکێیا eFootball دا:\n\n` +
                                   `👤 ناڤێ یاریزانی: ${userName}\n` +
                                   `🆔 ئایدی (ID): ${userId}\n` +
@@ -1423,6 +1413,7 @@
                                   `📱 پەیوەندی/ژمارە: ${contactInfo}`;
                 
                 let telegramUrl = `https://t.me/arko0o_o?text=${encodeURIComponent(messageText)}`;
+                
                 if (tg && tg.openTelegramLink) {
                     tg.openTelegramLink(telegramUrl);
                 } else {
@@ -1431,6 +1422,7 @@
 
                 if(phoneInput) phoneInput.value = "";
                 window.loadParticipants();
+                alert("🎉 پشکداربوونا تە ب سەرکەفتیانە هاتە تۆمارکرن و نامە بۆ ڕێڤەبەری هاتە هنارتن!");
             } catch(e) {
                 console.error("Comp error:", e);
                 alert("کێشەک د تۆمارکرنێ دا چێبوو.");
@@ -1609,9 +1601,7 @@
         window.triggerShopAdIfNeeded = function() {
             if (window.Adsgram) {
                 const adController = window.Adsgram.init({ blockId: "int-46537" });
-                adController.show().catch((res) => {
-                    console.log("Shop ad skipped or failed", res);
-                });
+                adController.show().catch((res) => {});
             }
         }
 
@@ -1815,7 +1805,7 @@
                     xpIncrement = 1.0;
                     floatText = '+0.000002 (2x)';
                 } else if (vipType === 'weekly') {
-                    collection = 0.0000015;
+                    coinIncrement = 0.0000015;
                     xpIncrement = 0.75;
                     floatText = '+0.0000015 (1.5x)';
                 }
