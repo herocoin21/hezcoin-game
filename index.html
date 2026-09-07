@@ -867,6 +867,24 @@
     <div id="tasksTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
         
+        <!-- رۆبۆتێ ڕیکلامێ (Ads) کە گواستراوەتە لێرە -->
+        <div class="task-card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);">
+            <div class="task-header">
+                <div class="task-icon" style="background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4);">🎬</div>
+                <div class="task-info">
+                    <h4 style="color: #60a5fa;">رۆبۆتێ ڕیکلامێ (Rewarded Ads)</h4>
+                    <span class="task-reward" style="color: #34d399;">+0.001 HEZ + 20 XP</span>
+                </div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە. (بۆ پاراستنێ ٣٠ چرکە دێ ناڤبەرا دو تەماشەکرناندا هەبن).</p>
+            <p style="font-size: 11px; color: #ef4444; text-align: right; line-height: 1.4; margin-top: 6px; font-weight: bold;">⚠️ هوشداری: ئەگەر رێکلامێ سەر ببەت یان فێڵەکر بکەت دێ هێتە باند کرن</p>
+            <div class="task-actions">
+                <button class="task-btn btn-primary" id="watchAdBtnTab" onclick="watchAdTab()">
+                    <span id="watchAdBtnTabText">▶ دەستپێکرنا تەماشەکرنێ</span>
+                </button>
+            </div>
+        </div>
+
         <div class="task-card">
             <div class="task-header">
                 <div class="task-icon">👥</div>
@@ -911,29 +929,7 @@
         </div>
     </div>
 
-    <!-- 2. ADS TAB -->
-    <div id="shopTabAlt" class="tab-content">
-        <h2 style="margin-bottom: 15px;">تەماشەی رێکلامان بکە. و کوینان وەربگرە</h2>
-        
-        <div class="task-card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);">
-            <div class="task-header">
-                <div class="task-icon" style="background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4);">🎬</div>
-                <div class="task-info">
-                    <h4 style="color: #60a5fa;">رۆبۆتێ ڕیکلامێ (Rewarded Ads)</h4>
-                    <span class="task-reward" style="color: #34d399;">+0.001 HEZ + 20 XP</span>
-                </div>
-            </div>
-            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە. (بۆ پاراستنێ ٣٠ چرکە دێ ناڤبەرا دو تەماشەکرناندا هەبن).</p>
-            <p style="font-size: 11px; color: #ef4444; text-align: right; line-height: 1.4; margin-top: 6px; font-weight: bold;">⚠️ هوشداری: ئەگەر رێکلامێ سەر ببەت یان فێڵەکر بکەت دێ هێتە باند کرن</p>
-            <div class="task-actions">
-                <button class="task-btn btn-primary" id="watchAdBtnTab" onclick="watchAdTab()">
-                    <span id="watchAdBtnTabText">▶ دەستپێکرنا تەماشەکرنێ</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. RANK TAB -->
+    <!-- 2. RANK TAB -->
     <div id="rankTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">🏆 رێزبەندیا یاریزانان</h2>
         <div style="width: 100%;" id="leaderboardList">
@@ -941,7 +937,7 @@
         </div>
     </div>
 
-    <!-- 4. SHOP TAB -->
+    <!-- 3. SHOP TAB -->
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🛒 فرۆشگەهـ</h2>
         
@@ -1106,7 +1102,7 @@
         </div>
     </div>
 
-    <!-- 5. TAP TAB -->
+    <!-- 4. TAP TAB -->
     <div id="tapTab" class="tab-content active">
         <!-- Coin Wrapper containing the Arrow Hint and Coin Button -->
         <div class="coin-wrapper">
@@ -1170,13 +1166,9 @@
 
     <!-- NAVIGATION BAR -->
     <div class="navbar">
-        <div class="nav-item" id="navTask" onclick="switchTab('tasksTab', this)">
+        <div class="nav-item active" id="navTask" onclick="switchTab('tasksTab', this)">
             <span class="nav-icon">📋</span>
             <span>Task</span>
-        </div>
-        <div class="nav-item" id="navAds" onclick="switchTab('shopTabAlt', this)">
-            <span class="nav-icon">🎬</span>
-            <span>Ads</span>
         </div>
         <div class="nav-item" id="navRank" onclick="switchTab('rankTab', this); loadLeaderboard();">
             <span class="nav-icon">🏆</span>
@@ -1186,7 +1178,7 @@
             <span class="nav-icon">🛒</span>
             <span>Shop</span>
         </div>
-        <div class="nav-item active" id="navTap" onclick="switchTab('tapTab', this)">
+        <div class="nav-item" id="navTap" onclick="switchTab('tapTab', this)">
             <span class="nav-icon">👆</span>
             <span>Tap</span>
         </div>
@@ -1229,7 +1221,7 @@
         let currentXp = 0;
         let maxXp = 2000;
         let channelJoined = false;
-        let sannaChannelJoined = false; // متغیر بۆ کەنالا دوێ
+        let sannaChannelJoined = false;
         let isVip = false;
         let vipType = '14day';
 
