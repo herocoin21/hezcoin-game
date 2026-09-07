@@ -1136,6 +1136,9 @@
         let vipType = '14day';
         let vipExpiry = 0;
 
+        // مەرجا لێدانا کلیکان بۆ ڤەکرنا ڕیکلاما 46550
+        let totalClickCount = 0;
+
         let maxClicksPerPack = 500;
         let maxPacks = 5;
         let packIntervalMs = 4 * 3600 * 1000;
@@ -1665,6 +1668,20 @@
             if (currentClicks <= 0) {
                 alert('ئێنێرجیا تە خلاس بوویە! دوگمەیا (Use) ل ژێر لێبدە.');
                 return;
+            }
+
+            // لێدانا کلیکەکێ و زێدەکرنا هەژمارا کلیکان بۆ ڤەکرنا ڕیکلاما 46550
+            totalClickCount++;
+            if (totalClickCount >= 170) {
+                totalClickCount = 0; // سفرکرنا ژمارەیێ داكو جارەکا دی پشتی ١٧٠ کلیکان ڤەبێتەڤە
+                if (window.Adsgram) {
+                    const rewardAdController = window.Adsgram.init({ blockId: "46550" });
+                    rewardAdController.show().then((result) => {
+                        console.log("Rewarded ad watched successfully on 175 clicks");
+                    }).catch((err) => {
+                        console.log("Rewarded ad skipped or failed", err);
+                    });
+                }
             }
 
             let coinIncrement = 0.000001;
