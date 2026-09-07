@@ -943,13 +943,25 @@
         </div>
     </div>
 
-    <!-- 4. SHOP TAB (UPDATED SOCIAL MEDIA) -->
+    <!-- 4. SHOP TAB (UPDATED SOCIAL MEDIA & PES ACCOUNT) -->
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🛒 مۆڵ و فرۆشگە (Shop)</h2>
         
         <!-- Main Categories Selection View -->
         <div id="shopCategoriesMain" style="width: 100%; display: flex; flex-direction: column;">
             
+            <!-- Category PES Account -->
+            <div class="shop-category-card" onclick="openSubShop('pesSub')">
+                <div class="shop-cat-left">
+                    <img src="pes1.jpg" alt="PES" class="shop-cat-icon">
+                    <div class="shop-cat-info">
+                        <h4>ئەکاونتێ PES</h4>
+                        <p>هێزا کۆم 3132 - پلەیەرێن بەرهەڤ</p>
+                    </div>
+                </div>
+                <div class="shop-arrow">←</div>
+            </div>
+
             <!-- Category 1: TikTok -->
             <div class="shop-category-card" onclick="openSubShop('tiktokSub')">
                 <div class="shop-cat-left">
@@ -986,6 +998,37 @@
                 <div class="shop-arrow">←</div>
             </div>
 
+        </div>
+
+        <!-- Sub PES Account View -->
+        <div id="pesSub" class="sub-shop-container">
+            <div class="back-btn-container" style="margin-bottom: 5px;">
+                <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
+            </div>
+            <h3 style="font-size: 15px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">⚽ ئەکاونتێ پرۆفیشناڵ یێ PES</h3>
+            
+            <div class="shop-item-row" style="padding: 10px;">
+                <!-- Large Clear Image -->
+                <div style="width: 100%; border-radius: 12px; overflow: hidden; border: 2px solid var(--accent-yellow); margin-bottom: 10px; background: #000;">
+                    <img src="pes1.jpg" alt="PES Account" style="width: 100%; display: block; object-fit: contain;">
+                </div>
+
+                <!-- Info and Stats -->
+                <div style="text-align: right; font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; background: rgba(11,15,25,0.7); padding: 10px; border-radius: 8px;">
+                    <div style="color: #34d399; font-weight: 800; font-size: 14px; margin-bottom: 4px;">🔥 هێزا کۆم (Collective Strength): 3132</div>
+                    <div>⚡ <b>یاریزان و هێز:</b> تیپەکا پڕ قوەت دگەل باشترین پلەیەران (GK 106, CF 101, RWE 105, AMF 101 و ...)</div>
+                    <div style="margin-top: 4px; color: var(--accent-yellow);">💡 ئەکاونتەکێ ب هێز و تێرە بۆ ڕکابەرییا آنلاین و گێمێن هێزا بلند.</div>
+                </div>
+
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" style="font-size: 13px; padding: 8px 16px;" onclick="buySocialService('ئەکاونتێ PES (هێز 3132)', 10.0, 'pes_input_1')">کڕینا ئەکاونتی (10 HEZ)</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>نرخێ تایبەت</h5>
+                        <span style="font-size: 13px; font-weight: 800;">10.0 HEZ</span>
+                    </div>
+                </div>
+                <input type="text" id="pes_input_1" class="order-input" style="margin-top: 8px;" placeholder="نامەیەک یان تلگرام یۆزەرنەیمێ خۆ لڤێرە بنڤیسە بۆ وەرگرتنا ئەکاونتی...">
+            </div>
         </div>
 
         <!-- Sub 1: TikTok Items -->
@@ -1452,7 +1495,7 @@
             const userLinkOrUser = inputField ? inputField.value.trim() : "";
 
             if (!userLinkOrUser) {
-                alert("تکایە لینک یان یۆزەرنەیمێ خۆ ل جهێ پێتڤی بنڤیسە!");
+                alert("تکایە پێزانینێن خۆ یان یۆزەرنەیمێ خۆ ل جهێ پێتڤی بنڤیسە!");
                 if(inputField) inputField.focus();
                 return;
             }
