@@ -570,6 +570,7 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            margin-bottom: 8px;
         }
         .shop-item-top {
             display: flex;
@@ -779,7 +780,6 @@
             font-size: 18px;
         }
         
-        /* New styles for image viewer zoom modal */
         .zoom-img-wrapper {
             position: relative;
             cursor: pointer;
@@ -1010,7 +1010,7 @@
                     <img src="tiktok.jpg" alt="TikTok" class="shop-cat-icon">
                     <div class="shop-cat-info">
                         <h4>تیکتۆک (TikTok)</h4>
-                        <p>فۆڵۆو، ڤیو، لایک</p>
+                        <p>فۆڵۆ، لایک</p>
                     </div>
                 </div>
                 <div class="shop-arrow">←</div>
@@ -1032,7 +1032,7 @@
                     <img src="telegram.jpg" alt="Telegram" class="shop-cat-icon">
                     <div class="shop-cat-info">
                         <h4>تێلێگرام (Telegram)</h4>
-                        <p>مێمبەر و ریەکشنێن جۆراوجۆر</p>
+                        <p>مێمبەر، ریەکشن، دلک(♥️)</p>
                     </div>
                 </div>
                 <div class="shop-arrow">←</div>
@@ -1070,6 +1070,7 @@
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
             <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">🎵 خزمەتگوزاریێن تیکتۆک</h3>
+            
             <div class="shop-item-row">
                 <div class="shop-item-top">
                     <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - فۆڵۆ 1k', 6.0, 'tiktok_input_1')">کڕین</button>
@@ -1079,6 +1080,17 @@
                     </div>
                 </div>
                 <input type="text" id="tiktok_input_1" class="order-input" placeholder="یۆزەرنەیم یان لینکێ ئەکاونتی...">
+            </div>
+
+            <div class="shop-item-row">
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - لایک 100', 0.4, 'tiktok_input_2')">کڕین</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>100 لایک</h5>
+                        <span>نرخ: 0.4 HEZ</span>
+                    </div>
+                </div>
+                <input type="text" id="tiktok_input_2" class="order-input" placeholder="لینکا ڤیدیۆیا تیکتۆکێ...">
             </div>
         </div>
 
@@ -1104,6 +1116,7 @@
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
             <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">✈️ خزمەتگوزاریێن تێلێگرام</h3>
+            
             <div class="shop-item-row">
                 <div class="shop-item-top">
                     <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 100 مێمبەر', 1.0, 'tg_input_1')">کڕین</button>
@@ -1113,6 +1126,28 @@
                     </div>
                 </div>
                 <input type="text" id="tg_input_1" class="order-input" placeholder="لینکا کەناڵێ یان گرووپی...">
+            </div>
+
+            <div class="shop-item-row">
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 100 ریەکشن', 0.5, 'tg_input_2')">کڕین</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>100 ریەکشن</h5>
+                        <span>نرخ: 0.5 HEZ</span>
+                    </div>
+                </div>
+                <input type="text" id="tg_input_2" class="order-input" placeholder="لینکا پۆستێ بۆ ریەکشنی...">
+            </div>
+
+            <div class="shop-item-row">
+                <div class="shop-item-top">
+                    <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 10 دلک (♥️)', 1.0, 'tg_input_3')">کڕین</button>
+                    <div class="shop-item-details" style="text-align: right;">
+                        <h5>10 دلک (♥️)</h5>
+                        <span>نرخ: 1 HEZ</span>
+                    </div>
+                </div>
+                <input type="text" id="tg_input_3" class="order-input" placeholder="لینکا پۆستێ بۆ دلکان (♥️)...">
             </div>
         </div>
     </div>
@@ -1134,7 +1169,6 @@
                 <br>⏳ <b>دەمێ پێشبڕکێ:</b> ١٠ ڕۆژ ماوە.
             </p>
 
-            <!-- Images with Zoom Feature Added Here -->
             <div style="display: flex; gap: 10px; margin-top: 12px; margin-bottom: 12px; justify-content: center;">
                 <div class="zoom-img-wrapper" onclick="openZoomModal('pes2.jpg')">
                     <img src="pes2.jpg" alt="PES 2" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px; border: 2px solid rgba(245,158,11,0.6); display: block;">
@@ -1327,7 +1361,6 @@
         const vipModalOverlay = document.getElementById('vipModalOverlay');
         const appLoadingScreen = document.getElementById('appLoadingScreen');
 
-        // Image Zoom Modal Functions
         window.openZoomModal = function(imgSrc) {
             const modal = document.getElementById('imageZoomModal');
             const zoomedImg = document.getElementById('zoomedImageElement');
