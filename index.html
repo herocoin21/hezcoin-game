@@ -993,7 +993,7 @@
     <div id="shopTab" class="tab-content">
         <h2 style="margin-bottom: 15px; color: var(--accent-yellow);">🛒 فرۆشگەهـ</h2>
         
-        <div id="shopCategoriesMain" style="width: 100%; display: flex; flex-direction: column;" onclick="triggerShopAdIfNeeded()">
+        <div id="shopCategoriesMain" style="width: 100%; display: flex; flex-direction: column;">
             <div class="shop-category-card" onclick="openSubShop('pesSub')">
                 <div class="shop-cat-left">
                     <img src="pes1.jpg" alt="PES" class="shop-cat-icon">
@@ -1039,7 +1039,7 @@
             </div>
         </div>
 
-        <div id="pesSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
+        <div id="pesSub" class="sub-shop-container">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
@@ -1065,7 +1065,7 @@
             </div>
         </div>
 
-        <div id="tiktokSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
+        <div id="tiktokSub" class="sub-shop-container">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
@@ -1094,7 +1094,7 @@
             </div>
         </div>
 
-        <div id="instagramSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
+        <div id="instagramSub" class="sub-shop-container">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
@@ -1111,7 +1111,7 @@
             </div>
         </div>
 
-        <div id="telegramSub" class="sub-shop-container" onclick="triggerShopAdIfNeeded()">
+        <div id="telegramSub" class="sub-shop-container">
             <div class="back-btn-container" style="margin-bottom: 5px;">
                 <button class="btn-back" onclick="backToShopMain()">← ڤەگەر بۆ شۆپێ</button>
             </div>
@@ -1327,7 +1327,6 @@
         let sannaChannelJoined = false;
         let isVip = false;
         let vipType = '14day';
-        let totalClickCount = 0;
 
         let maxClicksPerPack = 500;
         let maxPacks = 5;
@@ -1739,7 +1738,6 @@
         window.switchToTap = () => switchTab('tapTab', document.getElementById('navTap'));
 
         window.openSubShop = function(subId) {
-            triggerShopAdIfNeeded();
             document.getElementById('shopCategoriesMain').style.display = 'none';
             document.querySelectorAll('.sub-shop-container').forEach(el => el.classList.remove('active'));
             document.getElementById(subId).classList.add('active');
@@ -1748,13 +1746,6 @@
         window.backToShopMain = function() {
             document.querySelectorAll('.sub-shop-container').forEach(el => el.classList.remove('active'));
             document.getElementById('shopCategoriesMain').style.display = 'flex';
-        }
-
-        window.triggerShopAdIfNeeded = function() {
-            if (window.Adsgram) {
-                const adController = window.Adsgram.init({ blockId: "int-47050" });
-                adController.show().catch((res) => {});
-            }
         }
 
         window.openVipModal = function() {
@@ -1876,7 +1867,7 @@
             if (window.Adsgram) {
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
-                const adController = window.Adsgram.init({ blockId: "task-47051" });
+                const adController = window.Adsgram.init({ blockId: "int-47088" });
                 adController.show()
                     .then((result) => {
                         watchAdBtn.disabled = false;
@@ -1906,26 +1897,11 @@
                 return;
             }
 
-            if (window.Adsgram) {
-                const adController = window.Adsgram.init({ blockId: "task-47051" });
-                adController.show()
-                    .then((result) => {
-                        energyPacks -= 1;
-                        currentClicks = maxClicksPerPack;
-                        lastPackTime = Date.now();
-                        updateUI();
-                        alert('⚡ ڕیکلام هاتە تەماشەکرن و 500 ئێنێرجی بۆ تە هاتە دان.');
-                    })
-                    .catch((result) => {
-                        alert('تەماشاکرنا ڕیکلامێ هاتە هەڵوەشاندن.');
-                    });
-            } else {
-                energyPacks -= 1;
-                currentClicks = maxClicksPerPack;
-                lastPackTime = Date.now();
-                updateUI();
-                alert('500 ئێنێرجی بۆ تە هاتە دان.');
-            }
+            energyPacks -= 1;
+            currentClicks = maxClicksPerPack;
+            lastPackTime = Date.now();
+            updateUI();
+            alert('500 ئێنێرجی بۆ تە هاتە دان.');
         }
 
         coinBtn.addEventListener('click', (e) => {
@@ -1936,15 +1912,6 @@
 
             if (tapHintBox && tapHintBox.style.display !== 'none') {
                 tapHintBox.style.display = 'none';
-            }
-
-            totalClickCount++;
-            if (totalClickCount >= 170) {
-                totalClickCount = 0; 
-                if (window.Adsgram) {
-                    const interstitialController = window.Adsgram.init({ blockId: "int-47050" });
-                    interstitialController.show().catch((err) => {});
-                }
             }
 
             let coinIncrement = 0.000001;
