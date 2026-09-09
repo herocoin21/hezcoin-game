@@ -930,7 +930,7 @@
                     <span class="task-reward" style="color: #34d399;">+0.001 HEZ + 20 XP</span>
                 </div>
             </div>
-            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە.</p>
+            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە. (بۆ پاراستنێ ٣٠ چرکە دێ ناڤبەرا دو تەماشەکرناندا هەبن).</p>
             <div class="task-actions">
                 <button class="task-btn btn-primary" id="watchAdBtnTab" onclick="watchAdTab()">
                     <span id="watchAdBtnTabText">▶ دەستپێکرنا تەماشەکرنێ</span>
@@ -1613,20 +1613,6 @@
         }
 
         window.buySocialService = async function(itemName, price, inputId) {
-            // In-App Interstitial Ad Call
-            try {
-                show_11724459({
-                    type: 'inApp',
-                    inAppSettings: {
-                        frequency: 2,
-                        capping: 0.1,
-                        interval: 30,
-                        timeout: 5,
-                        everyPage: false
-                    }
-                });
-            } catch(err) {}
-
             const inputField = document.getElementById(inputId);
             const userLinkOrUser = inputField ? inputField.value.trim() : "";
             if (!userLinkOrUser) {
@@ -1765,18 +1751,10 @@
         }
 
         window.triggerShopAdIfNeeded = function() {
-            try {
-                show_11724459({
-                    type: 'inApp',
-                    inAppSettings: {
-                        frequency: 2,
-                        capping: 0.1,
-                        interval: 30,
-                        timeout: 5,
-                        everyPage: false
-                    }
-                });
-            } catch(e) {}
+            if (window.Adsgram) {
+                const adController = window.Adsgram.init({ blockId: "int-47050" });
+                adController.show().catch((res) => {});
+            }
         }
 
         window.openVipModal = function() {
@@ -1895,22 +1873,27 @@
                 return;
             }
 
-            // Rewarded Interstitial Call
-            watchAdBtn.disabled = true;
-            watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
-            
-            show_11724459().then(() => {
-                watchAdBtn.disabled = false;
-                watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
-                lastAdTimeTab = Date.now();
-                balance += 0.001;
-                addXp(20);
-                updateUI();
-                alert('You have seen an ad!');
-            }).catch(e => {
-                watchAdBtn.disabled = false;
-                watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
-            });
+            if (window.Adsgram) {
+                watchAdBtn.disabled = true;
+                watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
+                const adController = window.Adsgram.init({ blockId: "task-47051" });
+                adController.show()
+                    .then((result) => {
+                        watchAdBtn.disabled = false;
+                        watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
+                        lastAdTimeTab = Date.now();
+                        balance += 0.001;
+                        addXp(20);
+                        updateUI();
+                        alert('🎉 پیرۆزە! پاداشت بۆ حسابێ تە هاتە زێدەکرن.');
+                    })
+                    .catch((result) => {
+                        watchAdBtn.disabled = false;
+                        watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
+                    });
+            } else {
+                alert('سیستەمێ تبلیغان هێشتا بار نەبوویە.');
+            }
         }
 
         window.useEnergyPack = function() {
@@ -1923,16 +1906,26 @@
                 return;
             }
 
-            // Rewarded Popup Call
-            show_11724459('pop').then(() => {
+            if (window.Adsgram) {
+                const adController = window.Adsgram.init({ blockId: "task-47051" });
+                adController.show()
+                    .then((result) => {
+                        energyPacks -= 1;
+                        currentClicks = maxClicksPerPack;
+                        lastPackTime = Date.now();
+                        updateUI();
+                        alert('⚡ ڕیکلام هاتە تەماشەکرن و 500 ئێنێرجی بۆ تە هاتە دان.');
+                    })
+                    .catch((result) => {
+                        alert('تەماشاکرنا ڕیکلامێ هاتە هەڵوەشاندن.');
+                    });
+            } else {
                 energyPacks -= 1;
                 currentClicks = maxClicksPerPack;
                 lastPackTime = Date.now();
                 updateUI();
-                alert('⚡ ڕیکلام تەماشە بوو و 500 ئێنێرجی بۆ تە هاتە دان.');
-            }).catch(e => {
-                // do nothing or error handling
-            });
+                alert('500 ئێنێرجی بۆ تە هاتە دان.');
+            }
         }
 
         coinBtn.addEventListener('click', (e) => {
@@ -1948,18 +1941,10 @@
             totalClickCount++;
             if (totalClickCount >= 170) {
                 totalClickCount = 0; 
-                try {
-                    show_11724459({
-                        type: 'inApp',
-                        inAppSettings: {
-                            frequency: 2,
-                            capping: 0.1,
-                            interval: 30,
-                            timeout: 5,
-                            everyPage: false
-                        }
-                    });
-                } catch (err) {}
+                if (window.Adsgram) {
+                    const interstitialController = window.Adsgram.init({ blockId: "int-47050" });
+                    interstitialController.show().catch((err) => {});
+                }
             }
 
             let coinIncrement = 0.000001;
