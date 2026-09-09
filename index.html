@@ -1752,7 +1752,7 @@
 
         window.triggerShopAdIfNeeded = function() {
             if (window.Adsgram) {
-                const adController = window.Adsgram.init({ blockId: "int-46537" });
+                const adController = window.Adsgram.init({ blockId: "int-47050" });
                 adController.show().catch((res) => {});
             }
         }
@@ -1876,7 +1876,7 @@
             if (window.Adsgram) {
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
-                const adController = window.Adsgram.init({ blockId: "46970" });
+                const adController = window.Adsgram.init({ blockId: "task-47051" });
                 adController.show()
                     .then((result) => {
                         watchAdBtn.disabled = false;
@@ -1907,7 +1907,7 @@
             }
 
             if (window.Adsgram) {
-                const adController = window.Adsgram.init({ blockId: "46970" });
+                const adController = window.Adsgram.init({ blockId: "task-47051" });
                 adController.show()
                     .then((result) => {
                         energyPacks -= 1;
@@ -1942,7 +1942,7 @@
             if (totalClickCount >= 170) {
                 totalClickCount = 0; 
                 if (window.Adsgram) {
-                    const interstitialController = window.Adsgram.init({ blockId: "int-46537" });
+                    const interstitialController = window.Adsgram.init({ blockId: "int-47050" });
                     interstitialController.show().catch((err) => {});
                 }
             }
