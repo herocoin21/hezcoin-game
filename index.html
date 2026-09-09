@@ -1613,7 +1613,6 @@
         }
 
         window.buySocialService = async function(itemName, price, inputId) {
-            // دەستپێکردنی ڕیکلامی (47049) لێرەدا کاتێک کار لە سەر شۆپ دەکرێت
             if (window.Adsgram) {
                 const adController = window.Adsgram.init({ blockId: "47049" });
                 adController.show().catch((res) => {});
