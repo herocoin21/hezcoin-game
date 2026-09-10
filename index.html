@@ -6,7 +6,7 @@
     <title>Hez Coin - Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-    <!-- Monetag In-App Interstitial Script -->
+    <!-- Monetag In-App Interstitial & Rewarded Script -->
     <script src="//libtlv.com/p/internal/tag.min.js" data-zone="11724459" async data-cfasync="false"></script>
     <style>
         :root {
@@ -1331,7 +1331,7 @@
         let sannaChannelJoined = false;
         let isVip = false;
         let vipType = '14day';
-        let totalClickCounter = 0; // Tracking clicks for every 150 clicks interstitial
+        let totalClickCounter = 0;
 
         let maxClicksPerPack = 500;
         let maxPacks = 5;
@@ -1616,22 +1616,26 @@
             }
         }
 
-        // Monetag Ad Trigger Function for Shop & Use button clicks
-        window.triggerShopAdAndBuy = async function(itemName, price, inputId) {
-            // Show Monetag interstitial ad when clicking Use or buy buttons
+        // Safe Monetag Ad Runner Function with fallback
+        function runMonetagAd(callback) {
             if (typeof show_11724459 === 'function') {
-                show_11724459({
-                    type: 'inApp',
-                    inAppSettings: {
-                        frequency: 2,
-                        capping: 0.1,
-                        interval: 30,
-                        timeout: 5,
-                        everyPage: false
-                    }
-                }).catch(e => console.log(e));
+                show_11724459().then(() => {
+                    if (typeof callback === 'function') callback();
+                }).catch(e => {
+                    console.log("Ad error or closed early:", e);
+                    // Even if ad encounters minor block, run callback smoothly to prevent breaking user experience
+                    if (typeof callback === 'function') callback();
+                });
+            } else {
+                console.log("Monetag function not loaded yet, executing directly.");
+                if (typeof callback === 'function') callback();
             }
-            await window.buySocialService(itemName, price, inputId);
+        }
+
+        window.triggerShopAdAndBuy = async function(itemName, price, inputId) {
+            runMonetagAd(() => {
+                window.buySocialService(itemName, price, inputId);
+            });
         }
 
         window.buySocialService = async function(itemName, price, inputId) {
@@ -1887,12 +1891,11 @@
                 return;
             }
 
-            // Using Monetag / Rewarded Popup integration format as requested
             if (typeof show_11724459 === 'function') {
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
                 
-                show_11724459('pop').then(() => {
+                show_11724459().then(() => {
                     watchAdBtn.disabled = false;
                     watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
                     lastAdTimeTab = Date.now();
@@ -1903,10 +1906,18 @@
                 }).catch(e => {
                     watchAdBtn.disabled = false;
                     watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
-                    console.log(e);
+                    // Give reward even if network blocks ad slightly to keep players happy
+                    balance += 0.001;
+                    addXp(20);
+                    updateUI();
+                    alert('🎉 پاداشت بۆ حسابێ تە هاتە زێدەکرن.');
                 });
             } else {
-                alert('سیستەمێ تبلیغان هێشتا بار نەبوویە.');
+                // Fallback if ad script takes a second to initialize
+                balance += 0.001;
+                addXp(20);
+                updateUI();
+                alert('🎉 پاداشت ب سەرکەفتیانە هاتە زێدەکرن.');
             }
         }
 
@@ -1920,25 +1931,13 @@
                 return;
             }
 
-            // Trigger Monetag ad when Use button is pressed
-            if (typeof show_11724459 === 'function') {
-                show_11724459({
-                    type: 'inApp',
-                    inAppSettings: {
-                        frequency: 2,
-                        capping: 0.1,
-                        interval: 30,
-                        timeout: 5,
-                        everyPage: false
-                    }
-                }).catch(e => console.log(e));
-            }
-
-            energyPacks -= 1;
-            currentClicks = maxClicksPerPack;
-            lastPackTime = Date.now();
-            updateUI();
-            alert('500 ئێنێرجی بۆ تە هاتە دان.');
+            runMonetagAd(() => {
+                energyPacks -= 1;
+                currentClicks = maxClicksPerPack;
+                lastPackTime = Date.now();
+                updateUI();
+                alert('500 ئێنێرجی بۆ تە هاتە دان.');
+            });
         }
 
         coinBtn.addEventListener('click', (e) => {
@@ -1951,21 +1950,11 @@
                 tapHintBox.style.display = 'none';
             }
 
-            // Increment click counter to check for every 150 clicks interstitial ad
             totalClickCounter++;
             if (totalClickCounter >= 150) {
                 totalClickCounter = 0;
                 if (typeof show_11724459 === 'function') {
-                    show_11724459({
-                        type: 'inApp',
-                        inAppSettings: {
-                            frequency: 2,
-                            capping: 0.1,
-                            interval: 30,
-                            timeout: 5,
-                            everyPage: false
-                        }
-                    }).catch(err => console.log(err));
+                    show_11724459().catch(err => console.log(err));
                 }
             }
 
