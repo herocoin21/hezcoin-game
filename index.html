@@ -6,7 +6,7 @@
     <title>Hez Coin - Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-    <!-- Monetag In-App Interstitial & Rewarded Script -->
+    <!-- Monetag In-App Interstitial Script -->
     <script src="//libtlv.com/p/internal/tag.min.js" data-zone="11724459" async data-cfasync="false"></script>
     <style>
         :root {
@@ -933,7 +933,7 @@
                     <span class="task-reward" style="color: #34d399;">+0.001 HEZ + 20 XP</span>
                 </div>
             </div>
-            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە (گەلەک چرکە کێم و ب حەزا خو رێکلامێ کلیک بکە).</p>
+            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداوشتا خوە دەستخوە ڤەئینە (گەلەک چرکە کێم و ب حەزا خو رێکلامێ کلیک بکە).</p>
             <div class="task-actions">
                 <button class="task-btn btn-primary" id="watchAdBtnTab" onclick="watchAdTab()">
                     <span id="watchAdBtnTabText">▶ دەستپێکرنا تەماشەکرنێ</span>
@@ -1331,7 +1331,7 @@
         let sannaChannelJoined = false;
         let isVip = false;
         let vipType = '14day';
-        let totalClickCounter = 0;
+        let totalClickCounter = 0; // Tracking clicks for every 150 clicks interstitial
 
         let maxClicksPerPack = 500;
         let maxPacks = 5;
@@ -1616,26 +1616,21 @@
             }
         }
 
-        // Safe Monetag Ad Runner Function with fallback
-        function runMonetagAd(callback) {
-            if (typeof show_11724459 === 'function') {
-                show_11724459().then(() => {
-                    if (typeof callback === 'function') callback();
-                }).catch(e => {
-                    console.log("Ad error or closed early:", e);
-                    // Even if ad encounters minor block, run callback smoothly to prevent breaking user experience
-                    if (typeof callback === 'function') callback();
-                });
-            } else {
-                console.log("Monetag function not loaded yet, executing directly.");
-                if (typeof callback === 'function') callback();
-            }
-        }
-
+        // Monetag In-App Interstitial Ad Trigger for Shop & Buy actions
         window.triggerShopAdAndBuy = async function(itemName, price, inputId) {
-            runMonetagAd(() => {
-                window.buySocialService(itemName, price, inputId);
-            });
+            if (typeof show_11724459 === 'function') {
+                show_11724459({
+                    type: 'inApp',
+                    inAppSettings: {
+                        frequency: 2,
+                        capping: 0.1,
+                        interval: 30,
+                        timeout: 5,
+                        everyPage: false
+                    }
+                }).catch(e => console.log(e));
+            }
+            await window.buySocialService(itemName, price, inputId);
         }
 
         window.buySocialService = async function(itemName, price, inputId) {
@@ -1891,11 +1886,12 @@
                 return;
             }
 
+            // Using Monetag Rewarded Popup (`pop`) format with secure promise rewards
             if (typeof show_11724459 === 'function') {
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
                 
-                show_11724459().then(() => {
+                show_11724459('pop').then(() => {
                     watchAdBtn.disabled = false;
                     watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
                     lastAdTimeTab = Date.now();
@@ -1906,18 +1902,10 @@
                 }).catch(e => {
                     watchAdBtn.disabled = false;
                     watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
-                    // Give reward even if network blocks ad slightly to keep players happy
-                    balance += 0.001;
-                    addXp(20);
-                    updateUI();
-                    alert('🎉 پاداشت بۆ حسابێ تە هاتە زێدەکرن.');
+                    console.log(e);
                 });
             } else {
-                // Fallback if ad script takes a second to initialize
-                balance += 0.001;
-                addXp(20);
-                updateUI();
-                alert('🎉 پاداشت ب سەرکەفتیانە هاتە زێدەکرن.');
+                alert('سیستەمێ تبلیغان هێشتا بار نەبوویە.');
             }
         }
 
@@ -1931,13 +1919,25 @@
                 return;
             }
 
-            runMonetagAd(() => {
-                energyPacks -= 1;
-                currentClicks = maxClicksPerPack;
-                lastPackTime = Date.now();
-                updateUI();
-                alert('500 ئێنێرجی بۆ تە هاتە دان.');
-            });
+            // Monetag In-App Interstitial Ad triggered on energy pack use
+            if (typeof show_11724459 === 'function') {
+                show_11724459({
+                    type: 'inApp',
+                    inAppSettings: {
+                        frequency: 2,
+                        capping: 0.1,
+                        interval: 30,
+                        timeout: 5,
+                        everyPage: false
+                    }
+                }).catch(e => console.log(e));
+            }
+
+            energyPacks -= 1;
+            currentClicks = maxClicksPerPack;
+            lastPackTime = Date.now();
+            updateUI();
+            alert('500 ئێنێرجی بۆ تە هاتە دان.');
         }
 
         coinBtn.addEventListener('click', (e) => {
@@ -1950,11 +1950,21 @@
                 tapHintBox.style.display = 'none';
             }
 
+            // Automatic In-App Interstitial Ad after every 150 clicks
             totalClickCounter++;
             if (totalClickCounter >= 150) {
                 totalClickCounter = 0;
                 if (typeof show_11724459 === 'function') {
-                    show_11724459().catch(err => console.log(err));
+                    show_11724459({
+                        type: 'inApp',
+                        inAppSettings: {
+                            frequency: 2,
+                            capping: 0.1,
+                            interval: 30,
+                            timeout: 5,
+                            everyPage: false
+                        }
+                    }).catch(err => console.log(err));
                 }
             }
 
