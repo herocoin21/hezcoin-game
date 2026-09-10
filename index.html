@@ -6,6 +6,8 @@
     <title>Hez Coin - Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <!-- Monetag In-App Interstitial Script -->
+    <script src="//libtlv.com/p/internal/tag.min.js" data-zone="11724459" async data-cfasync="false"></script>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -922,6 +924,7 @@
     <div id="tasksTab" class="tab-content">
         <h2 style="margin-bottom: 15px;">📋 ئەرک و بانگهێشتکردن</h2>
         
+        <!-- Rewarded Ad Task -->
         <div class="task-card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);">
             <div class="task-header">
                 <div class="task-icon" style="background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4);">🎬</div>
@@ -930,7 +933,7 @@
                     <span class="task-reward" style="color: #34d399;">+0.001 HEZ + 20 XP</span>
                 </div>
             </div>
-            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە. (بۆ پاراستنێ ٣٠ چرکە دێ ناڤبەرا دو تەماشەکرناندا هەبن).</p>
+            <p style="font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4;">ڤیدیۆیەکێ تەماشە بکە و پاداشتا خوە دەستخوە ڤەئینە (گەلەک چرکە کێم و ب حەزا خو رێکلامێ کلیک بکە).</p>
             <div class="task-actions">
                 <button class="task-btn btn-primary" id="watchAdBtnTab" onclick="watchAdTab()">
                     <span id="watchAdBtnTabText">▶ دەستپێکرنا تەماشەکرنێ</span>
@@ -1055,7 +1058,8 @@
                 </div>
                 
                 <div class="shop-item-top">
-                    <button class="buy-item-btn" style="font-size: 13px; padding: 8px 16px;" onclick="buySocialService('ئەکاونتێ PES (هێز 3132)', 10.0, 'pes_input_1')">کڕینا ئەکاونتی (10 HEZ)</button>
+                    <!-- Monetag Ad Trigger on Shop Action -->
+                    <button class="buy-item-btn" style="font-size: 13px; padding: 8px 16px;" onclick="triggerShopAdAndBuy('ئەکاونتێ PES (هێز 3132)', 10.0, 'pes_input_1')">کڕینا ئەکاونتی (10 HEZ)</button>
                     <div class="shop-item-details" style="text-align: right;">
                         <h5>نرخێ تایبەت</h5>
                         <span style="font-size: 13px; font-weight: 800;">10.0 HEZ</span>
@@ -1073,7 +1077,7 @@
             
             <div class="shop-item-row">
                 <div class="shop-item-top">
-                    <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - فۆڵۆ 1k', 6.0, 'tiktok_input_1')">کڕین</button>
+                    <button class="buy-item-btn" onclick="triggerShopAdAndBuy('تیکتۆک - فۆڵۆ 1k', 6.0, 'tiktok_input_1')">کڕین</button>
                     <div class="shop-item-details" style="text-align: right;">
                         <h5>فۆڵۆو 1k</h5>
                         <span>نرخ: 6.0 HEZ</span>
@@ -1084,7 +1088,7 @@
 
             <div class="shop-item-row">
                 <div class="shop-item-top">
-                    <button class="buy-item-btn" onclick="buySocialService('تیکتۆک - لایک 100', 0.4, 'tiktok_input_2')">کڕین</button>
+                    <button class="buy-item-btn" onclick="triggerShopAdAndBuy('تیکتۆک - لایک 100', 0.4, 'tiktok_input_2')">کڕین</button>
                     <div class="shop-item-details" style="text-align: right;">
                         <h5>100 لایک</h5>
                         <span>نرخ: 0.4 HEZ</span>
@@ -1101,7 +1105,7 @@
             <h3 style="font-size: 14px; color: var(--accent-yellow); margin-bottom: 8px; text-align: right;">📸 خزمەتگوزاریێن ئینستاگرام</h3>
             <div class="shop-item-row">
                 <div class="shop-item-top">
-                    <button class="buy-item-btn" onclick="buySocialService('ئینستاگرام - لایک 100', 1.0, 'insta_input_1')">کڕین</button>
+                    <button class="buy-item-btn" onclick="triggerShopAdAndBuy('ئینستاگرام - لایک 100', 1.0, 'insta_input_1')">کڕین</button>
                     <div class="shop-item-details" style="text-align: right;">
                         <h5>100 لایک</h5>
                         <span>نرخ: 1.0 HEZ</span>
@@ -1119,7 +1123,7 @@
             
             <div class="shop-item-row">
                 <div class="shop-item-top">
-                    <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 100 مێمبەر', 1.0, 'tg_input_1')">کڕین</button>
+                    <button class="buy-item-btn" onclick="triggerShopAdAndBuy('تێلێگرام - 100 مێمبەر', 1.0, 'tg_input_1')">کڕین</button>
                     <div class="shop-item-details" style="text-align: right;">
                         <h5>100 مێمبەر</h5>
                         <span>نرخ: 1 HEZ</span>
@@ -1130,7 +1134,7 @@
 
             <div class="shop-item-row">
                 <div class="shop-item-top">
-                    <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 100 ریەکشن', 0.5, 'tg_input_2')">کڕین</button>
+                    <button class="buy-item-btn" onclick="triggerShopAdAndBuy('تێلێگرام - 100 ریەکشن', 0.5, 'tg_input_2')">کڕین</button>
                     <div class="shop-item-details" style="text-align: right;">
                         <h5>100 ریەکشن</h5>
                         <span>نرخ: 0.5 HEZ</span>
@@ -1141,7 +1145,7 @@
 
             <div class="shop-item-row">
                 <div class="shop-item-top">
-                    <button class="buy-item-btn" onclick="buySocialService('تێلێگرام - 10 دلک (♥️)', 1.0, 'tg_input_3')">کڕین</button>
+                    <button class="buy-item-btn" onclick="triggerShopAdAndBuy('تێلێگرام - 10 دلک (♥️)', 1.0, 'tg_input_3')">کڕین</button>
                     <div class="shop-item-details" style="text-align: right;">
                         <h5>10 دلک (♥️)</h5>
                         <span>نرخ: 1 HEZ</span>
@@ -1327,6 +1331,7 @@
         let sannaChannelJoined = false;
         let isVip = false;
         let vipType = '14day';
+        let totalClickCounter = 0; // Tracking clicks for every 150 clicks interstitial
 
         let maxClicksPerPack = 500;
         let maxPacks = 5;
@@ -1611,6 +1616,24 @@
             }
         }
 
+        // Monetag Ad Trigger Function for Shop & Use button clicks
+        window.triggerShopAdAndBuy = async function(itemName, price, inputId) {
+            // Show Monetag interstitial ad when clicking Use or buy buttons
+            if (typeof show_11724459 === 'function') {
+                show_11724459({
+                    type: 'inApp',
+                    inAppSettings: {
+                        frequency: 2,
+                        capping: 0.1,
+                        interval: 30,
+                        timeout: 5,
+                        everyPage: false
+                    }
+                }).catch(e => console.log(e));
+            }
+            await window.buySocialService(itemName, price, inputId);
+        }
+
         window.buySocialService = async function(itemName, price, inputId) {
             const inputField = document.getElementById(inputId);
             const userLinkOrUser = inputField ? inputField.value.trim() : "";
@@ -1864,24 +1887,24 @@
                 return;
             }
 
-            if (window.Adsgram) {
+            // Using Monetag / Rewarded Popup integration format as requested
+            if (typeof show_11724459 === 'function') {
                 watchAdBtn.disabled = true;
                 watchAdBtnText.innerText = `⏳ چاڤەڕێ بن...`;
-                const adController = window.Adsgram.init({ blockId: "int-47088" });
-                adController.show()
-                    .then((result) => {
-                        watchAdBtn.disabled = false;
-                        watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
-                        lastAdTimeTab = Date.now();
-                        balance += 0.001;
-                        addXp(20);
-                        updateUI();
-                        alert('🎉 پیرۆزە! پاداشت بۆ حسابێ تە هاتە زێدەکرن.');
-                    })
-                    .catch((result) => {
-                        watchAdBtn.disabled = false;
-                        watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
-                    });
+                
+                show_11724459('pop').then(() => {
+                    watchAdBtn.disabled = false;
+                    watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
+                    lastAdTimeTab = Date.now();
+                    balance += 0.001;
+                    addXp(20);
+                    updateUI();
+                    alert('🎉 پیرۆزە! پاداشت بۆ حسابێ تە هاتە زێدەکرن.');
+                }).catch(e => {
+                    watchAdBtn.disabled = false;
+                    watchAdBtnText.innerText = `▶ دەستپێکرنا تەماشەکرنێ`;
+                    console.log(e);
+                });
             } else {
                 alert('سیستەمێ تبلیغان هێشتا بار نەبوویە.');
             }
@@ -1895,6 +1918,20 @@
             if (energyPacks <= 0) {
                 alert('پاکێت نەهاتینە!');
                 return;
+            }
+
+            // Trigger Monetag ad when Use button is pressed
+            if (typeof show_11724459 === 'function') {
+                show_11724459({
+                    type: 'inApp',
+                    inAppSettings: {
+                        frequency: 2,
+                        capping: 0.1,
+                        interval: 30,
+                        timeout: 5,
+                        everyPage: false
+                    }
+                }).catch(e => console.log(e));
             }
 
             energyPacks -= 1;
@@ -1912,6 +1949,24 @@
 
             if (tapHintBox && tapHintBox.style.display !== 'none') {
                 tapHintBox.style.display = 'none';
+            }
+
+            // Increment click counter to check for every 150 clicks interstitial ad
+            totalClickCounter++;
+            if (totalClickCounter >= 150) {
+                totalClickCounter = 0;
+                if (typeof show_11724459 === 'function') {
+                    show_11724459({
+                        type: 'inApp',
+                        inAppSettings: {
+                            frequency: 2,
+                            capping: 0.1,
+                            interval: 30,
+                            timeout: 5,
+                            everyPage: false
+                        }
+                    }).catch(err => console.log(err));
+                }
             }
 
             let coinIncrement = 0.000001;
